@@ -22,5 +22,6 @@ namespace _17nsj.DataAccess
         public bool IsAvailable { get; set; }
         public System.DateTime CreatedAt { get; set; }
         public string CreatedBy { get; set; }
+        public bool IsAdmin { get; set; }
     }
 }

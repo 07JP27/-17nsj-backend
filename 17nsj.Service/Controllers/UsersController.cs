@@ -90,7 +90,7 @@ namespace _17nsj.Service.Controllers
         public HttpResponseMessage Post([FromBody] Users user)
         {
             // 権限チェック
-            if (!this.CanWrite())
+            if (!this.IsAdmin())
             {
                 return this.Request.CreateResponse(HttpStatusCode.Forbidden);
             }

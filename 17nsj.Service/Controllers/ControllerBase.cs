@@ -34,10 +34,10 @@ namespace _17nsj.Service.Controllers
         }
 
         /// <summary>
-        /// ログインユーザーがデータベースのデータを読み込みできるかを判定します。
+        /// ログインユーザーが管理者権限を持っているかを判定します。
         /// </summary>
-        /// <returns>読み込みが許可されていればTrue</returns>
-        protected bool CanRead()
+        /// <returns>管理者権限があり、かつ書き込み権限があればtrue</returns>
+        protected bool IsAdmin()
         {
             using (Entities entitiies = new Entities())
             {
@@ -45,7 +45,7 @@ namespace _17nsj.Service.Controllers
 
                 if (entity != null)
                 {
-                    return entity.CanRead;
+                    return entity.IsAdmin;
                 }
                 else
                 {
@@ -55,9 +55,30 @@ namespace _17nsj.Service.Controllers
         }
 
         /// <summary>
-        /// ログインユーザーがデータベースに対して書き込みできるかを判定します。
+        /// ログインユーザーがデータベースのデータを読み込み権限を持っているかを判定します。
         /// </summary>
-        /// <returns>書き込みが許可されていればTrue</returns>
+        /// <returns>読み込みが許可もしくはシステム管理者であればTrue</returns>
+        protected bool CanRead()
+        {
+            using (Entities entitiies = new Entities())
+            {
+                var entity = entitiies.Users.FirstOrDefault(e => e.UserId == this.UserId);
+
+                if (entity != null)
+                {
+                    return entity.CanRead || entity.IsAdmin;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// ログインユーザーがデータベースに対して書き込み権限を持っているかを判定します。
+        /// </summary>
+        /// <returns>書き込みが許可もしくはシステム管理者であればTrue</returns>
         protected bool CanWrite()
         {
             using (Entities entitiies = new Entities())
@@ -66,7 +87,7 @@ namespace _17nsj.Service.Controllers
 
                 if (entity != null)
                 {
-                    return entity.CanWrite;
+                    return entity.CanWrite || entity.IsAdmin;
                 }
                 else
                 {

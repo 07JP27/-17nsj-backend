@@ -24,6 +24,7 @@
           <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="CanRead" Type="bit" Nullable="false" />
           <Property Name="CanWrite" Type="bit" Nullable="false" />
+          <Property Name="IsAdmin" Type="bit" Nullable="false" />
           <Property Name="IsAvailable" Type="bit" Nullable="false" />
           <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="30" Nullable="false" />
@@ -97,6 +98,7 @@
           <Property Name="IsAvailable" Type="Boolean" Nullable="false" />
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="IsAdmin" Type="Boolean" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -130,6 +132,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="Model.Users">
               <MappingFragment StoreEntitySet="MST_Users">
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
                 <ScalarProperty Name="IsAvailable" ColumnName="IsAvailable" />
