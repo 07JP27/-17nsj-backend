@@ -12,13 +12,14 @@ namespace _17nsj.DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Users
+    public partial class News
     {
-        public string UserId { get; set; }
-        public string DisplayName { get; set; }
-        public string Password { get; set; }
-        public bool CanRead { get; set; }
-        public bool CanWrite { get; set; }
+        public string Category { get; set; }
+        public int Id { get; set; }
+        public string Author { get; set; }
+        public string Title { get; set; }
+        public string Outline { get; set; }
+        public string MediaURL { get; set; }
         public bool IsAvailable { get; set; }
         public System.DateTime CreatedAt { get; set; }
         public string CreatedBy { get; set; }

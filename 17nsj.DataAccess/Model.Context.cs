@@ -25,7 +25,8 @@ namespace _17nsj.DataAccess
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<MobileAppConfig> MobileAppConfig { get; set; }
+        public virtual DbSet<News> News { get; set; }
+        public virtual DbSet<Users> Users { get; set; }
     }
 }

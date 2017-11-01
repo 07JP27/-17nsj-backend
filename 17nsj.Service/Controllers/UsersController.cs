@@ -56,7 +56,7 @@ namespace _17nsj.Service.Controllers
         /// </summary>
         /// <param name="id">user id</param>
         /// <returns>HTTPレスポンス</returns>
-        [HttpPut]
+        [HttpGet]
         [Route("{id}")]
         public HttpResponseMessage Get(string id)
         {
@@ -149,19 +149,19 @@ namespace _17nsj.Service.Controllers
         /// <returns>エラーメッセージ</returns>
         private string ValidateUserModel(Users user)
         {
-            if (string.IsNullOrEmpty(user.UserId))
+            if (string.IsNullOrEmpty(user.UserId) || user.UserId.Length > 30)
             {
-                return "User ID is null.";
+                return "Invalid User ID.";
             }
 
-            if (string.IsNullOrEmpty(user.DisplayName))
+            if (string.IsNullOrEmpty(user.DisplayName) || user.DisplayName.Length > 30)
             {
-                return "DisplayName is null.";
+                return "Invalid DisplayName.";
             }
 
-            if (string.IsNullOrEmpty(user.Password))
+            if (string.IsNullOrEmpty(user.Password) || user.Password.Length > 100)
             {
-                return "Password is null.";
+                return "Invalid Password.";
             }
 
             return null;

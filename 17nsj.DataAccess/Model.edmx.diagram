@@ -5,8 +5,9 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="3e3fc16dc12c400aac75c99d563ae4cd" Name="Diagram1">
-        <EntityTypeShape EntityType="Model.Users" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.MobileAppConfig" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.News" Width="1.5" PointX="6.125" PointY="1.125" />
+        <EntityTypeShape EntityType="Model.Users" Width="1.5" PointX="0.5" PointY="0.875" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
