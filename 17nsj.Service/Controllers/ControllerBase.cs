@@ -36,7 +36,7 @@ namespace _17nsj.Service.Controllers
         /// <summary>
         /// ログインユーザーが管理者権限を持っているかを判定します。
         /// </summary>
-        /// <returns>管理者権限があり、かつ書き込み権限があればtrue</returns>
+        /// <returns>管理者権限があればtrue</returns>
         protected bool IsAdmin()
         {
             using (Entities entitiies = new Entities())
