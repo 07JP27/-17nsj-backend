@@ -38,17 +38,17 @@ namespace _17nsj.Service.Controllers
 
             using (Entities entitiies = new Entities())
             {
-                var entity = entitiies.Users.Where(e => e.IsAvailable == true).ToList();
+                var users = entitiies.Users.Where(e => e.IsAvailable == true).ToList();
 
-                if (entity != null)
+                if (users != null)
                 {
-                    foreach (var item in entity)
+                    foreach (var user in users)
                     {
                         // セキュリティ保護のためパスワードは返さない
-                        item.Password = string.Empty;
+                        user.Password = string.Empty;
                     }
 
-                    return this.Request.CreateResponse(HttpStatusCode.OK, entity);
+                    return this.Request.CreateResponse(HttpStatusCode.OK, users);
                 }
                 else
                 {
@@ -73,13 +73,13 @@ namespace _17nsj.Service.Controllers
 
             using (Entities entitiies = new Entities())
             {
-                var entity = entitiies.Users.FirstOrDefault(e => e.UserId == id && e.IsAvailable == true);
+                var user = entitiies.Users.FirstOrDefault(e => e.UserId == id && e.IsAvailable == true);
 
-                if (entity != null)
+                if (user != null)
                 {
                     // セキュリティ保護のためパスワードは返さない
-                    entity.Password = string.Empty;
-                    return this.Request.CreateResponse(HttpStatusCode.OK, entity);
+                    user.Password = string.Empty;
+                    return this.Request.CreateResponse(HttpStatusCode.OK, user);
                 }
                 else
                 {
@@ -106,7 +106,7 @@ namespace _17nsj.Service.Controllers
             // オブジェクト自体のnullチェック
             if (user == null)
             {
-                return this.Request.CreateResponse(HttpStatusCode.BadRequest);
+                return this.Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid User object.");
             }
 
             // 各値のnullチェック

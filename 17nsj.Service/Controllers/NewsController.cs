@@ -39,11 +39,11 @@ namespace _17nsj.Service.Controllers
 
             using (Entities entitiies = new Entities())
             {
-                var entity = entitiies.News.Where(e => e.IsAvailable == true).OrderByDescending(e => e.CreatedAt).ToList();
+                var news = entitiies.News.Where(e => e.IsAvailable == true).OrderByDescending(e => e.CreatedAt).ToList();
 
-                if (entity != null)
+                if (news != null)
                 {
-                    return this.Request.CreateResponse(HttpStatusCode.OK, entity);
+                    return this.Request.CreateResponse(HttpStatusCode.OK, news);
                 }
                 else
                 {
@@ -68,11 +68,11 @@ namespace _17nsj.Service.Controllers
 
             using (Entities entitiies = new Entities())
             {
-                var entity = entitiies.News.Where(e => e.Category == category && e.IsAvailable == true).OrderByDescending(e => e.CreatedAt).ToList();
+                var news = entitiies.News.Where(e => e.Category == category && e.IsAvailable == true).OrderByDescending(e => e.CreatedAt).ToList();
 
-                if (entity != null)
+                if (news != null)
                 {
-                    return this.Request.CreateResponse(HttpStatusCode.OK, entity);
+                    return this.Request.CreateResponse(HttpStatusCode.OK, news);
                 }
                 else
                 {
@@ -98,11 +98,11 @@ namespace _17nsj.Service.Controllers
 
             using (Entities entitiies = new Entities())
             {
-                var entity = entitiies.News.FirstOrDefault(e => e.Category == category && e.Id == id && e.IsAvailable == true);
+                var news = entitiies.News.FirstOrDefault(e => e.Category == category && e.Id == id && e.IsAvailable == true);
 
-                if (entity != null)
+                if (news != null)
                 {
-                    return this.Request.CreateResponse(HttpStatusCode.OK, entity);
+                    return this.Request.CreateResponse(HttpStatusCode.OK, news);
                 }
                 else
                 {
@@ -129,7 +129,7 @@ namespace _17nsj.Service.Controllers
             // オブジェクト自体のnullチェック
             if (news == null)
             {
-                return this.Request.CreateResponse(HttpStatusCode.BadRequest);
+                return this.Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid News object.");
             }
 
             // 各値のnullチェック

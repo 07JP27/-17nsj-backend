@@ -38,11 +38,11 @@ namespace _17nsj.Service.Controllers
 
             using (Entities entitiies = new Entities())
             {
-                var entity = entitiies.MobileAppConfig.FirstOrDefault();
+                var mobileAppConfig = entitiies.MobileAppConfig.FirstOrDefault();
 
-                if (entity != null)
+                if (mobileAppConfig != null)
                 {
-                    return this.Request.CreateResponse(HttpStatusCode.OK, entity);
+                    return this.Request.CreateResponse(HttpStatusCode.OK, mobileAppConfig);
                 }
                 else
                 {
