@@ -42,6 +42,12 @@ namespace _17nsj.Service.Controllers
 
                 if (entity != null)
                 {
+                    foreach (var item in entity)
+                    {
+                        // セキュリティ保護のためパスワードは返さない
+                        item.Password = string.Empty;
+                    }
+
                     return this.Request.CreateResponse(HttpStatusCode.OK, entity);
                 }
                 else
@@ -71,6 +77,8 @@ namespace _17nsj.Service.Controllers
 
                 if (entity != null)
                 {
+                    // セキュリティ保護のためパスワードは返さない
+                    entity.Password = string.Empty;
                     return this.Request.CreateResponse(HttpStatusCode.OK, entity);
                 }
                 else
