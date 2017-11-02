@@ -43,7 +43,7 @@
           <Property Name="Outline" Type="nvarchar" MaxLength="500" />
           <Property Name="MediaURL" Type="nvarchar" MaxLength="200" />
           <Property Name="IsAvailable" Type="bit" Nullable="false" />
-          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="UpdatedAt" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="30" Nullable="false" />
@@ -87,7 +87,7 @@
           <Property Name="Outline" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="MediaURL" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="IsAvailable" Type="Boolean" Nullable="false" />
-          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
