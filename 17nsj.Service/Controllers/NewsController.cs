@@ -204,7 +204,7 @@ namespace _17nsj.Service.Controllers
             // オブジェクト自体のnullチェック
             if (newNews == null)
             {
-                return this.Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid News object.");
+                return this.Request.CreateResponse(HttpStatusCode.BadRequest, "The News is null.");
             }
 
             // 既存チェック

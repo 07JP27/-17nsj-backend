@@ -106,7 +106,7 @@ namespace _17nsj.Service.Controllers
             // オブジェクト自体のnullチェック
             if (user == null)
             {
-                return this.Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid User object.");
+                return this.Request.CreateResponse(HttpStatusCode.BadRequest, "The User is null.");
             }
 
             // 各値のnullチェック
