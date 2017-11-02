@@ -13,6 +13,7 @@ using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Web.Http;
+using System.Web.Http.OData.Query;
 using _17nsj.DataAccess;
 
 namespace _17nsj.Service.Controllers
@@ -27,10 +28,11 @@ namespace _17nsj.Service.Controllers
         /// <summary>
         /// 全てのニュース情報を取得します。
         /// </summary>
+        /// <param name="options">odataoption</param>
         /// <returns>HTTPレスポンス</returns>
         [HttpGet]
         [Route("")]
-        public HttpResponseMessage Get()
+        public HttpResponseMessage Get(ODataQueryOptions<News> options)
         {
             if (!this.CanRead())
             {
@@ -40,6 +42,8 @@ namespace _17nsj.Service.Controllers
             using (Entities entitiies = new Entities())
             {
                 var news = entitiies.News.Where(e => e.IsAvailable == true).OrderByDescending(e => e.CreatedAt).ToList();
+                var filterNews = options.ApplyTo(news.AsQueryable()) as IQueryable<News>;
+                news = filterNews.ToList();
 
                 if (news != null)
                 {
@@ -56,10 +60,11 @@ namespace _17nsj.Service.Controllers
         /// カテゴリを指定してニュース情報を取得します。
         /// </summary>
         /// <param name="category">category</param>
+        /// <param name="options">odataoption</param>
         /// <returns>HTTPレスポンス</returns>
         [HttpGet]
         [Route("{category}")]
-        public HttpResponseMessage Get(string category)
+        public HttpResponseMessage Get(string category, ODataQueryOptions<News> options)
         {
             if (!this.CanRead())
             {
@@ -69,6 +74,8 @@ namespace _17nsj.Service.Controllers
             using (Entities entitiies = new Entities())
             {
                 var news = entitiies.News.Where(e => e.Category == category && e.IsAvailable == true).OrderByDescending(e => e.CreatedAt).ToList();
+                var filterNews = options.ApplyTo(news.AsQueryable()) as IQueryable<News>;
+                news = filterNews.ToList();
 
                 if (news != null)
                 {
