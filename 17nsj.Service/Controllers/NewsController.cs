@@ -185,6 +185,68 @@ namespace _17nsj.Service.Controllers
         }
 
         /// <summary>
+        /// ニュース情報を更新します。
+        /// </summary>
+        /// <param name="category">カテゴリ</param>
+        /// <param name="id">id</param>
+        /// <param name="newNews">ニュース情報</param>
+        /// <returns>HTTPレスポンス</returns>
+        [HttpPatch]
+        [Route("{category}/{id}")]
+        public HttpResponseMessage Patch(string category, int id, [FromBody] News newNews)
+        {
+            // 権限チェック
+            if (!this.IsAdmin())
+            {
+                return this.Request.CreateResponse(HttpStatusCode.Forbidden);
+            }
+
+            // オブジェクト自体のnullチェック
+            if (newNews == null)
+            {
+                return this.Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid News object.");
+            }
+
+            // 既存チェック
+            using (Entities entitiies = new Entities())
+            {
+                var news = entitiies.News.FirstOrDefault(e => e.Category == category && e.Id == id && e.IsAvailable == true);
+
+                if (news == null)
+                {
+                    return this.Request.CreateResponse(HttpStatusCode.BadRequest, $"The news {category.ToUpper()}-{id} not exists.");
+                }
+            }
+
+            using (Entities entitiies = new Entities())
+            using (var tran = entitiies.Database.BeginTransaction(IsolationLevel.Serializable))
+            {
+                try
+                {
+                    var news = entitiies.News.Single(e => e.Category == category && e.Id == id && e.IsAvailable == true);
+                    news.Author = newNews.Author;
+                    news.Title = newNews.Title;
+                    news.Outline = newNews.Outline;
+                    news.MediaURL = newNews.MediaURL;
+                    news.UpdatedAt = DateTime.Now;
+                    news.UpdatedBy = this.UserId;
+
+                    entitiies.SaveChanges();
+
+                    tran.Commit();
+                    var message = this.Request.CreateResponse(HttpStatusCode.Created, news);
+                    message.Headers.Location = new Uri(this.Request.RequestUri + "/" + news.Category + "/" + news.Id.ToString());
+                    return message;
+                }
+                catch (Exception e)
+                {
+                    tran.Rollback();
+                    return this.Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
+                }
+            }
+        }
+
+        /// <summary>
         /// ニュース情報登録前の検証を行います。
         /// </summary>
         /// <param name="news">ニュース情報</param>
