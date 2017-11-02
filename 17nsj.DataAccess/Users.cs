@@ -23,5 +23,7 @@ namespace _17nsj.DataAccess
         public System.DateTime CreatedAt { get; set; }
         public string CreatedBy { get; set; }
         public bool IsAdmin { get; set; }
+        public System.DateTime UpdatedAt { get; set; }
+        public string UpdatedBy { get; set; }
     }
 }

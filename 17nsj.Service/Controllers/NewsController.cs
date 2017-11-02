@@ -141,9 +141,12 @@ namespace _17nsj.Service.Controllers
             }
 
             // 登録
-            news.Category = news.Category.ToUpper();
-            news.CreatedBy = this.UserId;
-            news.CreatedAt = DateTime.Now;
+            var userId = this.UserId;
+            var now = DateTime.Now;
+            news.CreatedBy = userId;
+            news.CreatedAt = now;
+            news.UpdatedBy = userId;
+            news.UpdatedAt = now;
 
             using (Entities entitiies = new Entities())
             using (var tran = entitiies.Database.BeginTransaction(IsolationLevel.Serializable))

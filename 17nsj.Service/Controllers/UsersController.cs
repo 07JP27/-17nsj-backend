@@ -129,8 +129,12 @@ namespace _17nsj.Service.Controllers
             }
 
             // 登録
-            user.CreatedBy = this.UserId;
-            user.CreatedAt = DateTime.Now;
+            var userId = this.UserId;
+            var now = DateTime.Now;
+            user.CreatedBy = userId;
+            user.CreatedAt = now;
+            user.UpdatedBy = userId;
+            user.UpdatedAt = now;
 
             try
             {
