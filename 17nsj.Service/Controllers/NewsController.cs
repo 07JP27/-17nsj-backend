@@ -140,7 +140,7 @@ namespace _17nsj.Service.Controllers
             }
 
             // 各値のnullチェック
-            var validationResult = this.ValidateUserModel(news);
+            var validationResult = this.ValidateNewsModel(news);
 
             if (validationResult != null)
             {
@@ -211,7 +211,7 @@ namespace _17nsj.Service.Controllers
             // オブジェクト自体のnullチェック
             if (newNews == null)
             {
-                return this.Request.CreateResponse(HttpStatusCode.BadRequest, "The News is null.");
+                return this.Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid News object.");
             }
 
             // 既存チェック
@@ -258,7 +258,7 @@ namespace _17nsj.Service.Controllers
         /// </summary>
         /// <param name="news">ニュース情報</param>
         /// <returns>エラーメッセージ</returns>
-        private string ValidateUserModel(News news)
+        private string ValidateNewsModel(News news)
         {
             if (string.IsNullOrEmpty(news.Category) || news.Category.Length != 1)
             {
