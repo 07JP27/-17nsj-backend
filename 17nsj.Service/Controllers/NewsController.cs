@@ -161,7 +161,7 @@ namespace _17nsj.Service.Controllers
                 try
                 {
                     // 該当行が１行もないとMax値をとれないので行数チェック
-                    var count = entitiies.News.Where(e => e.Category == news.Category && e.IsAvailable == true).Count();
+                    var count = entitiies.News.Where(e => e.Category == news.Category).Count();
                     int maxId;
 
                     if (count == 0)
@@ -170,7 +170,7 @@ namespace _17nsj.Service.Controllers
                     }
                     else
                     {
-                        maxId = entitiies.News.Where(e => e.Category == news.Category && e.IsAvailable == true).Max(e => e.Id);
+                        maxId = entitiies.News.Where(e => e.Category == news.Category).Max(e => e.Id);
                     }
 
                     news.Id = maxId + 1;
@@ -217,7 +217,7 @@ namespace _17nsj.Service.Controllers
             // 既存チェック
             using (Entities entitiies = new Entities())
             {
-                var news = entitiies.News.FirstOrDefault(e => e.Category == category && e.Id == id && e.IsAvailable == true);
+                var news = entitiies.News.FirstOrDefault(e => e.Category == category && e.Id == id);
 
                 if (news == null)
                 {
@@ -230,7 +230,7 @@ namespace _17nsj.Service.Controllers
             {
                 try
                 {
-                    var news = entitiies.News.Single(e => e.Category == category && e.Id == id && e.IsAvailable == true);
+                    var news = entitiies.News.Single(e => e.Category == category && e.Id == id);
                     news.Author = newNews.Author;
                     news.Title = newNews.Title;
                     news.Outline = newNews.Outline;
