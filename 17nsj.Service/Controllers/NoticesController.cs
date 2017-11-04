@@ -167,7 +167,7 @@ namespace _17nsj.Service.Controllers
             {
                 try
                 {
-                    var notice = entitiies.Notices.Single(e => e.Id == id && e.IsAvailable == true);
+                    var notice = entitiies.Notices.Single(e => e.Id == id);
                     notice.Author = newNotice.Author;
                     notice.Title = newNotice.Title;
                     notice.Outline = newNotice.Outline;
