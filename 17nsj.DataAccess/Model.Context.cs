@@ -28,5 +28,8 @@ namespace _17nsj.DataAccess
         public virtual DbSet<MobileAppConfig> MobileAppConfig { get; set; }
         public virtual DbSet<News> News { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<Newspapers> Newspapers { get; set; }
+        public virtual DbSet<Notices> Notices { get; set; }
+        public virtual DbSet<Programs> Programs { get; set; }
     }
 }

@@ -48,9 +48,55 @@
           <Property Name="UpdatedAt" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="30" Nullable="false" />
         </EntityType>
+        <EntityType Name="Newspapers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="URL" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="UpdatedAt" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Notices">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Author" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Outline" Type="nvarchar" MaxLength="500" />
+          <Property Name="MediaURL" Type="nvarchar" MaxLength="200" />
+          <Property Name="IsAvailable" Type="bit" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="UpdatedAt" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Programs">
+          <Key>
+            <PropertyRef Name="Category" />
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Category" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Outline" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="MediaURL" Type="nvarchar" MaxLength="200" />
+          <Property Name="IsAvailable" Type="bit" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="UpdatedAt" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="MST_Users" EntityType="Self.MST_Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Newspapers" EntityType="Self.Newspapers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notices" EntityType="Self.Notices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Programs" EntityType="Self.Programs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MobileAppConfig" EntityType="Self.MobileAppConfig" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [MobileAppConfig].[Version] AS [Version], 
@@ -66,6 +112,9 @@
           <EntitySet Name="MobileAppConfig" EntityType="Model.MobileAppConfig" />
           <EntitySet Name="News" EntityType="Model.News" />
           <EntitySet Name="Users" EntityType="Model.Users" />
+          <EntitySet Name="Newspapers" EntityType="Model.Newspapers" />
+          <EntitySet Name="Notices" EntityType="Model.Notices" />
+          <EntitySet Name="Programs" EntityType="Model.Programs" />
         </EntityContainer>
         <EntityType Name="MobileAppConfig">
           <Key>
@@ -105,6 +154,49 @@
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="IsAdmin" Type="Boolean" Nullable="false" />
+          <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Newspapers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="URL" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Notices">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Author" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Outline" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MediaURL" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsAvailable" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Programs">
+          <Key>
+            <PropertyRef Name="Category" />
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Category" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Outline" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MediaURL" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsAvailable" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
         </EntityType>
@@ -153,6 +245,51 @@
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Newspapers">
+            <EntityTypeMapping TypeName="Model.Newspapers">
+              <MappingFragment StoreEntitySet="Newspapers">
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notices">
+            <EntityTypeMapping TypeName="Model.Notices">
+              <MappingFragment StoreEntitySet="Notices">
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="IsAvailable" ColumnName="IsAvailable" />
+                <ScalarProperty Name="MediaURL" ColumnName="MediaURL" />
+                <ScalarProperty Name="Outline" ColumnName="Outline" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Programs">
+            <EntityTypeMapping TypeName="Model.Programs">
+              <MappingFragment StoreEntitySet="Programs">
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="IsAvailable" ColumnName="IsAvailable" />
+                <ScalarProperty Name="MediaURL" ColumnName="MediaURL" />
+                <ScalarProperty Name="Outline" ColumnName="Outline" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
