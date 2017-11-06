@@ -43,10 +43,10 @@ namespace _17nsj.Service.Controllers
             {
                 var programs = entitiies.Programs.Where(e => e.IsAvailable == true).OrderByDescending(e => e.CreatedAt).ToList();
                 var filterPrograms = options.ApplyTo(programs.AsQueryable()) as IQueryable<Programs>;
-                programs = filterPrograms.ToList();
 
-                if (programs != null)
+                if (filterPrograms != null)
                 {
+                    programs = filterPrograms.ToList();
                     return this.Request.CreateResponse(HttpStatusCode.OK, programs);
                 }
                 else
@@ -75,10 +75,10 @@ namespace _17nsj.Service.Controllers
             {
                 var programs = entitiies.Programs.Where(e => e.Category == category && e.IsAvailable == true).OrderByDescending(e => e.CreatedAt).ToList();
                 var filterPrograms = options.ApplyTo(programs.AsQueryable()) as IQueryable<Programs>;
-                programs = filterPrograms.ToList();
 
-                if (programs != null)
+                if (filterPrograms != null)
                 {
+                    programs = filterPrograms.ToList();
                     return this.Request.CreateResponse(HttpStatusCode.OK, programs);
                 }
                 else

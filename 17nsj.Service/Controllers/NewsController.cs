@@ -43,10 +43,10 @@ namespace _17nsj.Service.Controllers
             {
                 var news = entitiies.News.Where(e => e.IsAvailable == true).OrderByDescending(e => e.CreatedAt).ToList();
                 var filterNews = options.ApplyTo(news.AsQueryable()) as IQueryable<News>;
-                news = filterNews.ToList();
 
-                if (news != null)
+                if (filterNews != null)
                 {
+                    news = filterNews.ToList();
                     return this.Request.CreateResponse(HttpStatusCode.OK, news);
                 }
                 else
@@ -75,10 +75,10 @@ namespace _17nsj.Service.Controllers
             {
                 var news = entitiies.News.Where(e => e.Category == category && e.IsAvailable == true).OrderByDescending(e => e.CreatedAt).ToList();
                 var filterNews = options.ApplyTo(news.AsQueryable()) as IQueryable<News>;
-                news = filterNews.ToList();
 
-                if (news != null)
+                if (filterNews != null)
                 {
+                    news = filterNews.ToList();
                     return this.Request.CreateResponse(HttpStatusCode.OK, news);
                 }
                 else
