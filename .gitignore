@@ -62,3 +62,4 @@ dkms.conf
 17nsj.Service/Web.Debug.config
 17nsj.Service/Web.Release.config
 packages/
+17nsj.Service/Properties/PublishProfiles
