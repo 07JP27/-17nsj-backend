@@ -73,6 +73,9 @@
     <Compile Include="News.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="NewsCategories.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Newspapers.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

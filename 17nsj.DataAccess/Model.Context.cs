@@ -31,5 +31,6 @@ namespace _17nsj.DataAccess
         public virtual DbSet<Newspapers> Newspapers { get; set; }
         public virtual DbSet<Notices> Notices { get; set; }
         public virtual DbSet<Programs> Programs { get; set; }
+        public virtual DbSet<NewsCategories> NewsCategories { get; set; }
     }
 }

@@ -11,6 +11,7 @@
         <EntityTypeShape EntityType="Model.Newspapers" Width="1.5" PointX="7.5" PointY="0.5" />
         <EntityTypeShape EntityType="Model.Notices" Width="1.5" PointX="4" PointY="0.5" />
         <EntityTypeShape EntityType="Model.Programs" Width="1.5" PointX="5.75" PointY="0.5" />
+        <EntityTypeShape EntityType="Model.NewsCategories" Width="1.5" PointX="11.125" PointY="0.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

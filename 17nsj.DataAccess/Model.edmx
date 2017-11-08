@@ -15,6 +15,14 @@
           <Property Name="Version" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="ForceUpdate" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="MST_NewsCategories">
+          <Key>
+            <PropertyRef Name="Category" />
+          </Key>
+          <Property Name="Category" Type="nchar" MaxLength="1" Nullable="false" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Color" Type="nchar" MaxLength="7" Nullable="false" />
+        </EntityType>
         <EntityType Name="MST_Users">
           <Key>
             <PropertyRef Name="UserId" />
@@ -67,7 +75,7 @@
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Author" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="30" Nullable="false" />
-          <Property Name="Outline" Type="nvarchar" MaxLength="500" />
+          <Property Name="Outline" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="MediaURL" Type="nvarchar" MaxLength="200" />
           <Property Name="IsAvailable" Type="bit" Nullable="false" />
           <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
@@ -92,6 +100,7 @@
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="30" Nullable="false" />
         </EntityType>
         <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="MST_NewsCategories" EntityType="Self.MST_NewsCategories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MST_Users" EntityType="Self.MST_Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Newspapers" EntityType="Self.Newspapers" Schema="dbo" store:Type="Tables" />
@@ -115,6 +124,7 @@
           <EntitySet Name="Newspapers" EntityType="Model.Newspapers" />
           <EntitySet Name="Notices" EntityType="Model.Notices" />
           <EntitySet Name="Programs" EntityType="Model.Programs" />
+          <EntitySet Name="NewsCategories" EntityType="Model.NewsCategories" />
         </EntityContainer>
         <EntityType Name="MobileAppConfig">
           <Key>
@@ -176,7 +186,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Author" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="Title" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="Outline" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Outline" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="MediaURL" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="IsAvailable" Type="Boolean" Nullable="false" />
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
@@ -199,6 +209,14 @@
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="NewsCategories">
+          <Key>
+            <PropertyRef Name="Category" />
+          </Key>
+          <Property Name="Category" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Color" Type="String" Nullable="false" MaxLength="7" FixedLength="true" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -289,6 +307,15 @@
                 <ScalarProperty Name="Outline" ColumnName="Outline" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NewsCategories">
+            <EntityTypeMapping TypeName="Model.NewsCategories">
+              <MappingFragment StoreEntitySet="MST_NewsCategories">
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
                 <ScalarProperty Name="Category" ColumnName="Category" />
               </MappingFragment>
             </EntityTypeMapping>

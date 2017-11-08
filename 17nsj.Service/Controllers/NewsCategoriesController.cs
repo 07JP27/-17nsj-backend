@@ -1,8 +1,8 @@
 ﻿//----------------------------------------------------------------------
-// <copyright file="NewspapersController.cs" company="17NSJ PR Dept">
+// <copyright file="NewsCategoriesController.cs" company="17NSJ PR Dept">
 // Copyright (c) 17NSJ PR Dept. All rights reserved.
 // </copyright>
-// <summary>NewspapersControllerクラス</summary>
+// <summary>NewsCategoriesControllerクラス</summary>
 //----------------------------------------------------------------------
 
 using System;
@@ -17,14 +17,14 @@ using _17nsj.DataAccess;
 namespace _17nsj.Service.Controllers
 {
     /// <summary>
-    /// NewspapersControllerクラス
+    /// NewsCategoriesControllerクラス
     /// </summary>
     [Authorize]
-    [RoutePrefix("api/newspapers")]
-    public class NewspapersController : ControllerBase
+    [RoutePrefix("api/news_categories")]
+    public class NewsCategoriesController : ControllerBase
     {
         /// <summary>
-        /// ニュース情報を取得します。
+        /// ニュースカテゴリ情報を取得します。
         /// </summary>
         /// <returns>HTTPレスポンス</returns>
         [HttpGet]
@@ -38,11 +38,11 @@ namespace _17nsj.Service.Controllers
 
             using (Entities entitiies = new Entities())
             {
-                var newspapers = entitiies.Newspapers.ToList();
+                var cewsCategories = entitiies.NewsCategories.ToList();
 
-                if (newspapers != null)
+                if (cewsCategories != null)
                 {
-                    return this.Request.CreateResponse(HttpStatusCode.OK, newspapers);
+                    return this.Request.CreateResponse(HttpStatusCode.OK, cewsCategories);
                 }
                 else
                 {
