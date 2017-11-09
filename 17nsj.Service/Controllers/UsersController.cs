@@ -144,7 +144,7 @@ namespace _17nsj.Service.Controllers
                     entitiies.SaveChanges();
 
                     var message = this.Request.CreateResponse(HttpStatusCode.Created, user);
-                    message.Headers.Location = new Uri(this.Request.RequestUri + user.UserId);
+                    message.Headers.Location = new Uri(this.Request.RequestUri + "/" + user.UserId);
                     return message;
                 }
             }
