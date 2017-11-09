@@ -99,7 +99,7 @@ namespace _17nsj.Service.Controllers
                 try
                 {
                     // 該当行が１行もないとMax値をとれないので行数チェック
-                    var count = entitiies.News.Count();
+                    var count = entitiies.Notices.Count();
                     int maxId;
 
                     if (count == 0)
@@ -108,7 +108,7 @@ namespace _17nsj.Service.Controllers
                     }
                     else
                     {
-                        maxId = entitiies.News.Max(e => e.Id);
+                        maxId = entitiies.Notices.Max(e => e.Id);
                     }
 
                     notice.Id = maxId + 1;
@@ -154,9 +154,9 @@ namespace _17nsj.Service.Controllers
             // 既存チェック
             using (Entities entitiies = new Entities())
             {
-                var news = entitiies.News.FirstOrDefault(e => e.Id == id);
+                var notice = entitiies.Notices.FirstOrDefault(e => e.Id == id);
 
-                if (news == null)
+                if (notice == null)
                 {
                     return this.Request.CreateResponse(HttpStatusCode.BadRequest, $"The notice {id} not exists.");
                 }
