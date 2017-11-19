@@ -38,11 +38,11 @@ namespace _17nsj.Service.Controllers
 
             using (Entities entitiies = new Entities())
             {
-                var cewsCategories = entitiies.NewsCategories.ToList();
+                var newsCategories = entitiies.NewsCategories.ToList();
 
-                if (cewsCategories != null)
+                if (newsCategories != null)
                 {
-                    return this.Request.CreateResponse(HttpStatusCode.OK, cewsCategories);
+                    return this.Request.CreateResponse(HttpStatusCode.OK, newsCategories);
                 }
                 else
                 {
