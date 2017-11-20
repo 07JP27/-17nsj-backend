@@ -20,11 +20,12 @@ namespace _17nsj.DataAccess
         public string Title { get; set; }
         public string Outline { get; set; }
         public string MediaURL { get; set; }
+        public string RelationalURL { get; set; }
+        public string ThumbnailURL { get; set; }
         public bool IsAvailable { get; set; }
         public System.DateTime CreatedAt { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime UpdatedAt { get; set; }
         public string UpdatedBy { get; set; }
-        public string RelationalURL { get; set; }
     }
 }

@@ -17,6 +17,7 @@ namespace _17nsj.DataAccess
         public int Id { get; set; }
         public string Title { get; set; }
         public string URL { get; set; }
+        public string ThumbnailURL { get; set; }
         public System.DateTime CreatedAt { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime UpdatedAt { get; set; }

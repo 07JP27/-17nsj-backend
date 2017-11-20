@@ -19,10 +19,10 @@ namespace _17nsj.DataAccess
         public string Password { get; set; }
         public bool CanRead { get; set; }
         public bool CanWrite { get; set; }
+        public bool IsAdmin { get; set; }
         public bool IsAvailable { get; set; }
         public System.DateTime CreatedAt { get; set; }
         public string CreatedBy { get; set; }
-        public bool IsAdmin { get; set; }
         public System.DateTime UpdatedAt { get; set; }
         public string UpdatedBy { get; set; }
     }

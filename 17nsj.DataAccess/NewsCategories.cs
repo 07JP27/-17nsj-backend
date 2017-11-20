@@ -17,5 +17,6 @@ namespace _17nsj.DataAccess
         public string Category { get; set; }
         public string CategoryName { get; set; }
         public string Color { get; set; }
+        public string ThumbnailURL { get; set; }
     }
 }
