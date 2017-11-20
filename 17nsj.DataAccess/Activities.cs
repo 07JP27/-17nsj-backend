@@ -12,13 +12,17 @@ namespace _17nsj.DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Programs
+    public partial class Activities
     {
         public string Category { get; set; }
         public int Id { get; set; }
         public string Title { get; set; }
         public string Outline { get; set; }
         public string MediaURL { get; set; }
+        public string RelationanlURL { get; set; }
+        public bool CanWaitable { get; set; }
+        public Nullable<bool> IsClosed { get; set; }
+        public Nullable<int> WaitingTime { get; set; }
         public bool IsAvailable { get; set; }
         public System.DateTime CreatedAt { get; set; }
         public string CreatedBy { get; set; }

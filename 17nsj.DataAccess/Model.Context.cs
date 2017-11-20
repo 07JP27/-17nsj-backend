@@ -29,8 +29,9 @@ namespace _17nsj.DataAccess
         public virtual DbSet<News> News { get; set; }
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<Newspapers> Newspapers { get; set; }
-        public virtual DbSet<Notices> Notices { get; set; }
-        public virtual DbSet<Programs> Programs { get; set; }
         public virtual DbSet<NewsCategories> NewsCategories { get; set; }
+        public virtual DbSet<Activities> Activities { get; set; }
+        public virtual DbSet<ActivityCategories> ActivityCategories { get; set; }
+        public virtual DbSet<Movies> Movies { get; set; }
     }
 }

@@ -12,19 +12,10 @@ namespace _17nsj.DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class News
+    public partial class ActivityCategories
     {
         public string Category { get; set; }
-        public int Id { get; set; }
-        public string Author { get; set; }
-        public string Title { get; set; }
-        public string Outline { get; set; }
-        public string MediaURL { get; set; }
-        public bool IsAvailable { get; set; }
-        public System.DateTime CreatedAt { get; set; }
-        public string CreatedBy { get; set; }
-        public System.DateTime UpdatedAt { get; set; }
-        public string UpdatedBy { get; set; }
-        public string RelationalURL { get; set; }
+        public string CategoryName { get; set; }
+        public string Color { get; set; }
     }
 }
