@@ -156,6 +156,7 @@
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\MobileAppConfigController.cs" />
     <Compile Include="Controllers\ActivityCategoriesController.cs" />
+    <Compile Include="Controllers\MoviesController.cs" />
     <Compile Include="Controllers\NewsCategoriesController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\NewspapersController.cs" />
