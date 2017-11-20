@@ -243,7 +243,7 @@ namespace _17nsj.Service.Controllers
                     entitiies.SaveChanges();
 
                     tran.Commit();
-                    var message = this.Request.CreateResponse(HttpStatusCode.Created, news);
+                    var message = this.Request.CreateResponse(HttpStatusCode.OK, news);
                     message.Headers.Location = new Uri(this.Request.RequestUri + "/" + news.Category + "/" + news.Id.ToString());
                     return message;
                 }

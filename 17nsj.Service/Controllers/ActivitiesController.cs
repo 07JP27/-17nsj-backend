@@ -248,7 +248,67 @@ namespace _17nsj.Service.Controllers
                     entitiies.SaveChanges();
 
                     tran.Commit();
-                    var message = this.Request.CreateResponse(HttpStatusCode.Created, act);
+                    var message = this.Request.CreateResponse(HttpStatusCode.OK, act);
+                    message.Headers.Location = new Uri(this.Request.RequestUri + "/" + act.Category + "/" + act.Id.ToString());
+                    return message;
+                }
+                catch (Exception e)
+                {
+                    tran.Rollback();
+                    return this.Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
+                }
+            }
+        }
+
+        /// <summary>
+        /// アクティビティの待機情報を更新します。
+        /// </summary>
+        /// <param name="category">カテゴリ</param>
+        /// <param name="id">id</param>
+        /// <param name="newAct">アクティビティ情報</param>
+        /// <returns>HTTPレスポンス</returns>
+        [HttpPatch]
+        [Route("{category}/{id}/waiting")]
+        public HttpResponseMessage WaitingPatch(string category, int id, [FromBody] Activities newAct)
+        {
+            // 権限チェック
+            if (!this.IsAdmin())
+            {
+                return this.Request.CreateResponse(HttpStatusCode.Forbidden);
+            }
+
+            // オブジェクト自体のnullチェック
+            if (newAct == null)
+            {
+                return this.Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid Activities object.");
+            }
+
+            // 既存チェック
+            using (Entities entitiies = new Entities())
+            {
+                var act = entitiies.Activities.FirstOrDefault(e => e.Category == category && e.Id == id);
+
+                if (act == null)
+                {
+                    return this.Request.CreateResponse(HttpStatusCode.BadRequest, $"The Activities {category.ToUpper()}-{id} not exists.");
+                }
+            }
+
+            using (Entities entitiies = new Entities())
+            using (var tran = entitiies.Database.BeginTransaction(IsolationLevel.Serializable))
+            {
+                try
+                {
+                    var act = entitiies.Activities.Single(e => e.Category == category && e.Id == id);
+                    act.IsClosed = newAct.IsClosed;
+                    act.WaitingTime = newAct.WaitingTime;
+                    act.UpdatedAt = DateTime.Now;
+                    act.UpdatedBy = this.UserId;
+
+                    entitiies.SaveChanges();
+
+                    tran.Commit();
+                    var message = this.Request.CreateResponse(HttpStatusCode.OK, act);
                     message.Headers.Location = new Uri(this.Request.RequestUri + "/" + act.Category + "/" + act.Id.ToString());
                     return message;
                 }
