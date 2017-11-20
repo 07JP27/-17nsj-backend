@@ -238,6 +238,7 @@ namespace _17nsj.Service.Controllers
                     act.Outline = newAct.Outline;
                     act.MediaURL = newAct.MediaURL;
                     act.RelationalURL = newAct.RelationalURL;
+                    act.ThumbnailURL = newAct.ThumbnailURL;
                     act.CanWaitable = newAct.CanWaitable;
                     act.IsClosed = newAct.IsClosed;
                     act.WaitingTime = newAct.WaitingTime;

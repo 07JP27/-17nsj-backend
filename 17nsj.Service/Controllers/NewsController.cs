@@ -236,6 +236,7 @@ namespace _17nsj.Service.Controllers
                     news.Outline = newNews.Outline;
                     news.MediaURL = newNews.MediaURL;
                     news.RelationalURL = newNews.RelationalURL;
+                    news.ThumbnailURL = newNews.ThumbnailURL;
                     news.UpdatedAt = DateTime.Now;
                     news.UpdatedBy = this.UserId;
 
