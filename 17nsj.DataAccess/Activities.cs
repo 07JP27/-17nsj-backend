@@ -19,7 +19,7 @@ namespace _17nsj.DataAccess
         public string Title { get; set; }
         public string Outline { get; set; }
         public string MediaURL { get; set; }
-        public string RelationanlURL { get; set; }
+        public string RelationalURL { get; set; }
         public bool CanWaitable { get; set; }
         public Nullable<bool> IsClosed { get; set; }
         public Nullable<int> WaitingTime { get; set; }

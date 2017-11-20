@@ -15,7 +15,7 @@
           <Property Name="Title" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="Outline" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="MediaURL" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="RelationanlURL" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="RelationalURL" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="CanWaitable" Type="bit" Nullable="false" />
           <Property Name="IsClosed" Type="bit" />
           <Property Name="WaitingTime" Type="int" />
@@ -213,7 +213,6 @@
           <Property Name="Title" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="Outline" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="MediaURL" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="RelationanlURL" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="CanWaitable" Type="Boolean" Nullable="false" />
           <Property Name="IsClosed" Type="Boolean" />
           <Property Name="WaitingTime" Type="Int32" />
@@ -222,6 +221,7 @@
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="RelationalURL" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ActivityCategories">
           <Key>
@@ -320,6 +320,7 @@
           <EntitySetMapping Name="Activities">
             <EntityTypeMapping TypeName="Model.Activities">
               <MappingFragment StoreEntitySet="Activities">
+                <ScalarProperty Name="RelationalURL" ColumnName="RelationalURL" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
@@ -328,7 +329,6 @@
                 <ScalarProperty Name="WaitingTime" ColumnName="WaitingTime" />
                 <ScalarProperty Name="IsClosed" ColumnName="IsClosed" />
                 <ScalarProperty Name="CanWaitable" ColumnName="CanWaitable" />
-                <ScalarProperty Name="RelationanlURL" ColumnName="RelationanlURL" />
                 <ScalarProperty Name="MediaURL" ColumnName="MediaURL" />
                 <ScalarProperty Name="Outline" ColumnName="Outline" />
                 <ScalarProperty Name="Title" ColumnName="Title" />

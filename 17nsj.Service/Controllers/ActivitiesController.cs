@@ -1,8 +1,8 @@
 ﻿//----------------------------------------------------------------------
-// <copyright file="NewsController.cs" company="17NSJ PR Dept">
+// <copyright file="ActivitiesController.cs" company="17NSJ PR Dept">
 // Copyright (c) 17NSJ PR Dept. All rights reserved.
 // </copyright>
-// <summary>NewsControllerクラス</summary>
+// <summary>ActivitiesControllerクラス</summary>
 //----------------------------------------------------------------------
 
 using System;
@@ -19,20 +19,23 @@ using _17nsj.DataAccess;
 namespace _17nsj.Service.Controllers
 {
     /// <summary>
-    /// NewsControllerクラス
+    /// ActivitiesControllerクラス
+    /// </summary>
+    /// <summary>
+    /// ActivitiesCategoriesControllerクラス
     /// </summary>
     [Authorize]
-    [RoutePrefix("api/news")]
-    public class NewsController : ControllerBase
+    [RoutePrefix("api/activities")]
+    public class ActivitiesController : ControllerBase
     {
         /// <summary>
-        /// 全てのニュース情報を取得します。
+        /// 全てのアクティビティ情報を取得します。
         /// </summary>
         /// <param name="options">odataoption</param>
         /// <returns>HTTPレスポンス</returns>
         [HttpGet]
         [Route("")]
-        public HttpResponseMessage Get(ODataQueryOptions<News> options)
+        public HttpResponseMessage Get(ODataQueryOptions<Activities> options)
         {
             if (!this.CanRead())
             {
@@ -41,13 +44,13 @@ namespace _17nsj.Service.Controllers
 
             using (Entities entitiies = new Entities())
             {
-                var news = entitiies.News.Where(e => e.IsAvailable == true).OrderByDescending(e => e.CreatedAt).ToList();
-                var filterNews = options.ApplyTo(news.AsQueryable()) as IQueryable<News>;
+                var act = entitiies.Activities.Where(e => e.IsAvailable == true).OrderByDescending(e => e.CreatedAt).ToList();
+                var filterAct = options.ApplyTo(act.AsQueryable()) as IQueryable<Activities>;
 
-                if (filterNews != null)
+                if (filterAct != null)
                 {
-                    news = filterNews.ToList();
-                    return this.Request.CreateResponse(HttpStatusCode.OK, news);
+                    act = filterAct.ToList();
+                    return this.Request.CreateResponse(HttpStatusCode.OK, act);
                 }
                 else
                 {
@@ -57,14 +60,14 @@ namespace _17nsj.Service.Controllers
         }
 
         /// <summary>
-        /// カテゴリを指定してニュース情報を取得します。
+        /// カテゴリを指定してアクティビティ情報を取得します。
         /// </summary>
         /// <param name="category">category</param>
         /// <param name="options">odataoption</param>
         /// <returns>HTTPレスポンス</returns>
         [HttpGet]
         [Route("{category}")]
-        public HttpResponseMessage Get(string category, ODataQueryOptions<News> options)
+        public HttpResponseMessage Get(string category, ODataQueryOptions<Activities> options)
         {
             if (!this.CanRead())
             {
@@ -73,13 +76,13 @@ namespace _17nsj.Service.Controllers
 
             using (Entities entitiies = new Entities())
             {
-                var news = entitiies.News.Where(e => e.Category == category && e.IsAvailable == true).OrderByDescending(e => e.CreatedAt).ToList();
-                var filterNews = options.ApplyTo(news.AsQueryable()) as IQueryable<News>;
+                var act = entitiies.Activities.Where(e => e.Category == category && e.IsAvailable == true).OrderByDescending(e => e.CreatedAt).ToList();
+                var filterAct = options.ApplyTo(act.AsQueryable()) as IQueryable<Activities>;
 
-                if (filterNews != null)
+                if (filterAct != null)
                 {
-                    news = filterNews.ToList();
-                    return this.Request.CreateResponse(HttpStatusCode.OK, news);
+                    act = filterAct.ToList();
+                    return this.Request.CreateResponse(HttpStatusCode.OK, act);
                 }
                 else
                 {
@@ -89,7 +92,7 @@ namespace _17nsj.Service.Controllers
         }
 
         /// <summary>
-        /// カテゴリとIDを指定してニュース情報を取得します。
+        /// カテゴリとIDを指定してアクティビティ情報を取得します。
         /// </summary>
         /// <param name="category">category</param>
         /// <param name="id">id</param>
@@ -105,11 +108,11 @@ namespace _17nsj.Service.Controllers
 
             using (Entities entitiies = new Entities())
             {
-                var news = entitiies.News.FirstOrDefault(e => e.Category == category && e.Id == id && e.IsAvailable == true);
+                var act = entitiies.Activities.FirstOrDefault(e => e.Category == category && e.Id == id && e.IsAvailable == true);
 
-                if (news != null)
+                if (act != null)
                 {
-                    return this.Request.CreateResponse(HttpStatusCode.OK, news);
+                    return this.Request.CreateResponse(HttpStatusCode.OK, act);
                 }
                 else
                 {
@@ -119,13 +122,13 @@ namespace _17nsj.Service.Controllers
         }
 
         /// <summary>
-        /// ニュース情報を登録します。
+        /// アクティビティ情報を登録します。
         /// </summary>
-        /// <param name="news">ニュース情報</param>
+        /// <param name="act">アクティビティ情報</param>
         /// <returns>HTTPレスポンス</returns>
         [HttpPost]
         [Route("")]
-        public HttpResponseMessage Post([FromBody] News news)
+        public HttpResponseMessage Post([FromBody] Activities act)
         {
             // 権限チェック
             if (!this.CanWrite())
@@ -134,13 +137,13 @@ namespace _17nsj.Service.Controllers
             }
 
             // オブジェクト自体のnullチェック
-            if (news == null)
+            if (act == null)
             {
-                return this.Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid News object.");
+                return this.Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid Activities object.");
             }
 
             // 各値のnullチェック
-            var validationResult = this.ValidateNewsModel(news);
+            var validationResult = this.ValidateActivitiesModel(act);
 
             if (validationResult != null)
             {
@@ -150,10 +153,10 @@ namespace _17nsj.Service.Controllers
             // 登録
             var userId = this.UserId;
             var now = DateTime.Now;
-            news.CreatedBy = userId;
-            news.CreatedAt = now;
-            news.UpdatedBy = userId;
-            news.UpdatedAt = now;
+            act.CreatedBy = userId;
+            act.CreatedAt = now;
+            act.UpdatedBy = userId;
+            act.UpdatedAt = now;
 
             using (Entities entitiies = new Entities())
             using (var tran = entitiies.Database.BeginTransaction(IsolationLevel.Serializable))
@@ -161,7 +164,7 @@ namespace _17nsj.Service.Controllers
                 try
                 {
                     // 該当行が１行もないとMax値をとれないので行数チェック
-                    var count = entitiies.News.Where(e => e.Category == news.Category).Count();
+                    var count = entitiies.Activities.Where(e => e.Category == act.Category).Count();
                     int maxId;
 
                     if (count == 0)
@@ -170,17 +173,17 @@ namespace _17nsj.Service.Controllers
                     }
                     else
                     {
-                        maxId = entitiies.News.Where(e => e.Category == news.Category).Max(e => e.Id);
+                        maxId = entitiies.Activities.Where(e => e.Category == act.Category).Max(e => e.Id);
                     }
 
-                    news.Id = maxId + 1;
+                    act.Id = maxId + 1;
 
-                    entitiies.News.Add(news);
+                    entitiies.Activities.Add(act);
                     entitiies.SaveChanges();
 
                     tran.Commit();
-                    var message = this.Request.CreateResponse(HttpStatusCode.Created, news);
-                    message.Headers.Location = new Uri(this.Request.RequestUri + "/" + news.Category + "/" + news.Id.ToString());
+                    var message = this.Request.CreateResponse(HttpStatusCode.Created, act);
+                    message.Headers.Location = new Uri(this.Request.RequestUri + "/" + act.Category + "/" + act.Id.ToString());
                     return message;
                 }
                 catch (Exception e)
@@ -192,15 +195,15 @@ namespace _17nsj.Service.Controllers
         }
 
         /// <summary>
-        /// ニュース情報を更新します。
+        /// アクティビティ情報を更新します。
         /// </summary>
         /// <param name="category">カテゴリ</param>
         /// <param name="id">id</param>
-        /// <param name="newNews">ニュース情報</param>
+        /// <param name="newAct">アクティビティ情報</param>
         /// <returns>HTTPレスポンス</returns>
         [HttpPatch]
         [Route("{category}/{id}")]
-        public HttpResponseMessage Patch(string category, int id, [FromBody] News newNews)
+        public HttpResponseMessage Patch(string category, int id, [FromBody] Activities newAct)
         {
             // 権限チェック
             if (!this.IsAdmin())
@@ -209,19 +212,19 @@ namespace _17nsj.Service.Controllers
             }
 
             // オブジェクト自体のnullチェック
-            if (newNews == null)
+            if (newAct == null)
             {
-                return this.Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid News object.");
+                return this.Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid Activities object.");
             }
 
             // 既存チェック
             using (Entities entitiies = new Entities())
             {
-                var news = entitiies.News.FirstOrDefault(e => e.Category == category && e.Id == id);
+                var act = entitiies.Activities.FirstOrDefault(e => e.Category == category && e.Id == id);
 
-                if (news == null)
+                if (act == null)
                 {
-                    return this.Request.CreateResponse(HttpStatusCode.BadRequest, $"The news {category.ToUpper()}-{id} not exists.");
+                    return this.Request.CreateResponse(HttpStatusCode.BadRequest, $"The Activities {category.ToUpper()}-{id} not exists.");
                 }
             }
 
@@ -230,20 +233,22 @@ namespace _17nsj.Service.Controllers
             {
                 try
                 {
-                    var news = entitiies.News.Single(e => e.Category == category && e.Id == id);
-                    news.Author = newNews.Author;
-                    news.Title = newNews.Title;
-                    news.Outline = newNews.Outline;
-                    news.MediaURL = newNews.MediaURL;
-                    news.RelationalURL = newNews.RelationalURL;
-                    news.UpdatedAt = DateTime.Now;
-                    news.UpdatedBy = this.UserId;
+                    var act = entitiies.Activities.Single(e => e.Category == category && e.Id == id);
+                    act.Title = newAct.Title;
+                    act.Outline = newAct.Outline;
+                    act.MediaURL = newAct.MediaURL;
+                    act.RelationalURL = newAct.RelationalURL;
+                    act.CanWaitable = newAct.CanWaitable;
+                    act.IsClosed = newAct.IsClosed;
+                    act.WaitingTime = newAct.WaitingTime;
+                    act.UpdatedAt = DateTime.Now;
+                    act.UpdatedBy = this.UserId;
 
                     entitiies.SaveChanges();
 
                     tran.Commit();
-                    var message = this.Request.CreateResponse(HttpStatusCode.Created, news);
-                    message.Headers.Location = new Uri(this.Request.RequestUri + "/" + news.Category + "/" + news.Id.ToString());
+                    var message = this.Request.CreateResponse(HttpStatusCode.Created, act);
+                    message.Headers.Location = new Uri(this.Request.RequestUri + "/" + act.Category + "/" + act.Id.ToString());
                     return message;
                 }
                 catch (Exception e)
@@ -255,25 +260,25 @@ namespace _17nsj.Service.Controllers
         }
 
         /// <summary>
-        /// ニュース情報登録前の検証を行います。
+        /// アクティビティ情報登録前の検証を行います。
         /// </summary>
-        /// <param name="news">ニュース情報</param>
+        /// <param name="act">アクティビティ情報</param>
         /// <returns>エラーメッセージ</returns>
-        private string ValidateNewsModel(News news)
+        private string ValidateActivitiesModel(Activities act)
         {
-            if (string.IsNullOrEmpty(news.Category) || news.Category.Length != 1)
+            if (string.IsNullOrEmpty(act.Category) || act.Category.Length != 1)
             {
                 return "Invalid Category.";
             }
 
-            if (string.IsNullOrEmpty(news.Author) || news.Author.Length > 30)
-            {
-                return "Invalid  Author.";
-            }
-
-            if (string.IsNullOrEmpty(news.Title) || news.Title.Length > 30)
+            if (string.IsNullOrEmpty(act.Title) || act.Title.Length > 30)
             {
                 return "Invalid Title.";
+            }
+
+            if (string.IsNullOrEmpty(act.Outline) || act.Outline.Length > 500)
+            {
+                return "Invalid  Outline.";
             }
 
             return null;
