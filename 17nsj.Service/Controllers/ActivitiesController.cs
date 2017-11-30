@@ -214,18 +214,7 @@ namespace _17nsj.Service.Controllers
             // オブジェクト自体のnullチェック
             if (newAct == null)
             {
-                return this.Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid Activities object.");
-            }
-
-            // 既存チェック
-            using (Entities entitiies = new Entities())
-            {
-                var act = entitiies.Activities.FirstOrDefault(e => e.Category == category && e.Id == id);
-
-                if (act == null)
-                {
-                    return this.Request.CreateResponse(HttpStatusCode.BadRequest, $"The Activities {category.ToUpper()}-{id} not exists.");
-                }
+                return this.Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid Activity object.");
             }
 
             using (Entities entitiies = new Entities())
@@ -233,7 +222,13 @@ namespace _17nsj.Service.Controllers
             {
                 try
                 {
-                    var act = entitiies.Activities.Single(e => e.Category == category && e.Id == id);
+                    var act = entitiies.Activities.FirstOrDefault(e => e.Category == category && e.Id == id);
+
+                    if (act == null)
+                    {
+                        return this.Request.CreateResponse(HttpStatusCode.BadRequest, $"The Activity {category.ToUpper()}-{id} not exists.");
+                    }
+
                     act.Title = newAct.Title;
                     act.Outline = newAct.Outline;
                     act.MediaURL = newAct.MediaURL;
@@ -280,18 +275,7 @@ namespace _17nsj.Service.Controllers
             // オブジェクト自体のnullチェック
             if (newAct == null)
             {
-                return this.Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid Activities object.");
-            }
-
-            // 既存チェック
-            using (Entities entitiies = new Entities())
-            {
-                var act = entitiies.Activities.FirstOrDefault(e => e.Category == category && e.Id == id);
-
-                if (act == null)
-                {
-                    return this.Request.CreateResponse(HttpStatusCode.BadRequest, $"The Activities {category.ToUpper()}-{id} not exists.");
-                }
+                return this.Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid Activity object.");
             }
 
             using (Entities entitiies = new Entities())
@@ -299,7 +283,13 @@ namespace _17nsj.Service.Controllers
             {
                 try
                 {
-                    var act = entitiies.Activities.Single(e => e.Category == category && e.Id == id);
+                    var act = entitiies.Activities.FirstOrDefault(e => e.Category == category && e.Id == id && e.CanWaitable == true);
+
+                    if (act == null)
+                    {
+                        return this.Request.CreateResponse(HttpStatusCode.BadRequest, $"The waitable Activity {category.ToUpper()}-{id} not exists.");
+                    }
+
                     act.IsClosed = newAct.IsClosed;
                     act.WaitingTime = newAct.WaitingTime;
                     act.UpdatedAt = DateTime.Now;

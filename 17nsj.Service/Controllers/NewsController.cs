@@ -214,23 +214,18 @@ namespace _17nsj.Service.Controllers
                 return this.Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid News object.");
             }
 
-            // 既存チェック
-            using (Entities entitiies = new Entities())
-            {
-                var news = entitiies.News.FirstOrDefault(e => e.Category == category && e.Id == id);
-
-                if (news == null)
-                {
-                    return this.Request.CreateResponse(HttpStatusCode.BadRequest, $"The news {category.ToUpper()}-{id} not exists.");
-                }
-            }
-
             using (Entities entitiies = new Entities())
             using (var tran = entitiies.Database.BeginTransaction(IsolationLevel.Serializable))
             {
                 try
                 {
-                    var news = entitiies.News.Single(e => e.Category == category && e.Id == id);
+                    var news = entitiies.News.FirstOrDefault(e => e.Category == category && e.Id == id);
+
+                    if (news == null)
+                    {
+                        return this.Request.CreateResponse(HttpStatusCode.BadRequest, $"The news {category.ToUpper()}-{id} not exists.");
+                    }
+
                     news.Author = newNews.Author;
                     news.Title = newNews.Title;
                     news.Outline = newNews.Outline;
