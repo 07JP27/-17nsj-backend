@@ -5,7 +5,6 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="3e3fc16dc12c400aac75c99d563ae4cd" Name="Diagram1">
-        <EntityTypeShape EntityType="Model.MobileAppConfig" PointX="12.75" PointY="0.5" Width="1.5" />
         <EntityTypeShape EntityType="Model.Activities" Width="1.5" PointX="5.75" PointY="0.5" />
         <EntityTypeShape EntityType="Model.ActivityCategories" Width="1.5" PointX="7.5" PointY="0.5" />
         <EntityTypeShape EntityType="Model.Movies" Width="1.5" PointX="11" PointY="0.5" />
@@ -13,6 +12,7 @@
         <EntityTypeShape EntityType="Model.News" Width="1.5" PointX="2.25" PointY="0.5" />
         <EntityTypeShape EntityType="Model.NewsCategories" Width="1.5" PointX="4" PointY="0.5" />
         <EntityTypeShape EntityType="Model.Newspapers" Width="1.5" PointX="9.25" PointY="0.5" />
+        <EntityTypeShape EntityType="Model.MobileAppConfig" Width="1.5" PointX="12.875" PointY="0.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

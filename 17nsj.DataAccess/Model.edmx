@@ -39,11 +39,17 @@
 警告 6002: テーブル/ビュー 'xamarin-backend.dbo.MobileAppConfig' には主キーが定義されていません。主キーは推論され、定義は読み取り専用のテーブル/ビューとして作成されました。-->
         <EntityType Name="MobileAppConfig">
           <Key>
-            <PropertyRef Name="Version" />
             <PropertyRef Name="ForceUpdate" />
+            <PropertyRef Name="iOSVersion" />
+            <PropertyRef Name="DroidVersion" />
+            <PropertyRef Name="iOSStoreURL" />
+            <PropertyRef Name="DroidStoreURL" />
           </Key>
-          <Property Name="Version" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="ForceUpdate" Type="bit" Nullable="false" />
+          <Property Name="iOSVersion" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="DroidVersion" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="iOSStoreURL" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="DroidStoreURL" Type="nvarchar" MaxLength="300" Nullable="false" />
         </EntityType>
         <EntityType Name="Movies">
           <Key>
@@ -127,8 +133,11 @@
           <EntitySet Name="Newspapers" EntityType="Self.Newspapers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MobileAppConfig" EntityType="Self.MobileAppConfig" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
-    [MobileAppConfig].[Version] AS [Version], 
-    [MobileAppConfig].[ForceUpdate] AS [ForceUpdate]
+    [MobileAppConfig].[ForceUpdate] AS [ForceUpdate], 
+    [MobileAppConfig].[iOSVersion] AS [iOSVersion], 
+    [MobileAppConfig].[DroidVersion] AS [DroidVersion], 
+    [MobileAppConfig].[iOSStoreURL] AS [iOSStoreURL], 
+    [MobileAppConfig].[DroidStoreURL] AS [DroidStoreURL]
     FROM [dbo].[MobileAppConfig] AS [MobileAppConfig]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
@@ -137,7 +146,6 @@
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="MobileAppConfig" EntityType="Model.MobileAppConfig" />
           <EntitySet Name="Activities" EntityType="Model.Activities" />
           <EntitySet Name="ActivityCategories" EntityType="Model.ActivityCategories" />
           <EntitySet Name="Movies" EntityType="Model.Movies" />
@@ -145,15 +153,8 @@
           <EntitySet Name="News" EntityType="Model.News" />
           <EntitySet Name="NewsCategories" EntityType="Model.NewsCategories" />
           <EntitySet Name="Newspapers" EntityType="Model.Newspapers" />
+          <EntitySet Name="MobileAppConfig" EntityType="Model.MobileAppConfig" />
           </EntityContainer>
-        <EntityType Name="MobileAppConfig">
-          <Key>
-            <PropertyRef Name="Version" />
-            <PropertyRef Name="ForceUpdate" />
-          </Key>
-          <Property Name="Version" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" Type="String" />
-          <Property Name="ForceUpdate" Nullable="false" Type="Boolean" />
-        </EntityType>
         <EntityType Name="Activities">
           <Key>
             <PropertyRef Name="Category" />
@@ -256,20 +257,26 @@
           <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="MobileAppConfig">
+          <Key>
+            <PropertyRef Name="ForceUpdate" />
+            <PropertyRef Name="iOSVersion" />
+            <PropertyRef Name="DroidVersion" />
+            <PropertyRef Name="iOSStoreURL" />
+            <PropertyRef Name="DroidStoreURL" />
+          </Key>
+          <Property Name="ForceUpdate" Type="Boolean" Nullable="false" />
+          <Property Name="iOSVersion" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="DroidVersion" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="iOSStoreURL" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="DroidStoreURL" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
-          <EntitySetMapping Name="MobileAppConfig">
-            <EntityTypeMapping TypeName="Model.MobileAppConfig">
-              <MappingFragment StoreEntitySet="MobileAppConfig">
-                <ScalarProperty Name="ForceUpdate" ColumnName="ForceUpdate" />
-                <ScalarProperty Name="Version" ColumnName="Version" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Activities">
             <EntityTypeMapping TypeName="Model.Activities">
               <MappingFragment StoreEntitySet="Activities">
@@ -374,6 +381,17 @@
                 <ScalarProperty Name="URL" ColumnName="URL" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MobileAppConfig">
+            <EntityTypeMapping TypeName="Model.MobileAppConfig">
+              <MappingFragment StoreEntitySet="MobileAppConfig">
+                <ScalarProperty Name="DroidStoreURL" ColumnName="DroidStoreURL" />
+                <ScalarProperty Name="iOSStoreURL" ColumnName="iOSStoreURL" />
+                <ScalarProperty Name="DroidVersion" ColumnName="DroidVersion" />
+                <ScalarProperty Name="iOSVersion" ColumnName="iOSVersion" />
+                <ScalarProperty Name="ForceUpdate" ColumnName="ForceUpdate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

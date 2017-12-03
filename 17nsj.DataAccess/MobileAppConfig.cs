@@ -14,7 +14,10 @@ namespace _17nsj.DataAccess
     
     public partial class MobileAppConfig
     {
-        public string Version { get; set; }
         public bool ForceUpdate { get; set; }
+        public string iOSVersion { get; set; }
+        public string DroidVersion { get; set; }
+        public string iOSStoreURL { get; set; }
+        public string DroidStoreURL { get; set; }
     }
 }
