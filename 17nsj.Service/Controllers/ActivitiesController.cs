@@ -235,10 +235,11 @@ namespace _17nsj.Service.Controllers
                     act.RelationalURL = newAct.RelationalURL;
                     act.ThumbnailURL = newAct.ThumbnailURL;
                     act.CanWaitable = newAct.CanWaitable;
-                    act.IsClosed = newAct.IsClosed;
-                    act.WaitingTime = newAct.WaitingTime;
                     act.UpdatedAt = DateTime.Now;
                     act.UpdatedBy = this.UserId;
+                    act.Term = newAct.Term;
+                    act.Location = newAct.Location;
+                    act.MapURL = newAct.MapURL;
 
                     entitiies.SaveChanges();
 
@@ -292,6 +293,7 @@ namespace _17nsj.Service.Controllers
 
                     act.IsClosed = newAct.IsClosed;
                     act.WaitingTime = newAct.WaitingTime;
+                    act.WaitingInfoUpdatedAt = DateTime.Now;
                     act.UpdatedAt = DateTime.Now;
                     act.UpdatedBy = this.UserId;
 

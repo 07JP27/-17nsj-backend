@@ -12,14 +12,18 @@
           </Key>
           <Property Name="Category" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="Title" Type="nvarchar" MaxLength="30" Nullable="false" />
-          <Property Name="Outline" Type="nvarchar" MaxLength="500" Nullable="false" />
-          <Property Name="MediaURL" Type="nvarchar" MaxLength="200" />
-          <Property Name="RelationalURL" Type="nvarchar" MaxLength="200" />
           <Property Name="ThumbnailURL" Type="nvarchar" MaxLength="200" />
+          <Property Name="Title" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="MediaURL" Type="nvarchar" MaxLength="200" />
+          <Property Name="Outline" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Term" Type="nvarchar" MaxLength="50" />
+          <Property Name="Location" Type="nvarchar" MaxLength="50" />
+          <Property Name="MapURL" Type="nvarchar" MaxLength="200" />
+          <Property Name="RelationalURL" Type="nvarchar" MaxLength="200" />
           <Property Name="CanWaitable" Type="bit" Nullable="false" />
           <Property Name="IsClosed" Type="bit" />
           <Property Name="WaitingTime" Type="int" />
+          <Property Name="WaitingInfoUpdatedAt" Type="datetime2" Precision="7" />
           <Property Name="IsAvailable" Type="bit" Nullable="false" />
           <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="30" Nullable="false" />
@@ -146,7 +150,6 @@
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Activities" EntityType="Model.Activities" />
           <EntitySet Name="ActivityCategories" EntityType="Model.ActivityCategories" />
           <EntitySet Name="Movies" EntityType="Model.Movies" />
           <EntitySet Name="Users" EntityType="Model.Users" />
@@ -154,28 +157,8 @@
           <EntitySet Name="NewsCategories" EntityType="Model.NewsCategories" />
           <EntitySet Name="Newspapers" EntityType="Model.Newspapers" />
           <EntitySet Name="MobileAppConfig" EntityType="Model.MobileAppConfig" />
+          <EntitySet Name="Activities" EntityType="Model.Activities" />
           </EntityContainer>
-        <EntityType Name="Activities">
-          <Key>
-            <PropertyRef Name="Category" />
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Category" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Title" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="Outline" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="MediaURL" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="RelationalURL" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="ThumbnailURL" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="CanWaitable" Type="Boolean" Nullable="false" />
-          <Property Name="IsClosed" Type="Boolean" />
-          <Property Name="WaitingTime" Type="Int32" />
-          <Property Name="IsAvailable" Type="Boolean" Nullable="false" />
-          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="ActivityCategories">
           <Key>
             <PropertyRef Name="Category" />
@@ -271,33 +254,37 @@
           <Property Name="iOSStoreURL" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="DroidStoreURL" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Activities">
+          <Key>
+            <PropertyRef Name="Category" />
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Category" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="ThumbnailURL" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="MediaURL" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Outline" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Term" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MapURL" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="RelationalURL" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CanWaitable" Type="Boolean" Nullable="false" />
+          <Property Name="IsClosed" Type="Boolean" />
+          <Property Name="WaitingTime" Type="Int32" />
+          <Property Name="WaitingInfoUpdatedAt" Type="DateTime" Precision="7" />
+          <Property Name="IsAvailable" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
-          <EntitySetMapping Name="Activities">
-            <EntityTypeMapping TypeName="Model.Activities">
-              <MappingFragment StoreEntitySet="Activities">
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
-                <ScalarProperty Name="IsAvailable" ColumnName="IsAvailable" />
-                <ScalarProperty Name="WaitingTime" ColumnName="WaitingTime" />
-                <ScalarProperty Name="IsClosed" ColumnName="IsClosed" />
-                <ScalarProperty Name="CanWaitable" ColumnName="CanWaitable" />
-                <ScalarProperty Name="ThumbnailURL" ColumnName="ThumbnailURL" />
-                <ScalarProperty Name="RelationalURL" ColumnName="RelationalURL" />
-                <ScalarProperty Name="MediaURL" ColumnName="MediaURL" />
-                <ScalarProperty Name="Outline" ColumnName="Outline" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Category" ColumnName="Category" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ActivityCategories">
             <EntityTypeMapping TypeName="Model.ActivityCategories">
               <MappingFragment StoreEntitySet="ActivityCategories">
@@ -392,6 +379,31 @@
                 <ScalarProperty Name="DroidVersion" ColumnName="DroidVersion" />
                 <ScalarProperty Name="iOSVersion" ColumnName="iOSVersion" />
                 <ScalarProperty Name="ForceUpdate" ColumnName="ForceUpdate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Activities">
+            <EntityTypeMapping TypeName="Model.Activities">
+              <MappingFragment StoreEntitySet="Activities">
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="IsAvailable" ColumnName="IsAvailable" />
+                <ScalarProperty Name="WaitingInfoUpdatedAt" ColumnName="WaitingInfoUpdatedAt" />
+                <ScalarProperty Name="WaitingTime" ColumnName="WaitingTime" />
+                <ScalarProperty Name="IsClosed" ColumnName="IsClosed" />
+                <ScalarProperty Name="CanWaitable" ColumnName="CanWaitable" />
+                <ScalarProperty Name="RelationalURL" ColumnName="RelationalURL" />
+                <ScalarProperty Name="MapURL" ColumnName="MapURL" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Term" ColumnName="Term" />
+                <ScalarProperty Name="Outline" ColumnName="Outline" />
+                <ScalarProperty Name="MediaURL" ColumnName="MediaURL" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ThumbnailURL" ColumnName="ThumbnailURL" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

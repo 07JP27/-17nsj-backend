@@ -25,7 +25,6 @@ namespace _17nsj.DataAccess
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Activities> Activities { get; set; }
         public virtual DbSet<ActivityCategories> ActivityCategories { get; set; }
         public virtual DbSet<Movies> Movies { get; set; }
         public virtual DbSet<Users> Users { get; set; }
@@ -33,5 +32,6 @@ namespace _17nsj.DataAccess
         public virtual DbSet<NewsCategories> NewsCategories { get; set; }
         public virtual DbSet<Newspapers> Newspapers { get; set; }
         public virtual DbSet<MobileAppConfig> MobileAppConfig { get; set; }
+        public virtual DbSet<Activities> Activities { get; set; }
     }
 }
