@@ -15,6 +15,7 @@ using System.Security.Claims;
 using System.Web.Http;
 using System.Web.Http.OData.Query;
 using _17nsj.DataAccess;
+using Microsoft.ApplicationInsights.DataContracts;
 
 namespace _17nsj.Service.Controllers
 {
@@ -182,6 +183,9 @@ namespace _17nsj.Service.Controllers
                     entitiies.SaveChanges();
 
                     tran.Commit();
+
+                    Global.Telemetry.TrackTrace($"【登録】[{this.UserId}]によってアクティビティ[{act.Category + "-" + act.Id.ToString()}]が登録されました。", SeverityLevel.Information);
+
                     var message = this.Request.CreateResponse(HttpStatusCode.Created, act);
                     message.Headers.Location = new Uri(this.Request.RequestUri + "/" + act.Category + "/" + act.Id.ToString());
                     return message;
@@ -189,6 +193,7 @@ namespace _17nsj.Service.Controllers
                 catch (Exception e)
                 {
                     tran.Rollback();
+                    Global.Telemetry.TrackException(e);
                     return this.Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
                 }
             }
@@ -244,6 +249,9 @@ namespace _17nsj.Service.Controllers
                     entitiies.SaveChanges();
 
                     tran.Commit();
+
+                    Global.Telemetry.TrackTrace($"【更新】[{this.UserId}]によってアクティビティ[{act.Category + "-" + act.Id.ToString()}]が更新されました。", SeverityLevel.Information);
+
                     var message = this.Request.CreateResponse(HttpStatusCode.OK, act);
                     message.Headers.Location = new Uri(this.Request.RequestUri + "/" + act.Category + "/" + act.Id.ToString());
                     return message;
@@ -251,6 +259,7 @@ namespace _17nsj.Service.Controllers
                 catch (Exception e)
                 {
                     tran.Rollback();
+                    Global.Telemetry.TrackException(e);
                     return this.Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
                 }
             }
@@ -300,6 +309,9 @@ namespace _17nsj.Service.Controllers
                     entitiies.SaveChanges();
 
                     tran.Commit();
+
+                    Global.Telemetry.TrackTrace($"【更新】[{this.UserId}]によってアクティビティ[{act.Category + "-" + act.Id.ToString()}]の待機情報が更新されました。", SeverityLevel.Information);
+
                     var message = this.Request.CreateResponse(HttpStatusCode.OK, act);
                     message.Headers.Location = new Uri(this.Request.RequestUri + "/" + act.Category + "/" + act.Id.ToString());
                     return message;
@@ -307,6 +319,7 @@ namespace _17nsj.Service.Controllers
                 catch (Exception e)
                 {
                     tran.Rollback();
+                    Global.Telemetry.TrackException(e);
                     return this.Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
                 }
             }

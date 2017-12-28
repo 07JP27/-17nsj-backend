@@ -13,6 +13,7 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Web.Http;
 using _17nsj.DataAccess;
+using Microsoft.ApplicationInsights.DataContracts;
 
 namespace _17nsj.Service.Controllers
 {
@@ -143,6 +144,8 @@ namespace _17nsj.Service.Controllers
                     entitiies.Users.Add(user);
                     entitiies.SaveChanges();
 
+                    Global.Telemetry.TrackTrace($"【登録】[{this.UserId}]によってユーザー[{user.UserId}({user.DisplayName})]が登録されました。", SeverityLevel.Information);
+
                     var message = this.Request.CreateResponse(HttpStatusCode.Created, user);
                     message.Headers.Location = new Uri(this.Request.RequestUri + "/" + user.UserId);
                     return message;
@@ -150,6 +153,7 @@ namespace _17nsj.Service.Controllers
             }
             catch (Exception e)
             {
+                Global.Telemetry.TrackException(e);
                 return this.Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
             }
         }

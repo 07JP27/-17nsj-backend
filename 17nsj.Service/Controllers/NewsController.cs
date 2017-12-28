@@ -15,6 +15,7 @@ using System.Security.Claims;
 using System.Web.Http;
 using System.Web.Http.OData.Query;
 using _17nsj.DataAccess;
+using Microsoft.ApplicationInsights.DataContracts;
 
 namespace _17nsj.Service.Controllers
 {
@@ -179,6 +180,9 @@ namespace _17nsj.Service.Controllers
                     entitiies.SaveChanges();
 
                     tran.Commit();
+
+                    Global.Telemetry.TrackTrace($"【登録】[{this.UserId}]によってニュース[{news.Category + "-" + news.Id.ToString()}]が登録されました。", SeverityLevel.Information);
+
                     var message = this.Request.CreateResponse(HttpStatusCode.Created, news);
                     message.Headers.Location = new Uri(this.Request.RequestUri + "/" + news.Category + "/" + news.Id.ToString());
                     return message;
@@ -186,6 +190,7 @@ namespace _17nsj.Service.Controllers
                 catch (Exception e)
                 {
                     tran.Rollback();
+                    Global.Telemetry.TrackException(e);
                     return this.Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
                 }
             }
@@ -238,6 +243,9 @@ namespace _17nsj.Service.Controllers
                     entitiies.SaveChanges();
 
                     tran.Commit();
+
+                    Global.Telemetry.TrackTrace($"【更新】[{this.UserId}]によってニュース[{news.Category + "-" + news.Id.ToString()}]が更新されました。", SeverityLevel.Information);
+
                     var message = this.Request.CreateResponse(HttpStatusCode.OK, news);
                     message.Headers.Location = new Uri(this.Request.RequestUri + "/" + news.Category + "/" + news.Id.ToString());
                     return message;
@@ -245,6 +253,7 @@ namespace _17nsj.Service.Controllers
                 catch (Exception e)
                 {
                     tran.Rollback();
+                    Global.Telemetry.TrackException(e);
                     return this.Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
                 }
             }

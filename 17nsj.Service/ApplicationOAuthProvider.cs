@@ -10,6 +10,8 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using _17nsj.DataAccess;
+using Microsoft.ApplicationInsights;
+using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
@@ -63,6 +65,8 @@ namespace _17nsj.Service
                     new Claim(ClaimTypes.GivenName, context.UserName),
                 });
                 context.Validated(identity);
+
+                Global.Telemetry.TrackTrace($"【発行】[{user.UserId}({user.DisplayName})]にアクセストークンを発行しました。", SeverityLevel.Information);
             }
             else
             {
