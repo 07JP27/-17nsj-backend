@@ -1,4 +1,4 @@
-﻿// T4 コード生成がモデル 'C:\Users\01050\Documents\GitHub\17nsj-backend\17nsj.DataAccess\Model.edmx' に対して有効です。 
+﻿// T4 コード生成がモデル 'C:\Users\Junpei Tsuchida\Desktop\17nsj-backend\17nsj.DataAccess\Model.edmx' に対して有効です。 
 // レガシ コード生成を有効にするには、'コード生成方法' デザイナー
 // プロパティの値を 'レガシ ObjectContext' に変更します。このプロパティは、デザイナーでモデルが開かれている場合に [プロパティ] ウィンドウ
 // で使用できます。

@@ -11,8 +11,9 @@
         <EntityTypeShape EntityType="Model.News" Width="1.5" PointX="2.25" PointY="0.5" />
         <EntityTypeShape EntityType="Model.NewsCategories" Width="1.5" PointX="4" PointY="0.5" />
         <EntityTypeShape EntityType="Model.Newspapers" Width="1.5" PointX="9.25" PointY="0.5" />
-        <EntityTypeShape EntityType="Model.MobileAppConfig" Width="1.5" PointX="12.875" PointY="0.5" />
+        <EntityTypeShape EntityType="Model.MobileAppConfig" Width="1.5" PointX="12.75" PointY="0.5" />
         <EntityTypeShape EntityType="Model.Activities" Width="1.5" PointX="5.75" PointY="0.5" />
+        <EntityTypeShape EntityType="Model.Documents" Width="1.5" PointX="14.5" PointY="0.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

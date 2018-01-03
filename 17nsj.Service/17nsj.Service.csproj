@@ -162,6 +162,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ActivitiesController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
+    <Compile Include="Controllers\DocumentsController.cs" />
     <Compile Include="Controllers\MobileAppConfigController.cs" />
     <Compile Include="Controllers\ActivityCategoriesController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
