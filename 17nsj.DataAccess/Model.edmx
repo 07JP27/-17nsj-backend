@@ -24,6 +24,8 @@
           <Property Name="IsClosed" Type="bit" />
           <Property Name="WaitingTime" Type="int" />
           <Property Name="WaitingInfoUpdatedAt" Type="datetime2" Precision="7" />
+          <Property Name="latitude" Type="float" />
+          <Property Name="longitude" Type="float" />
           <Property Name="IsAvailable" Type="bit" Nullable="false" />
           <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="30" Nullable="false" />
@@ -295,6 +297,8 @@
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="latitude" Type="Double" />
+          <Property Name="longitude" Type="Double" />
         </EntityType>
         <EntityType Name="Documents">
           <Key>
@@ -417,6 +421,8 @@
           <EntitySetMapping Name="Activities">
             <EntityTypeMapping TypeName="Model.Activities">
               <MappingFragment StoreEntitySet="Activities">
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />

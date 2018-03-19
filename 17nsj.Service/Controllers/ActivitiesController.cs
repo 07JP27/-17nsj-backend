@@ -245,6 +245,8 @@ namespace _17nsj.Service.Controllers
                     act.Term = newAct.Term;
                     act.Location = newAct.Location;
                     act.MapURL = newAct.MapURL;
+                    act.latitude = newAct.latitude;
+                    act.longitude = newAct.longitude;
 
                     entitiies.SaveChanges();
 
