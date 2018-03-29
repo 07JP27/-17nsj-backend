@@ -42,7 +42,7 @@ namespace _17nsj.Service.Controllers
 
             using (Entities entitiies = new Entities())
             {
-                var news = entitiies.News.Where(e => e.IsAvailable == true).OrderByDescending(e => e.CreatedAt).ToList();
+                var news = entitiies.News.Where(e => e.IsAvailable == true).OrderByDescending(e => e.UpdatedAt).ToList();
                 var filterNews = options.ApplyTo(news.AsQueryable()) as IQueryable<News>;
 
                 if (filterNews != null)
@@ -74,7 +74,7 @@ namespace _17nsj.Service.Controllers
 
             using (Entities entitiies = new Entities())
             {
-                var news = entitiies.News.Where(e => e.Category == category && e.IsAvailable == true).OrderByDescending(e => e.CreatedAt).ToList();
+                var news = entitiies.News.Where(e => e.Category == category && e.IsAvailable == true).OrderByDescending(e => e.UpdatedAt).ToList();
                 var filterNews = options.ApplyTo(news.AsQueryable()) as IQueryable<News>;
 
                 if (filterNews != null)
