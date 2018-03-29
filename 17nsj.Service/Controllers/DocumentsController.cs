@@ -38,7 +38,7 @@ namespace _17nsj.Service.Controllers
 
             using (Entities entitiies = new Entities())
             {
-                var doc = entitiies.Documents.ToList();
+                var doc = entitiies.Documents.Where(e => e.IsAvailable == true).OrderByDescending(e => e.Id).ToList();
 
                 if (doc != null)
                 {

@@ -155,7 +155,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationOAuthProvider.cs" />
@@ -178,7 +180,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\api-17nsj - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\xamarin-backend - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\xamarin-backend.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

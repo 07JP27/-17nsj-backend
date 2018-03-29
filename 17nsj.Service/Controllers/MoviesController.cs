@@ -38,7 +38,7 @@ namespace _17nsj.Service.Controllers
 
             using (Entities entitiies = new Entities())
             {
-                var movies = entitiies.Movies.ToList();
+                var movies = entitiies.Movies.Where(e => e.IsAvailable == true).OrderByDescending(e => e.Id).ToList();
 
                 if (movies != null)
                 {
