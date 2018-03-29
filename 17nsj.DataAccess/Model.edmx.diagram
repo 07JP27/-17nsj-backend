@@ -14,6 +14,7 @@
         <EntityTypeShape EntityType="Model.MobileAppConfig" Width="1.5" PointX="12.75" PointY="0.5" />
         <EntityTypeShape EntityType="Model.Activities" Width="1.5" PointX="5.75" PointY="0.5" />
         <EntityTypeShape EntityType="Model.Documents" Width="1.5" PointX="14.5" PointY="0.5" />
+        <EntityTypeShape EntityType="Model.Schedules" Width="1.5" PointX="16.25" PointY="0.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
