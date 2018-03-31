@@ -57,7 +57,7 @@
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="53" Nullable="false" />
         </EntityType>
         <!--生成中に見つかったエラー:
-警告 6002: テーブル/ビュー 'xamarin-backend.dbo.MobileAppConfig' には主キーが定義されていません。主キーは推論され、定義は読み取り専用のテーブル/ビューとして作成されました。-->
+警告 6002: テーブル/ビュー 'db-17nsj.dbo.MobileAppConfig' には主キーが定義されていません。主キーは推論され、定義は読み取り専用のテーブル/ビューとして作成されました。-->
         <EntityType Name="MobileAppConfig">
           <Key>
             <PropertyRef Name="ForceUpdate" />
@@ -149,12 +149,11 @@
             <PropertyRef Name="Title" />
             <PropertyRef Name="HasRange" />
             <PropertyRef Name="Start" />
-            <PropertyRef Name="End" />
           </Key>
           <Property Name="Title" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="HasRange" Type="bit" Nullable="false" />
           <Property Name="Start" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="End" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="End" Type="datetime2" Precision="7" />
         </EntityType>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="Activities" EntityType="Self.Activities" Schema="dbo" store:Type="Tables" />
@@ -334,12 +333,11 @@
             <PropertyRef Name="Title" />
             <PropertyRef Name="HasRange" />
             <PropertyRef Name="Start" />
-            <PropertyRef Name="End" />
           </Key>
           <Property Name="Title" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="HasRange" Type="Boolean" Nullable="false" />
           <Property Name="Start" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="End" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="End" Type="DateTime" Precision="7" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
