@@ -33,7 +33,7 @@ namespace _17nsj.DataAccess
         public string CreatedBy { get; set; }
         public System.DateTime UpdatedAt { get; set; }
         public string UpdatedBy { get; set; }
-        public Nullable<double> latitude { get; set; }
-        public Nullable<double> longitude { get; set; }
+        public Nullable<double> Latitude { get; set; }
+        public Nullable<double> Longitude { get; set; }
     }
 }
