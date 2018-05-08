@@ -18,5 +18,6 @@ namespace _17nsj.DataAccess
         public bool HasRange { get; set; }
         public System.DateTime Start { get; set; }
         public Nullable<System.DateTime> End { get; set; }
+        public string Color { get; set; }
     }
 }

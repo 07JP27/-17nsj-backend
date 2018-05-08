@@ -57,7 +57,7 @@
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="53" Nullable="false" />
         </EntityType>
         <!--生成中に見つかったエラー:
-警告 6002: テーブル/ビュー 'db-17nsj.dbo.MobileAppConfig' には主キーが定義されていません。主キーは推論され、定義は読み取り専用のテーブル/ビューとして作成されました。-->
+警告 6002: テーブル/ビュー 'xamarin-backend.dbo.MobileAppConfig' には主キーが定義されていません。主キーは推論され、定義は読み取り専用のテーブル/ビューとして作成されました。-->
         <EntityType Name="MobileAppConfig">
           <Key>
             <PropertyRef Name="ForceUpdate" />
@@ -154,6 +154,7 @@
           <Property Name="HasRange" Type="bit" Nullable="false" />
           <Property Name="Start" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="End" Type="datetime2" Precision="7" />
+          <Property Name="Color" Type="char" MaxLength="7" Nullable="false" />
         </EntityType>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="Activities" EntityType="Self.Activities" Schema="dbo" store:Type="Tables" />
@@ -338,6 +339,7 @@
           <Property Name="HasRange" Type="Boolean" Nullable="false" />
           <Property Name="Start" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="End" Type="DateTime" Precision="7" />
+          <Property Name="Color" Type="String" Nullable="false" MaxLength="7" FixedLength="true" Unicode="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -488,6 +490,7 @@
           <EntitySetMapping Name="Schedules">
             <EntityTypeMapping TypeName="Model.Schedules">
               <MappingFragment StoreEntitySet="Schedules">
+                <ScalarProperty Name="Color" ColumnName="Color" />
                 <ScalarProperty Name="End" ColumnName="End" />
                 <ScalarProperty Name="Start" ColumnName="Start" />
                 <ScalarProperty Name="HasRange" ColumnName="HasRange" />
