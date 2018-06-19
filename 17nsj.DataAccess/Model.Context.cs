@@ -35,5 +35,7 @@ namespace _17nsj.DataAccess
         public virtual DbSet<Activities> Activities { get; set; }
         public virtual DbSet<Documents> Documents { get; set; }
         public virtual DbSet<Schedules> Schedules { get; set; }
+        public virtual DbSet<JamGoods> JamGoods { get; set; }
+        public virtual DbSet<JamGoodsCategories> JamGoodsCategories { get; set; }
     }
 }

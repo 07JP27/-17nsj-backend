@@ -61,6 +61,12 @@
     <Compile Include="Documents.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="JamGoods.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="JamGoodsCategories.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="MobileAppConfig.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

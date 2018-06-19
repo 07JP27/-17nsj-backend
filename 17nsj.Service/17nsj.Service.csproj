@@ -165,6 +165,8 @@
     <Compile Include="Controllers\ActivitiesController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\DocumentsController.cs" />
+    <Compile Include="Controllers\JamGoodsCategoriesController.cs" />
+    <Compile Include="Controllers\JamGoodsController.cs" />
     <Compile Include="Controllers\MobileAppConfigController.cs" />
     <Compile Include="Controllers\ActivityCategoriesController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
