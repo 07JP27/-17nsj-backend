@@ -63,3 +63,7 @@ dkms.conf
 17nsj.Service/Web.Release.config
 packages/
 17nsj.Service/Properties/PublishProfiles
+17nsj.mc/obj/
+17nsj.mc/bin/
+17nsj.mc/appsettings.json
+17nsj.mc/appsettings.Development.json
