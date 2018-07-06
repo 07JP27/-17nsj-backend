@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace _17nsj.mc
+namespace _17nsj.Jedi
 {
     public class Program
     {

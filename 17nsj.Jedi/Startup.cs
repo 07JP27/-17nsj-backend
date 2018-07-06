@@ -12,8 +12,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using _17nsj.DataAccess;
+using _17nsj.Repository;
 
-namespace _17nsj.mc
+namespace _17nsj.Jedi
 {
     public class Startup
     {
@@ -48,7 +49,7 @@ namespace _17nsj.mc
             });
 
             // Entity Frameworkê›íË
-            services.AddDbContext<Entities>(options =>
+            services.AddDbContext<JediDbContext>(options =>
             {
                 options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection"));
             });
