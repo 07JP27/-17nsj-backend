@@ -53,7 +53,6 @@ namespace _17nsj.Jedi
             {
                 options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection"));
             });
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

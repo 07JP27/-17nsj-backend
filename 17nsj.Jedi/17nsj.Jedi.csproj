@@ -2,16 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <AssemblyName>17nsj.jedi</AssemblyName>
-    <RootNamespace>17nsj.jedi</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="EntityFramework" Version="6.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\17nsj.DataAccess\17nsj.DataAccess.csproj" />
     <ProjectReference Include="..\17nsj.Repository\17nsj.Repository.csproj" />
   </ItemGroup>
 

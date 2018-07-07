@@ -11,9 +11,11 @@ namespace _17nsj.DataAccess
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class JamGoodsCategories
     {
+        [Key]
         public string Category { get; set; }
         public string CategoryName { get; set; }
         public int DisplayOrder { get; set; }

@@ -11,7 +11,7 @@ namespace _17nsj.DataAccess
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class Activities
     {
         public string Category { get; set; }

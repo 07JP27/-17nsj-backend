@@ -11,9 +11,11 @@ namespace _17nsj.DataAccess
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Users
     {
+        [Key]
         public string UserId { get; set; }
         public string DisplayName { get; set; }
         public string Password { get; set; }

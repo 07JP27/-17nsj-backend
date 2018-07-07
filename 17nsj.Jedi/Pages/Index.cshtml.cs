@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace _17nsj.Jedi.Pages
 {
-    public class IndexModel : PageModel
+    public class IndexModel : PageModelBase
     {
         public IndexModel(JediDbContext dbContext)
             :base(dbContext)
@@ -16,9 +16,9 @@ namespace _17nsj.Jedi.Pages
 
         }
 
-        public void OnGet()
+        public async Task OnGetAsync()
         {
-
+            await PageInitializeAsync();
         }
     }
 }

@@ -14,6 +14,14 @@ namespace _17nsj.Repository
         {
             // 処理なし
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Activities>().HasKey(c => new { c.Category, c.Id });
+            modelBuilder.Entity<JamGoods>().HasKey(c => new { c.Category, c.Id });
+            modelBuilder.Entity<News>().HasKey(c => new { c.Category, c.Id });
+            modelBuilder.Entity<Schedules>().HasKey(c => new { c.Title, c.HasRange, c.Start });
+            modelBuilder.Entity<MobileAppConfig>().HasKey(c => new { c.ForceUpdate, c.DroidVersion, c.DroidStoreURL, c.iOSVersion, c.iOSStoreURL });
+        }
 
         public virtual DbSet<ActivityCategories> ActivityCategories { get; set; }
         public virtual DbSet<Movies> Movies { get; set; }
