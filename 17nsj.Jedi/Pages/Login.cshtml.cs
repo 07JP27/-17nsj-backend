@@ -8,11 +8,22 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using _17nsj.Jedi.Models;
+using _17nsj.Repository;
+using Microsoft.EntityFrameworkCore;
+using _17nsj.Jedi.Utils;
 
 namespace _17nsj.Jedi.Pages
 {
     public class LoginModel : PageModel
     {
+        public LoginModel(JediDbContext dbContext)
+        {
+            this.DBContext = dbContext;
+        }
+
+        protected JediDbContext DBContext { get; private set; }
+
         [BindProperty]
         public LoginDataModel loginData { get; set; }
 
@@ -20,7 +31,15 @@ namespace _17nsj.Jedi.Pages
         {
             if (ModelState.IsValid)
             {
-                var isValid = (loginData.Username == "user" && loginData.Password == "pass");
+                var user = await this.DBContext.Users.FirstOrDefaultAsync(x => x.UserId == loginData.Username);
+
+                if (user == null)
+                {
+                    ModelState.AddModelError("", "username or password is invalid");
+                    return Page();
+                }
+
+                var isValid = user.Password == SHA256Util.GetHashedString(loginData.Password).ToLower();
                 if (!isValid)
                 {
                     ModelState.AddModelError("", "username or password is invalid");
@@ -48,14 +67,5 @@ namespace _17nsj.Jedi.Pages
                 return Page();
             }
         }
-    }
-
-    public class LoginDataModel
-    {
-        [Required]
-        public string Username { get; set; }
-
-        [Required, DataType(DataType.Password)]
-        public string Password { get; set; }
     }
 }

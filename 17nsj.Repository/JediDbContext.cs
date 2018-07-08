@@ -16,6 +16,9 @@ namespace _17nsj.Repository
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            var entity = modelBuilder.Entity<Users>();
+            entity.ToTable("MST_Users", "dbo").HasKey(p => p.UserId);
+
             modelBuilder.Entity<Activities>().HasKey(c => new { c.Category, c.Id });
             modelBuilder.Entity<JamGoods>().HasKey(c => new { c.Category, c.Id });
             modelBuilder.Entity<News>().HasKey(c => new { c.Category, c.Id });
