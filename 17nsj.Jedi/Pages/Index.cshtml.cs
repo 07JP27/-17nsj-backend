@@ -18,7 +18,6 @@ namespace _17nsj.Jedi.Pages
 
         public async Task OnGetAsync()
         {
-            await PageInitializeAsync();
         }
     }
 }

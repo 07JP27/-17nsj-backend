@@ -12,6 +12,8 @@ using _17nsj.Jedi.Models;
 using _17nsj.Repository;
 using Microsoft.EntityFrameworkCore;
 using _17nsj.Jedi.Utils;
+using _17nsj.Jedi.Domains;
+using _17nsj.DataAccess;
 
 namespace _17nsj.Jedi.Pages
 {
@@ -27,45 +29,59 @@ namespace _17nsj.Jedi.Pages
         [BindProperty]
         public LoginDataModel loginData { get; set; }
 
+        protected string Msg { get; set; }
+        protected int MsgCategory { get; set; }
+
         public async Task<IActionResult> OnPostAsync(string ReturnUrl)
         {
-            if (ModelState.IsValid)
+            var user = await this.DBContext.Users.Where(x => x.UserId == loginData.Username && x.IsAvailable == true).FirstOrDefaultAsync();
+
+            if (user == null)
             {
-                var user = await this.DBContext.Users.FirstOrDefaultAsync(x => x.UserId == loginData.Username);
+                this.Msg = "ユーザーIDまたはパスワードが無効です。";
+                this.MsgCategory = MsgCategoryDomain.Error;
+                return Page();
+            }
 
-                if (user == null)
-                {
-                    ModelState.AddModelError("", "username or password is invalid");
-                    return Page();
-                }
+            var isValid = (user.Password == SHA256Util.GetHashedString(loginData.Password).ToLower());
+            if (!isValid)
+            {
+                this.Msg = "ユーザーIDまたはパスワードが無効です。";
+                this.MsgCategory = MsgCategoryDomain.Error;
+                return Page();
+            }
 
-                var isValid = user.Password == SHA256Util.GetHashedString(loginData.Password).ToLower();
-                if (!isValid)
-                {
-                    ModelState.AddModelError("", "username or password is invalid");
-                    return Page();
-                }
-                var identity = new System.Security.Claims.ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, ClaimTypes.Role);
-                identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, loginData.Username));
-                identity.AddClaim(new Claim(ClaimTypes.Name, loginData.Username));
-                identity.AddClaim(new Claim(ClaimTypes.Role, "Reader"));
-                var principal = new ClaimsPrincipal(identity);
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, new AuthenticationProperties { });
+            var identity = new System.Security.Claims.ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, ClaimTypes.Role);
+            identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.UserId));
+            identity.AddClaim(new Claim(ClaimTypes.Name, user.DisplayName));
+            identity.AddClaim(new Claim(ClaimTypes.Role, GetUserRole(user)));
+            var principal = new ClaimsPrincipal(identity);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, new AuthenticationProperties { });
 
-                if (ReturnUrl == null || ReturnUrl == "/")
-                {
-                    return RedirectToPage("Index");
-                }
-                else
-                {
-                    return RedirectToPage(ReturnUrl);
-                }
+            if (ReturnUrl == null || ReturnUrl == "/")
+            {
+                return RedirectToPage("Index");
             }
             else
             {
-                ModelState.AddModelError("", "username or password is blank");
-                return Page();
+                return RedirectToPage(ReturnUrl);
             }
+
+        }
+
+        private string GetUserRole(Users user)
+        {
+            if(user.IsAdmin)
+            {
+                return UserRoleDomain.Admin;
+            }
+
+            if(user.CanWrite)
+            {
+                return UserRoleDomain.Writer;
+            }
+
+            return UserRoleDomain.Reader;
         }
     }
 }

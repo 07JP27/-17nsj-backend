@@ -1,4 +1,6 @@
-﻿using _17nsj.Repository;
+﻿using _17nsj.Jedi.Domains;
+using _17nsj.Repository;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -19,11 +21,62 @@ namespace _17nsj.Jedi.Pages
 
         protected JediDbContext DBContext { get; private set; }
 
-        protected async Task PageInitializeAsync()
+        protected string UserID
         {
-            var a = this.User.FindFirst(ClaimTypes.Name).Value;
-            var b = this.User.FindFirst(ClaimTypes.Role).Value;
-            var notifitcations = await this.DBContext.News.ToListAsync();
+            get
+            {
+                return this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            }
+        }
+
+        protected string UserName
+        {
+            get
+            {
+                return this.User.FindFirst(ClaimTypes.Name).Value;
+            }
+        }
+
+        protected string UserRole
+        {
+            get
+            {
+                return UserRoleDomain.GetName(this.User.FindFirst(ClaimTypes.Role).Value);
+            }
+        }
+
+        protected bool CanRead { get; private set; }
+        protected bool CanWrite { get; private set; }
+        protected bool IsAdmin { get; private set; }
+        protected string Msg { get; set; }
+        protected int MsgCategory { get; set; }
+
+        protected void PageInitializeAsync()
+        {
+            if(this.UserRole == UserRoleDomain.Admin)
+            {
+                this.IsAdmin = true;
+                this.CanRead = true;
+                this.CanWrite = true;
+            }
+            else if(this.UserRole == UserRoleDomain.Writer)
+            {
+                this.IsAdmin = false;
+                this.CanRead = true;
+                this.CanWrite = true;
+            }
+            else
+            {
+                this.IsAdmin = false;
+                this.CanRead = false;
+                this.CanWrite = true;
+            }
+        }
+
+        public async Task<IActionResult> OnPostSignOutAsync()
+        {
+            await HttpContext.SignOutAsync();
+            return RedirectToPage("Login");
         }
     }
 }

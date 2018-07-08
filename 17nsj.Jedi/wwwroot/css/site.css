@@ -1,37 +1,37 @@
-/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification 
-for details on configuring this project to bundle and minify static web assets. */
-body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+.cal_wrapper {
+    max-width: 800px; /* ç≈ëÂïù */
+    min-width: 300px; /* ç≈è¨ïù */
+    margin: 2.0833% auto;
 }
 
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+.googlecal {
+    position: relative;
+    padding-bottom: 100%; /* ècâ°î‰ */
+    height: 0;
+    overflow: hidden;
 }
 
-/* Carousel */
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
+.googlecal iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
 }
 
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
-    width: 100%;
-}
-
-/* QR code generator */
-#qrCode {
-    margin: 15px;
-}
-
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
+@media only screen and (min-width: 600px) {
+    /* âÊñ ïùÇ™600pxà»è„ÇÃèÍçáÇÃècâ°î‰ÇÃéwíË */
+    .googlecal {
+        padding-bottom: 75%;
     }
+}
+
+.content-wrapper {
+    height: 100px;
+    overflow: auto;
+}
+
+.box-header h3 {
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
