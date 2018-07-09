@@ -31,7 +31,27 @@
     overflow: auto;
 }
 
+.footer-image {
+    height: 25px;
+}
+
 .box-header h3 {
     margin-top: 0px;
     margin-bottom: 0px;
+}
+
+.narrow-dropdown {
+    min-width: 100px;
+}
+
+.navbar-nav > .notifications-menu > .dropdown-menu, .navbar-nav > .messages-menu > .dropdown-menu, .navbar-nav > .tasks-menu > .dropdown-menu {
+    width: 300px;
+}
+
+.navbar-nav > .user-menu > .dropdown-menu > li.user-header {
+    height: auto;
+}
+
+.main-header .navbar .nav > li.user > a > .fa {
+    font-size: 19px;
 }
