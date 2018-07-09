@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <RootNamespace>_17nsj.Jedi</RootNamespace>
+    <AssemblyName>_17nsj.Jedi</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
