@@ -1,0 +1,151 @@
+#logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: 0 0 0 -238px
+}
+
+.main {
+    fill: none;
+    stroke: #1b1464; /*線の色を指定する*/
+    stroke-dasharray: 2000; /*線の間隔を指定する*/
+    stroke-dashoffset: 0; /*線の位置を指定する(IEは効かない属性)*/
+    stroke-width: 1; /*線の太さを指定する*/
+    -webkit-animation: main 3s ease-in forwards;
+    animation: main 3s ease-in forwards;
+}
+
+.sub {
+    fill: none;
+    stroke: #0071bc; /*線の色を指定する*/
+    stroke-dasharray: 2000; /*線の間隔を指定する*/
+    stroke-dashoffset: 0; /*線の位置を指定する(IEは効かない属性)*/
+    stroke-width: 1; /*線の太さを指定する*/
+    -webkit-animation: sub 3s ease-in forwards;
+    animation: sub 3s ease-in forwards;
+}
+
+.red {
+    fill: none;
+    stroke: #ff0000; /*線の色を指定する*/
+    stroke-dasharray: 2000; /*線の間隔を指定する*/
+    stroke-dashoffset: 0; /*線の位置を指定する(IEは効かない属性)*/
+    stroke-width: 1; /*線の太さを指定する*/
+    -webkit-animation: red 3s ease-in forwards;
+    animation: red 3s ease-in forwards;
+}
+
+.jedi {
+    opacity: 0;
+    animation: fadeIn 2s ease 2.8s 1 forwards;
+    -webkit-animation: fadeIn 2s ease 2.8s 1 forwards;
+}
+
+
+@keyframes fadeIn {
+    100% {
+        opacity: 1
+    }
+}
+
+@-webkit-keyframes fadeIn {
+    100% {
+        opacity: 1
+    }
+}
+
+@-webkit-keyframes main {
+    0% {
+        stroke-dashoffset: 2000;
+        fill: transparent; /*透過*/
+    }
+
+    50% {
+        fill: transparent; /*透過*/
+    }
+
+    100% {
+        stroke-dashoffset: 0;
+        fill: #1b1464;
+    }
+}
+
+@keyframes main {
+    0% {
+        stroke-dashoffset: 2000;
+        fill: transparent; /*透過*/
+    }
+
+    50% {
+        fill: transparent; /*透過*/
+    }
+
+    100% {
+        stroke-dashoffset: 0;
+        fill: #1b1464;
+    }
+}
+
+@-webkit-keyframes sub {
+    0% {
+        stroke-dashoffset: 2000;
+        fill: transparent; /*透過*/
+    }
+
+    50% {
+        fill: transparent; /*透過*/
+    }
+
+    100% {
+        stroke-dashoffset: 0;
+        fill: #0071bc;
+    }
+}
+
+@keyframes sub {
+    0% {
+        stroke-dashoffset: 2000;
+        fill: transparent; /*透過*/
+    }
+
+    50% {
+        fill: transparent; /*透過*/
+    }
+
+    100% {
+        stroke-dashoffset: 0;
+        fill: #0071bc;
+    }
+}
+
+@-webkit-keyframes red {
+    0% {
+        stroke-dashoffset: 2000;
+        fill: transparent; /*透過*/
+    }
+
+    50% {
+        fill: transparent; /*透過*/
+    }
+
+    100% {
+        stroke-dashoffset: 0;
+        fill: #ff0000;
+    }
+}
+
+@keyframes red {
+    0% {
+        stroke-dashoffset: 2000;
+        fill: transparent; /*透過*/
+    }
+
+    50% {
+        fill: transparent; /*透過*/
+    }
+
+    100% {
+        stroke-dashoffset: 0;
+        fill: #ff0000;
+    }
+}

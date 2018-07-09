@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using _17nsj.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace _17nsj.Jedi.Pages
 {

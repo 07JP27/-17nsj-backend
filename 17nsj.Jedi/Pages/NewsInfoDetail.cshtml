@@ -1,0 +1,40 @@
+﻿@page
+@model _17nsj.Jedi.Pages.NewsInfoDetailModel
+@{
+    ViewData["Title"] = "NewsInfoDetail";
+}
+
+<section class="content">
+    <div>
+        <div class="box box-primary" style="border-top: 30px solid @Model.CurrentNews.CategoryColor;">
+            <div class="box-header with-border">
+                <h3 style="margin-top: 0px; margin-bottom: 0px;">@Model.CurrentNews.Title <small>@Model.CurrentNews.Category-@Model.CurrentNews.Id</small></h3>
+                <p class="pull-right">取材:@Model.CurrentNews.Author</p>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="col-md-6 col-md-offset-3 col-xs-12">
+                    <div style="text-align: center;" class="col-md-12">
+                        <img src="@Model.CurrentNews.MediaURL" class="image col-md-12 col-xs-12">
+                    </div>
+                    <p style="margin-top: 10px;">
+                        @Model.CurrentNews.Outline
+                    </p>
+                    @if (!string.IsNullOrEmpty(Model.CurrentNews.RelationalURL))
+                    {
+                        <a href="@Model.CurrentNews.RelationalURL" target="_blank">関連リンク</a>
+                    }
+                    <div class="pull-right" style="margin-top: 10px;">
+                        <p>
+                            カテゴリー:@Model.CurrentNews.CategoryStr<br />
+                            配信日:@Model.CurrentNews.CreatedAt<br />
+                            最終更新日:@Model.CurrentNews.UpdatedAt
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </div>
+</section>

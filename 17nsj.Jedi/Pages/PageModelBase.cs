@@ -21,7 +21,7 @@ namespace _17nsj.Jedi.Pages
 
         protected JediDbContext DBContext { get; private set; }
 
-        protected string UserID
+        public string UserID
         {
             get
             {
@@ -29,7 +29,7 @@ namespace _17nsj.Jedi.Pages
             }
         }
 
-        protected string UserName
+        public string UserName
         {
             get
             {
@@ -37,7 +37,7 @@ namespace _17nsj.Jedi.Pages
             }
         }
 
-        protected string UserRole
+        public string UserRole
         {
             get
             {
@@ -45,31 +45,32 @@ namespace _17nsj.Jedi.Pages
             }
         }
 
-        protected bool CanRead { get; private set; }
-        protected bool CanWrite { get; private set; }
-        protected bool IsAdmin { get; private set; }
-        protected string Msg { get; set; }
-        protected int MsgCategory { get; set; }
+        public bool CanRead { get; private set; }
+        public bool CanWrite { get; private set; }
+        public bool IsAdmin { get; private set; }
+        public string Msg { get; set; }
+        public int MsgCategory { get; set; }
 
         protected void PageInitializeAsync()
         {
-            if(this.UserRole == UserRoleDomain.Admin)
+            var role = this.User.FindFirst(ClaimTypes.Role).Value;
+            if (role == UserRoleDomain.Admin)
             {
                 this.IsAdmin = true;
-                this.CanRead = true;
                 this.CanWrite = true;
+                this.CanRead = true;
             }
             else if(this.UserRole == UserRoleDomain.Writer)
             {
                 this.IsAdmin = false;
-                this.CanRead = true;
                 this.CanWrite = true;
+                this.CanRead = true;
             }
             else
             {
                 this.IsAdmin = false;
-                this.CanRead = false;
-                this.CanWrite = true;
+                this.CanWrite = false;
+                this.CanRead = true;
             }
         }
 

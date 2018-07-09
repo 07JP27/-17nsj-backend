@@ -29,8 +29,8 @@ namespace _17nsj.Jedi.Pages
         [BindProperty]
         public LoginDataModel loginData { get; set; }
 
-        protected string Msg { get; set; }
-        protected int MsgCategory { get; set; }
+        public string Msg { get; set; }
+        public int MsgCategory { get; set; }
 
         public async Task<IActionResult> OnPostAsync(string ReturnUrl)
         {

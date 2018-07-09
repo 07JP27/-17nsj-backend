@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>@ViewData["Title"] - JEDI</title>
+    <title>@ViewData["Title"] | JEDI</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link href="~/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
@@ -24,7 +24,7 @@
                 <a href="" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                     <span class="sr-only">Toggle navigation</span>
                 </a>
-
+                
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
 
@@ -37,9 +37,9 @@
                                 <!-- User image -->
                                 <li class="user-header">
                                     <p>
-                                        Alexander Pierce
-                                        <small>Alexander Pierce - Web Developer</small>
-                                        <small>Alexander Pierce - Web Developer</small>
+                                        @Model.UserName
+                                        <small>@Model.UserID</small>
+                                        <small>@Model.UserRole</small>
                                     </p>
                                 </li>
                                 <li class="user-footer">
@@ -65,17 +65,17 @@
                         <img src="~/images/pr-dept.png" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
-                        <p>Junpei Tsuchida</p>
+                        <p>@Model.UserName</p>
                     </div>
                 </div>
                 <ul class="sidebar-menu" data-widget="tree">
                     <li is-active-page asp-page="/Index"><a href="Index"><i class="fa fa-dashboard"></i><span>ダッシュボード</span></a></li>
-                    <li is-active-page asp-page="/NewsInfo"><a href="newsinfolist.html"><i class="fa fa-comments-o"></i><span>News＆Info</span></a></li>
-                    <li is-active-page asp-page="/Activity"><a href="activitylist.html"><i class="fa fa-compass"></i><span>プログラム</span></a></li>
+                    <li is-active-page asp-page="/NewsInfo"><a href="NewsInfo"><i class="fa fa-comments-o"></i><span>News＆Info</span></a></li>
+                    <li is-active-page asp-page="/Activity"><a href="Activity"><i class="fa fa-compass"></i><span>プログラム</span></a></li>
                     <li class="header">管理者メニュー</li>
-                    <li is-active-page asp-page="/Users"><a href="userlist.html"><i class="fa fa-users"></i><span>ユーザー</span></a></li>
-                    <li is-active-page asp-page="/JamGoods"><a href="jamgoodslist.html"><i class="fa fa-shopping-cart"></i><span>オフィシャルグッズ</span></a></li>
-                    <li is-active-page asp-page="/Bulluten"><a href="bulletinregister.html"><i class="fa fa-bullhorn"></i> <span>掲示板登録</span></a></li>
+                    <li is-active-page asp-page="/Users"><a href="Users"><i class="fa fa-users"></i><span>ユーザー</span></a></li>
+                    <li is-active-page asp-page="/JamGoods"><a href="JamGoods"><i class="fa fa-shopping-cart"></i><span>オフィシャルグッズ</span></a></li>
+                    <li is-active-page asp-page="/Bulluten"><a href="InternalBulletin"><i class="fa fa-bullhorn"></i> <span>掲示板登録</span></a></li>
                 </ul>
             </section>
         </aside>
@@ -86,9 +86,9 @@
 
         <footer class="main-footer">
             <div class="pull-right hidden-sm hidden-xs">
-                <!--<img src="~/images/logomoji.png" class="image footer-image">-->
+                <img src="~/images/logomoji.png" class="image footer-image">
             </div>
-            <small>&copy; @DateTime.Now.Year 1fwaegfweagawegwe</small>
+            <small>&copy; @DateTime.Now.Year 17NSJ PR Dept,</small>
         </footer>
     </div>
 
