@@ -5,21 +5,23 @@ using System.Threading.Tasks;
 using _17nsj.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 
 namespace _17nsj.Jedi.Pages
 {
-    public class IndexModel : PageModelBase
+    public class ActivityDetailModel : PageModelBase
     {
-        public IndexModel(JediDbContext dbContext)
-            :base(dbContext)
+        public ActivityDetailModel(JediDbContext dbContext)
+            : base(dbContext)
         {
 
         }
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(string category, int? id)
         {
+            if (category == null || id == null) return new NotFoundResult();
+
             this.PageInitializeAsync();
+
             return this.Page();
         }
     }

@@ -5,20 +5,21 @@ using System.Threading.Tasks;
 using _17nsj.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 
 namespace _17nsj.Jedi.Pages
 {
-    public class IndexModel : PageModelBase
+    public class UserModel : PageModelBase
     {
-        public IndexModel(JediDbContext dbContext)
-            :base(dbContext)
+        public UserModel(JediDbContext dbContext)
+            : base(dbContext)
         {
 
         }
 
         public async Task<IActionResult> OnGetAsync()
         {
+            if (!this.IsAdmin) return new ForbidResult();
+
             this.PageInitializeAsync();
             return this.Page();
         }

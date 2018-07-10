@@ -5,14 +5,13 @@ using System.Threading.Tasks;
 using _17nsj.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 
 namespace _17nsj.Jedi.Pages
 {
-    public class IndexModel : PageModelBase
+    public class ActivityModel : PageModelBase
     {
-        public IndexModel(JediDbContext dbContext)
-            :base(dbContext)
+        public ActivityModel(JediDbContext dbContext)
+            : base(dbContext)
         {
 
         }

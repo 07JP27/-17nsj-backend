@@ -47,7 +47,10 @@
                                         <a href="#" class="btn btn-default btn-flat">Profile</a>
                                     </div>
                                     <div class="pull-right">
-                                        <button class="btn btn-default btn-flat" type="submit" asp-page-handler="SignOut">サインアウト</button>
+                                        @using (Html.BeginForm(FormMethod.Post))
+                                        {
+                                            <button class="btn btn-default btn-flat" type="submit" asp-page-handler="SignOut">サインアウト</button>
+                                        }
                                     </div>
                                 </li>
                             </ul>
@@ -75,7 +78,7 @@
                     <li class="header">管理者メニュー</li>
                     <li is-active-page asp-page="/Users"><a href="Users"><i class="fa fa-users"></i><span>ユーザー</span></a></li>
                     <li is-active-page asp-page="/JamGoods"><a href="JamGoods"><i class="fa fa-shopping-cart"></i><span>オフィシャルグッズ</span></a></li>
-                    <li is-active-page asp-page="/Bulluten"><a href="InternalBulletin"><i class="fa fa-bullhorn"></i> <span>掲示板登録</span></a></li>
+                    <li is-active-page asp-page="/NoticeBoard"><a href="NoticeBoard"><i class="fa fa-bullhorn"></i> <span>掲示板登録</span></a></li>
                 </ul>
             </section>
         </aside>
