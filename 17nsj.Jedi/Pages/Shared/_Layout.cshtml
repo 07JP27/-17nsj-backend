@@ -75,10 +75,13 @@
                     <li is-active-page asp-page="/Index"><a href="Index"><i class="fa fa-dashboard"></i><span>ダッシュボード</span></a></li>
                     <li is-active-page asp-page="/NewsInfo"><a href="NewsInfo"><i class="fa fa-comments-o"></i><span>News＆Info</span></a></li>
                     <li is-active-page asp-page="/Activity"><a href="Activity"><i class="fa fa-compass"></i><span>プログラム</span></a></li>
-                    <li class="header">管理者メニュー</li>
-                    <li is-active-page asp-page="/Users"><a href="Users"><i class="fa fa-users"></i><span>ユーザー</span></a></li>
-                    <li is-active-page asp-page="/JamGoods"><a href="JamGoods"><i class="fa fa-shopping-cart"></i><span>オフィシャルグッズ</span></a></li>
-                    <li is-active-page asp-page="/NoticeBoard"><a href="NoticeBoard"><i class="fa fa-bullhorn"></i> <span>掲示板登録</span></a></li>
+                    @if (Model.IsAdmin)
+                    {
+                        <li class="header">管理者メニュー</li>
+                        <li is-active-page asp-page="/Users"><a href="Users"><i class="fa fa-users"></i><span>ユーザー</span></a></li>
+                        <li is-active-page asp-page="/JamGoods"><a href="JamGoods"><i class="fa fa-shopping-cart"></i><span>オフィシャルグッズ</span></a></li>
+                        <li is-active-page asp-page="/NoticeBoard"><a href="NoticeBoard"><i class="fa fa-bullhorn"></i> <span>掲示板登録</span></a></li>
+                    }
                 </ul>
             </section>
         </aside>
