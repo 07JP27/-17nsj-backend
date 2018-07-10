@@ -10,9 +10,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace _17nsj.Jedi.Pages
 {
-    public class NewsInfoModel : PageModelBase
+    public class NewsInfoListModel : PageModelBase
     {
-        public NewsInfoModel(JediDbContext dbContext)
+        public NewsInfoListModel(JediDbContext dbContext)
             : base(dbContext)
         {
 

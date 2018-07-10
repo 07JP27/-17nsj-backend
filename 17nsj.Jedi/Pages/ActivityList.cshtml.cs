@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace _17nsj.Jedi.Pages
 {
-    public class UserModel : PageModelBase
+    public class ActivityListModel : PageModelBase
     {
-        public UserModel(JediDbContext dbContext)
+        public ActivityListModel(JediDbContext dbContext)
             : base(dbContext)
         {
 
@@ -18,8 +18,6 @@ namespace _17nsj.Jedi.Pages
 
         public async Task<IActionResult> OnGetAsync()
         {
-            if (!this.IsAdmin) return new ForbidResult();
-
             this.PageInitializeAsync();
             return this.Page();
         }
