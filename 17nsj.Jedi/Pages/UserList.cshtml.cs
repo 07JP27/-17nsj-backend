@@ -23,6 +23,7 @@ namespace _17nsj.Jedi.Pages
         public async Task<IActionResult> OnGetAsync()
         {
             if (!this.IsAdmin) return new ForbidResult();
+            this.PageInitializeAsync();
 
             var users = await this.DBContext.Users.Where(x => x.IsAvailable).ToListAsync();
 
@@ -38,7 +39,6 @@ namespace _17nsj.Jedi.Pages
                 this.ユーザーリスト.Add(model);
             }
 
-            this.PageInitializeAsync();
             return this.Page();
         }
     }
