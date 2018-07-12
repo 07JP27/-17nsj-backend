@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using _17nsj.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace _17nsj.Jedi.Pages
 {
+    [Authorize(Roles ="2")]
     public class NoticeBoardModel : PageModelBase
     {
         public NoticeBoardModel(JediDbContext dbContext)
@@ -18,8 +20,6 @@ namespace _17nsj.Jedi.Pages
 
         public async Task<IActionResult> OnGetAsync()
         {
-            if (!this.IsAdmin) return new ForbidResult();
-
             this.PageInitializeAsync();
             return this.Page();
         }
