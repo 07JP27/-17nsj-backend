@@ -9,6 +9,7 @@ namespace _17nsj.Jedi.Domains
     {
         public const int Info = 0;
         public const int Success = 1;
-        public const int Error = 2;
+        public const int Warning = 2;
+        public const int Error = 3;
     }
 }
