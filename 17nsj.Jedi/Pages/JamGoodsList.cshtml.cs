@@ -4,12 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using _17nsj.Jedi.Models;
 using _17nsj.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
 namespace _17nsj.Jedi.Pages
 {
+    [Authorize(Roles ="2")]
     public class JamGoodsListModel : PageModelBase
     {
         public JamGoodsListModel(JediDbContext dbContext)
@@ -23,7 +25,6 @@ namespace _17nsj.Jedi.Pages
 
         public async Task<IActionResult> OnGetAsync()
         {
-            if (!this.IsAdmin) return new ForbidResult();
             this.PageInitializeAsync();
 
             var categories = await this.DBContext.JamGoodsCategories.ToListAsync();
@@ -43,6 +44,7 @@ namespace _17nsj.Jedi.Pages
             {
                 var model = new JamGoodsModel();
                 model.Category = item.Category;
+                model.CategoryName = カテゴリーリスト.Where(x => x.Category == item.Category).FirstOrDefault().CategoryName;
                 model.Id = item.Id;
                 model.ThumbnailURL = item.ThumbnailURL;
                 model.GoodsName = item.GoodsName;

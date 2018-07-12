@@ -35,7 +35,7 @@ namespace _17nsj.Jedi.Pages
 
             this.CurrentNews = new NewsModel();
             CurrentNews.Category = news.Category;
-            CurrentNews.CategoryStr = currentCategory.CategoryName;
+            CurrentNews.CategoryName = currentCategory.CategoryName;
             CurrentNews.CategoryColor = currentCategory.Color;
             CurrentNews.Id = news.Id;
             CurrentNews.Author = news.Author;
