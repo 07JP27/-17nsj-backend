@@ -77,7 +77,7 @@ namespace _17nsj.Jedi.Pages
         public async Task<IActionResult> OnPostSignOutAsync()
         {
             await HttpContext.SignOutAsync();
-            return RedirectToPage("Login");
+            return RedirectToPage("/Login");
         }
     }
 }
