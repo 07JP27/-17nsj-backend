@@ -1,15 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
+using _17nsj.Jedi.Domains;
 using _17nsj.Jedi.Models;
+using _17nsj.Jedi.Utils;
 using _17nsj.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
 namespace _17nsj.Jedi.Pages
 {
+    [Authorize(Roles="2")]
     public class UserManageModel : PageModelBase
     {
         public UserManageModel(JediDbContext dbContext)
@@ -29,34 +34,71 @@ namespace _17nsj.Jedi.Pages
 
             if (string.IsNullOrEmpty(id))
             {
+                // 既存更新
                 this.IsEditMode = true;
 
                 var user = await this.DBContext.Users.Where(x => x.UserId == id && x.IsAvailable == true).FirstOrDefaultAsync();
-                if (user == null) return new NotFoundResult();
+                if (user == null)
+                {
+                    //対象なしエラー
+                    return this.Page();
+                }
 
+                if(user.UpdatedAt != TargetUser.UpdatedAt)
+                {
+                    //既更新エラー
+                    return this.Page();
+                }
+
+                var now = DateTime.UtcNow;
                 TargetUser.UserId = user.UserId;
                 TargetUser.DisplayName = user.DisplayName;
-                TargetUser.Password = user.Password;
+                TargetUser.Password = SHA256Util.GetHashedString(user.Password);
                 TargetUser.CanRead = user.CanRead;
                 TargetUser.CanWrite = user.CanWrite;
                 TargetUser.IsAdmin = user.IsAdmin;
-                TargetUser.IsAvailable = user.IsAvailable;
-                TargetUser.CreatedAt = user.CreatedAt;
-                TargetUser.CreatedBy = user.CreatedBy;
-                TargetUser.UpdatedAt = user.UpdatedAt;
-                TargetUser.UpdatedBy = user.UpdatedBy;
+                TargetUser.IsAvailable = true;
+                TargetUser.CreatedAt = now;
+                TargetUser.CreatedBy = this.UserID;
+                TargetUser.UpdatedAt = now;
+                TargetUser.UpdatedBy = this.UserID;
             }
             else
             {
+                // 新規作成
                 this.IsEditMode = false;
             }
 
             return this.Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(string id)
+        public async Task<IActionResult> OnPostAsync()
         {
             this.PageInitializeAsync();
+
+            if(this.IsEditMode)
+            {
+
+            }
+            else
+            {
+                using (var tran = await this.DBContext.Database.BeginTransactionAsync())
+                {
+                    //存在チェック
+                    var exist = await this.DBContext.Users.Where(x => x.UserId == this.TargetUser.UserId).AnyAsync();
+                    if(exist)
+                    {
+                        this.MsgCategory = MsgCategoryDomain.Error;
+                        this.Msg = "";
+                        return this.Page();
+                    }
+
+                
+
+                    tran.Commit();
+                    tran.Rollback();
+                }
+            }
             
 
 
