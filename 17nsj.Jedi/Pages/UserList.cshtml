@@ -4,5 +4,65 @@
     ViewData["Title"] = "User";
 }
 
-<h2>User</h2>
-
+<section class="content">
+    <div>
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <a href="/UserManage" type="button" class="btn btn-primary pull-right">
+                    <i class="fa fa-plus"></i>
+                </a>
+            </div>
+            <div class="box-body">
+                <div class="table-responsive">
+                    <table class="table no-margin">
+                        <thead>
+                            <tr>
+                                <th>ユーザーID</th>
+                                <th>表示名</th>
+                                <th>読み取り権限</th>
+                                <th>書き込み権限</th>
+                                <th>管理者</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in this.Model.ユーザーリスト)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.UserId)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.DisplayName)</td>
+                                    <td class="text-green">
+                                        @if (item.CanRead)
+                                        {
+                                        <i class="fa fa-fw fa-check-circle"></i>
+                                        }
+                                    </td>
+                                    <td class="text-green">
+                                        @if (item.CanWrite)
+                                        {
+                                            <i class="fa fa-fw fa-check-circle"></i>
+                                        }
+                                    </td>
+                                    <td class="text-green">
+                                        @if (item.IsAdmin)
+                                        {
+                                            <i class="fa fa-fw fa-check-circle"></i>
+                                        }
+                                    </td>
+                                    <td>
+                                        <a href="/UserManage?id=@item.UserId" type="button" class="btn btn-info btn-flat">Edit</a>
+                                    </td>
+                                    <td>
+                                        <a href="userdelete.html" type="button" class="btn btn-danger btn-flat">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </div>
+</section>

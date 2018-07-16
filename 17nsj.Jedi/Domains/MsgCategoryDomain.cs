@@ -7,9 +7,9 @@ namespace _17nsj.Jedi.Domains
 {
     public class MsgCategoryDomain
     {
-        public const int Info = 0;
-        public const int Success = 1;
-        public const int Warning = 2;
-        public const int Error = 3;
+        public const int Info = 1;
+        public const int Success = 2;
+        public const int Warning = 3;
+        public const int Error = 4;
     }
 }

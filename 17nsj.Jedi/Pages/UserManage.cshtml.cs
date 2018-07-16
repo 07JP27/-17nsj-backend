@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
+using _17nsj.Jedi.Constants;
 using _17nsj.Jedi.Domains;
 using _17nsj.Jedi.Models;
 using _17nsj.Jedi.Utils;
@@ -26,13 +27,14 @@ namespace _17nsj.Jedi.Pages
         [BindProperty]
         public UserModel TargetUser { get; set; }
 
-        private bool IsEditMode { get; set; }
+        [BindProperty]
+        public bool IsEditMode { get; set; }
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
             this.PageInitializeAsync();
 
-            if (string.IsNullOrEmpty(id))
+            if (!string.IsNullOrEmpty(id))
             {
                 // 既存更新
                 this.IsEditMode = true;
@@ -41,15 +43,12 @@ namespace _17nsj.Jedi.Pages
                 if (user == null)
                 {
                     //対象なしエラー
+                    this.MsgCategory = MsgCategoryDomain.Error;
+                    this.Msg = メッセージ.選択対象なし;
                     return this.Page();
                 }
 
-                if(user.UpdatedAt != TargetUser.UpdatedAt)
-                {
-                    //既更新エラー
-                    return this.Page();
-                }
-
+                TargetUser = new UserModel();
                 var now = DateTime.UtcNow;
                 TargetUser.UserId = user.UserId;
                 TargetUser.DisplayName = user.DisplayName;
