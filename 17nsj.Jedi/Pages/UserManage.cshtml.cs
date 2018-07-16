@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
+using _17nsj.DataAccess;
 using _17nsj.Jedi.Constants;
 using _17nsj.Jedi.Domains;
 using _17nsj.Jedi.Models;
@@ -52,15 +53,15 @@ namespace _17nsj.Jedi.Pages
                 var now = DateTime.UtcNow;
                 TargetUser.UserId = user.UserId;
                 TargetUser.DisplayName = user.DisplayName;
-                TargetUser.Password = SHA256Util.GetHashedString(user.Password);
+                TargetUser.Password = "・・・・・・・";
                 TargetUser.CanRead = user.CanRead;
                 TargetUser.CanWrite = user.CanWrite;
                 TargetUser.IsAdmin = user.IsAdmin;
-                TargetUser.IsAvailable = true;
-                TargetUser.CreatedAt = now;
-                TargetUser.CreatedBy = this.UserID;
-                TargetUser.UpdatedAt = now;
-                TargetUser.UpdatedBy = this.UserID;
+                TargetUser.IsAvailable = user.IsAvailable;
+                TargetUser.CreatedAt = user.CreatedAt;
+                TargetUser.CreatedBy = user.CreatedBy;
+                TargetUser.UpdatedAt = user.UpdatedAt;
+                TargetUser.UpdatedBy = user.UpdatedBy;
             }
             else
             {
@@ -77,10 +78,11 @@ namespace _17nsj.Jedi.Pages
 
             if(this.IsEditMode)
             {
-
+                //更新
             }
             else
             {
+                // 新規作成
                 using (var tran = await this.DBContext.Database.BeginTransactionAsync())
                 {
                     //存在チェック
@@ -88,14 +90,42 @@ namespace _17nsj.Jedi.Pages
                     if(exist)
                     {
                         this.MsgCategory = MsgCategoryDomain.Error;
-                        this.Msg = "";
+                        this.Msg = メッセージ.ユーザーID重複;
                         return this.Page();
                     }
 
-                
+                    var entity = new Users();
+                    var now = DateTime.UtcNow;
+                    entity.UserId = this.TargetUser.UserId;
+                    entity.DisplayName = this.TargetUser.DisplayName;
+                    entity.UserId = this.TargetUser.UserId;
+                    entity.UserId = this.TargetUser.UserId;
+                    entity.Password = SHA256Util.GetHashedString(this.TargetUser.Password);
+                    entity.CanRead = this.TargetUser.CanRead;
+                    entity.CanWrite = this.TargetUser.CanWrite;
+                    entity.IsAdmin = this.TargetUser.IsAdmin;
+                    entity.IsAvailable = true;
+                    entity.CreatedAt = now;
+                    entity.CreatedBy = this.UserID;
+                    entity.UpdatedAt = now;
+                    entity.UpdatedBy = this.UserID;
 
-                    tran.Commit();
-                    tran.Rollback();
+                    try
+                    {
+                        await this.DBContext.Users.AddAsync(entity);
+                        await this.DBContext.SaveChangesAsync();
+                        tran.Commit();
+                        this.MsgCategory = MsgCategoryDomain.Success;
+                        this.Msg = メッセージ.作成成功;
+                        return this.Page();
+                    }
+                    catch(Exception ex)
+                    {
+                        tran.Rollback();
+                        this.MsgCategory = MsgCategoryDomain.Error;
+                        this.Msg = ex.Message;
+                        return this.Page();
+                    }
                 }
             }
             

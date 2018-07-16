@@ -22,7 +22,7 @@ namespace _17nsj.Jedi.Utils
                 // 16進の数値を文字列として取り出す
                 hashedText.AppendFormat("{0:X2}", hash256Value[i]);
             }
-            return hashedText.ToString();
+            return hashedText.ToString().ToLower();
         }
     }
 }
