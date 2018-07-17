@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using _17nsj.Jedi.Domains;
 using _17nsj.Jedi.Models;
 using _17nsj.Repository;
 using Microsoft.AspNetCore.Authorization;
@@ -11,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace _17nsj.Jedi.Pages
 {
-    [Authorize(Roles ="2")]
+    [Authorize(Roles = UserRoleDomain.Admin)]
     public class UserListModel : PageModelBase
     {
         public UserListModel(JediDbContext dbContext)

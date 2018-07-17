@@ -10,6 +10,7 @@ namespace _17nsj.Jedi.Models
         public string UserId { get; set; }
         public string DisplayName { get; set; }
         public string Password { get; set; }
+        public string RePassword { get; set; }
         public bool CanRead { get; set; }
         public bool CanWrite { get; set; }
         public bool IsAdmin { get; set; }

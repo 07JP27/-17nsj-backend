@@ -18,7 +18,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace _17nsj.Jedi.Pages
 {
-    [Authorize(Roles="2")]
+    [Authorize(Roles=UserRoleDomain.Admin)]
     public class UserManageModel : PageModelBase
     {
         public UserManageModel(JediDbContext dbContext)
@@ -51,6 +51,12 @@ namespace _17nsj.Jedi.Pages
                     return this.Page();
                 }
 
+                //特殊ユーザーチェック
+                if (AppConstants.UndeliteableUsers.Contains(id))
+                {
+                    return new ForbidResult();
+                }
+
                 TargetUser = new UserModel();
                 var now = DateTime.UtcNow;
                 TargetUser.UserId = user.UserId;
@@ -78,7 +84,7 @@ namespace _17nsj.Jedi.Pages
         {
             this.PageInitializeAsync();
 
-            if(this.IsEditMode)
+            if (this.IsEditMode)
             {
                 var val = UpdateValidation();
                 if (val != null)
@@ -91,6 +97,12 @@ namespace _17nsj.Jedi.Pages
                 //更新
                 using (var tran = await this.DBContext.Database.BeginTransactionAsync())
                 {
+                    //特殊ユーザーチェック
+                    if (AppConstants.UndeliteableUsers.Contains(this.TargetUser.UserId))
+                    {
+                        return new ForbidResult();
+                    }
+
                     //存在チェック
                     var user = await this.DBContext.Users.Where(x => x.UserId == this.TargetUser.UserId).FirstOrDefaultAsync();
                     if (user == null)
@@ -202,6 +214,12 @@ namespace _17nsj.Jedi.Pages
             if (this.TargetUser.Password == null)
             {
                 return "初期パスワードを入力してください。";
+            }
+
+            //パスワードが確認用と異なる
+            if (this.TargetUser.Password != this.TargetUser.RePassword)
+            {
+                return "初期パスワードが確認用と異なります。";
             }
             return null;
         }

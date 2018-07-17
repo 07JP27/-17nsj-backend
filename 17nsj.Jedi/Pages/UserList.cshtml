@@ -1,5 +1,6 @@
 ﻿@page
 @model _17nsj.Jedi.Pages.UserListModel
+@using _17nsj.Jedi.Constants
 @{
     ViewData["Title"] = "User";
 }
@@ -50,19 +51,27 @@
                                             <i class="fa fa-fw fa-check-circle"></i>
                                         }
                                     </td>
+                                    @if (!AppConstants.UndeliteableUsers.Contains(item.UserId))
+                                    {
                                     <td>
                                         <a href="/UserManage?id=@item.UserId" type="button" class="btn btn-info btn-flat">Edit</a>
                                     </td>
                                     <td>
-                                        <a href="userdelete.html" type="button" class="btn btn-danger btn-flat">Delete</a>
+                                        <a href="/UserDelete?id=@item.UserId" type="button" class="btn btn-danger btn-flat">Delete</a>
                                     </td>
+                                    }
+                                    else
+                                    {
+                                    <td>
+                                        特殊ユーザー(編集不可)
+                                    </td>
+                                    }
                                 </tr>
                             }
                         </tbody>
                     </table>
                 </div>
             </div>
-            <!-- /.box-body -->
         </div>
     </div>
 </section>
