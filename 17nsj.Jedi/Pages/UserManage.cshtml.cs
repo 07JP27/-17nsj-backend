@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using _17nsj.DataAccess;
 using _17nsj.Jedi.Constants;
 using _17nsj.Jedi.Domains;
+using _17nsj.Jedi.Extensions;
 using _17nsj.Jedi.Models;
 using _17nsj.Jedi.Utils;
 using _17nsj.Repository;
@@ -78,10 +80,66 @@ namespace _17nsj.Jedi.Pages
 
             if(this.IsEditMode)
             {
+                var val = UpdateValidation();
+                if (val != null)
+                {
+                    this.MsgCategory = MsgCategoryDomain.Error;
+                    this.Msg = val;
+                    return this.Page();
+                }
+
                 //更新
+                using (var tran = await this.DBContext.Database.BeginTransactionAsync())
+                {
+                    //存在チェック
+                    var user = await this.DBContext.Users.Where(x => x.UserId == this.TargetUser.UserId).FirstOrDefaultAsync();
+                    if (user == null)
+                    {
+                        this.MsgCategory = MsgCategoryDomain.Error;
+                        this.Msg = メッセージ.選択対象なし;
+                        return this.Page();
+                    }
+
+                    // 既更新チェック
+                    if(user.UpdatedAt.TruncMillSecond() != TargetUser.UpdatedAt)
+                    {
+                        this.MsgCategory = MsgCategoryDomain.Error;
+                        this.Msg = メッセージ.既更新;
+                        return this.Page();
+                    }
+
+                    user.DisplayName = this.TargetUser.DisplayName;
+                    user.CanRead = this.TargetUser.CanRead;
+                    user.CanWrite = this.TargetUser.CanWrite;
+                    user.IsAdmin = this.TargetUser.IsAdmin;
+                    user.UpdatedAt = DateTime.UtcNow;
+                    user.UpdatedBy = this.UserID;
+
+                    try
+                    {
+                        await this.DBContext.SaveChangesAsync();
+                        tran.Commit();
+                        return new RedirectResult("/UserList");
+                    }
+                    catch (Exception ex)
+                    {
+                        tran.Rollback();
+                        this.MsgCategory = MsgCategoryDomain.Error;
+                        this.Msg = ex.Message;
+                        return this.Page();
+                    }
+                }
             }
             else
             {
+                var val = CreateValidation();
+                if (val != null)
+                {
+                    this.MsgCategory = MsgCategoryDomain.Error;
+                    this.Msg = val;
+                    return this.Page();
+                }
+
                 // 新規作成
                 using (var tran = await this.DBContext.Database.BeginTransactionAsync())
                 {
@@ -98,8 +156,6 @@ namespace _17nsj.Jedi.Pages
                     var now = DateTime.UtcNow;
                     entity.UserId = this.TargetUser.UserId;
                     entity.DisplayName = this.TargetUser.DisplayName;
-                    entity.UserId = this.TargetUser.UserId;
-                    entity.UserId = this.TargetUser.UserId;
                     entity.Password = SHA256Util.GetHashedString(this.TargetUser.Password);
                     entity.CanRead = this.TargetUser.CanRead;
                     entity.CanWrite = this.TargetUser.CanWrite;
@@ -115,11 +171,9 @@ namespace _17nsj.Jedi.Pages
                         await this.DBContext.Users.AddAsync(entity);
                         await this.DBContext.SaveChangesAsync();
                         tran.Commit();
-                        this.MsgCategory = MsgCategoryDomain.Success;
-                        this.Msg = メッセージ.作成成功;
-                        return this.Page();
+                        return new RedirectResult("/UserList");
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         tran.Rollback();
                         this.MsgCategory = MsgCategoryDomain.Error;
@@ -128,10 +182,39 @@ namespace _17nsj.Jedi.Pages
                     }
                 }
             }
-            
+        }
 
+        private string CreateValidation()
+        {
+            //ユーザーIDは半角1~30文字
+            if (this.TargetUser.UserId == null || this.TargetUser.UserId.Length <= 0 || this.TargetUser.UserId.Length >= 30　|| Regex.IsMatch(this.TargetUser.UserId, @"[^a-zA-z0-9]"))
+            {
+                return "ユーザーIDは半角1~30文字で入力してください。";
+            }
 
-            return this.Page();
+            //表示名は1~30文字以内
+            if (this.TargetUser.DisplayName == null || this.TargetUser.DisplayName.Length <= 0 || this.TargetUser.DisplayName.Length >= 30)
+            {
+                return "表示名は1~30文字で入力してください。";
+            }
+
+            //パスワードは空以外
+            if (this.TargetUser.Password == null)
+            {
+                return "初期パスワードを入力してください。";
+            }
+            return null;
+        }
+
+        private string UpdateValidation()
+        {
+            //表示名は1~30文字以内
+            if (this.TargetUser.DisplayName == null || this.TargetUser.DisplayName.Length <= 0 || this.TargetUser.DisplayName.Length >= 30)
+            {
+                return "表示名は1~30文字で入力してください。";
+            }
+
+            return null;
         }
     }
 }
