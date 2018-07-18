@@ -8,7 +8,7 @@ namespace _17nsj.Jedi.Domains
 {
     public class TeamDomain
     {
-        public const string 不明 = "0";
+        public const string 所属なし = "0";
         public const string 庶務 = "1";
         public const string プログラム = "2";
         public const string 報道 = "3";
@@ -20,7 +20,7 @@ namespace _17nsj.Jedi.Domains
 
         public static readonly ReadOnlyDictionary<string, string> DomainList = new ReadOnlyDictionary<string, string>(new Dictionary<string, string>()
         {
-            { GetName(不明), 不明 },
+            { GetName(所属なし), 所属なし },
             { GetName(庶務), 庶務 },
             { GetName(プログラム), プログラム },
             { GetName(報道), 報道 },
@@ -35,8 +35,8 @@ namespace _17nsj.Jedi.Domains
         {
             switch (value)
             {
-                case 不明:
-                    return "不明";
+                case 所属なし:
+                    return "所属なし";
                 case 庶務:
                     return "庶務";
                 case プログラム:
