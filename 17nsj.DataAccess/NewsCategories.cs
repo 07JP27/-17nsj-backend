@@ -11,11 +11,9 @@ namespace _17nsj.DataAccess
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class NewsCategories
     {
-        [Key]
         public string Category { get; set; }
         public string CategoryName { get; set; }
         public string Color { get; set; }

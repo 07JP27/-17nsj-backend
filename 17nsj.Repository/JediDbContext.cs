@@ -20,8 +20,15 @@ namespace _17nsj.Repository
             entity.ToTable("MST_Users", "dbo").HasKey(p => p.UserId);
 
             modelBuilder.Entity<Activities>().HasKey(c => new { c.Category, c.Id });
+            modelBuilder.Entity<ActivityCategories>().HasKey(c => c.Category);
+            modelBuilder.Entity<Documents>().HasKey(c => c.Id);
+            modelBuilder.Entity<JamGoodsCategories>().HasKey(c => c.Category);
             modelBuilder.Entity<JamGoods>().HasKey(c => new { c.Category, c.Id });
+            modelBuilder.Entity<Movies>().HasKey(c => c.Id);
             modelBuilder.Entity<News>().HasKey(c => new { c.Category, c.Id });
+            modelBuilder.Entity<NewsCategories>().HasKey(c => c.Category);
+            modelBuilder.Entity<Newspapers>().HasKey(c => c.Id);
+            modelBuilder.Entity<NoticeBoard>().HasKey(c => c.Id);
             modelBuilder.Entity<Schedules>().HasKey(c => new { c.Title, c.HasRange, c.Start });
             modelBuilder.Entity<MobileAppConfig>().HasKey(c => new { c.ForceUpdate, c.DroidVersion, c.DroidStoreURL, c.iOSVersion, c.iOSStoreURL });
         }

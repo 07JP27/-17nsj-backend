@@ -11,8 +11,7 @@ namespace _17nsj.DataAccess
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Schedules
     {
         public string Title { get; set; }

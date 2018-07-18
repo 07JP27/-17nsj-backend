@@ -177,6 +177,21 @@
           <Property Name="UpdatedAt" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="30" Nullable="false" />
         </EntityType>
+        <EntityType Name="NoticeBoard">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Contents" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="Receiver" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Sender" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Termination" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="UpdatedAt" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
         <EntityType Name="Schedules">
           <Key>
             <PropertyRef Name="Title" />
@@ -200,6 +215,7 @@
           <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NewsCategories" EntityType="Self.NewsCategories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Newspapers" EntityType="Self.Newspapers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NoticeBoard" EntityType="Self.NoticeBoard" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Schedules" EntityType="Self.Schedules" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MobileAppConfig" EntityType="Self.MobileAppConfig" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -228,6 +244,7 @@
           <EntitySet Name="Schedules" EntityType="Model.Schedules" />
           <EntitySet Name="JamGoods" EntityType="Model.JamGoods" />
           <EntitySet Name="JamGoodsCategories" EntityType="Model.JamGoodsCategories" />
+          <EntitySet Name="NoticeBoard" EntityType="Model.NoticeBoard" />
           </EntityContainer>
         <EntityType Name="ActivityCategories">
           <Key>
@@ -410,6 +427,21 @@
           <Property Name="Category" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="DisplayOrder" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NoticeBoard">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Contents" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Receiver" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Sender" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Termination" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -599,6 +631,22 @@
                 <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
                 <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
                 <ScalarProperty Name="Category" ColumnName="Category" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NoticeBoard">
+            <EntityTypeMapping TypeName="Model.NoticeBoard">
+              <MappingFragment StoreEntitySet="NoticeBoard">
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="Termination" ColumnName="Termination" />
+                <ScalarProperty Name="Sender" ColumnName="Sender" />
+                <ScalarProperty Name="Receiver" ColumnName="Receiver" />
+                <ScalarProperty Name="Contents" ColumnName="Contents" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

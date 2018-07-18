@@ -17,6 +17,7 @@
         <EntityTypeShape EntityType="Model.Schedules" Width="1.5" PointX="16.25" PointY="0.5" />
         <EntityTypeShape EntityType="Model.JamGoods" Width="1.5" PointX="19.875" PointY="0.5" />
         <EntityTypeShape EntityType="Model.JamGoodsCategories" Width="1.5" PointX="18.125" PointY="0.5" />
+        <EntityTypeShape EntityType="Model.NoticeBoard" Width="1.5" PointX="21.625" PointY="0.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -11,11 +11,9 @@ namespace _17nsj.DataAccess
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Newspapers
     {
-        [Key]
         public int Id { get; set; }
         public string Title { get; set; }
         public string URL { get; set; }
