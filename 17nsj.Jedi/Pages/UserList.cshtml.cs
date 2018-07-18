@@ -35,9 +35,11 @@ namespace _17nsj.Jedi.Pages
                 var model = new UserModel();
                 model.UserId = item.UserId;
                 model.DisplayName = item.DisplayName;
+                model.Affiliation = item.Affiliation;
                 model.CanRead = item.CanRead;
                 model.CanWrite = item.CanWrite;
                 model.IsAdmin = item.IsAdmin;
+                model.IsSysAdmin = item.IsSysAdmin;
                 this.ユーザーリスト.Add(model);
             }
 

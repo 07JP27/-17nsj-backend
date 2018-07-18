@@ -20,9 +20,11 @@
                             <tr>
                                 <th>ユーザーID</th>
                                 <th>表示名</th>
-                                <th>読み取り権限</th>
-                                <th>書き込み権限</th>
+                                <th>所属</th>
+                                <th>読み取り</th>
+                                <th>書き込み</th>
                                 <th>管理者</th>
+                                <th>システム管理者</th>
                                 <th></th>
                                 <th></th>
                             </tr>
@@ -30,43 +32,50 @@
                         <tbody>
                             @foreach (var item in this.Model.ユーザーリスト)
                             {
-                                <tr>
-                                    <td>@Html.DisplayFor(modelItem => item.UserId)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.DisplayName)</td>
-                                    <td class="text-green">
-                                        @if (item.CanRead)
-                                        {
-                                        <i class="fa fa-fw fa-check-circle"></i>
-                                        }
-                                    </td>
-                                    <td class="text-green">
-                                        @if (item.CanWrite)
-                                        {
-                                            <i class="fa fa-fw fa-check-circle"></i>
-                                        }
-                                    </td>
-                                    <td class="text-green">
-                                        @if (item.IsAdmin)
-                                        {
-                                            <i class="fa fa-fw fa-check-circle"></i>
-                                        }
-                                    </td>
-                                    @if (!AppConstants.UndeliteableUsers.Contains(item.UserId))
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.UserId)</td>
+                                <td>@Html.DisplayFor(modelItem => item.DisplayName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.AffiliationName)</td>
+                                <td class="text-green">
+                                    @if (item.CanRead)
                                     {
+                                        <i class="fa fa-fw fa-check-circle"></i>
+                                    }
+                                </td>
+                                <td class="text-green">
+                                    @if (item.CanWrite)
+                                    {
+                                        <i class="fa fa-fw fa-check-circle"></i>
+                                    }
+                                </td>
+                                <td class="text-green">
+                                    @if (item.IsAdmin)
+                                    {
+                                        <i class="fa fa-fw fa-check-circle"></i>
+                                    }
+                                </td>
+                                <td class="text-green">
+                                    @if (item.IsSysAdmin)
+                                    {
+                                        <i class="fa fa-fw fa-check-circle"></i>
+                                    }
+                                </td>
+                                @if (!AppConstants.UndeliteableUsers.Contains(item.UserId))
+                                {
                                     <td>
                                         <a href="/UserManage?id=@item.UserId" type="button" class="btn btn-info btn-flat">Edit</a>
                                     </td>
                                     <td>
                                         <a href="/UserDelete?id=@item.UserId" type="button" class="btn btn-danger btn-flat">Delete</a>
                                     </td>
-                                    }
-                                    else
-                                    {
+                                }
+                                else
+                                {
                                     <td>
                                         特殊ユーザー(編集不可)
                                     </td>
-                                    }
-                                </tr>
+                                }
+                            </tr>
                             }
                         </tbody>
                     </table>

@@ -63,3 +63,15 @@ body {
 .form-group .control-text{
     padding-top:7px;
 }
+
+.table td {
+    text-align: center;
+}
+
+.table th {
+    text-align: center;
+}
+
+.table .btn {
+    padding: 1px 12px;
+}
