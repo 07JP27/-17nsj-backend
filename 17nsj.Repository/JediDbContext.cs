@@ -42,6 +42,7 @@ namespace _17nsj.Repository
         public virtual DbSet<MobileAppConfig> MobileAppConfig { get; set; }
         public virtual DbSet<Activities> Activities { get; set; }
         public virtual DbSet<Documents> Documents { get; set; }
+        public virtual DbSet<NoticeBoard> NoticeBoard { get; set; }
         public virtual DbSet<Schedules> Schedules { get; set; }
         public virtual DbSet<JamGoods> JamGoods { get; set; }
         public virtual DbSet<JamGoodsCategories> JamGoodsCategories { get; set; }

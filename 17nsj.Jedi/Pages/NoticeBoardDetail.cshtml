@@ -1,0 +1,26 @@
+﻿@page
+@model _17nsj.Jedi.Pages.NoticeBoardDetailModel
+@{
+    ViewData["Title"] = "NoticeBoardDetail";
+}
+
+<section class="content-header"></section>
+<section class="content">
+    <div>
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 style="margin-top: 0px; margin-bottom: 0px;">@Model.CurrentNotice.Title</h3>
+            </div>
+            <div class="box-body">
+                <div class="col-md-8 col-md-offset-2">
+                    <p>宛先：@Model.CurrentNotice.Receiver</p>
+                    <p>発信者：@Model.CurrentNotice.Sender</p>
+                    <p>発信日時(JST)：@Model.CurrentNotice.CreatedAt.AddHours(9)</p>
+                    <p>最終更新日時(JST)：@Model.CurrentNotice.UpdatedAt.AddHours(9)</p>
+                    <hr />
+                    <p>@Model.CurrentNotice.Contents</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

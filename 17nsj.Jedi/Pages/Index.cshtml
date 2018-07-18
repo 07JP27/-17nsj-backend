@@ -16,7 +16,6 @@
                         </button>
                     </div>
                 </div>
-                <!-- /.box-header -->
                 <div class="box-body">
                     <div class="cal_wrapper">
                         <div class="googlecal">
@@ -24,7 +23,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- /.box-body -->
             </div>
         </div>
 
@@ -38,7 +36,6 @@
                         </button>
                     </div>
                 </div>
-                <!-- /.box-header -->
                 <div class="box-body">
                     <div class="cal_wrapper">
                         <div class="googlecal">
@@ -46,7 +43,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- /.box-body -->
             </div>
         </div>
 
@@ -55,10 +51,9 @@
                 <div class="box-header with-border">
                     <h3 style="margin-top: 0px; margin-bottom: 0px;">掲示板</h3>
                 </div>
-                <!-- /.box-header -->
                 <div class="box-body">
                     <div class="table-responsive">
-                        <table class="table no-margin">
+                        <table class="table">
                             <thead>
                                 <tr>
                                     <th>宛先</th>
@@ -68,30 +63,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>部員全員</td>
-                                    <td><a href="bulletindetail.html">スタッフトレーニングについて</a></td>
-                                    <td>庶務班長</td>
-                                    <td>2018/07/03 19:00</td>
-                                </tr>
-                                <tr>
-                                    <td>アプリチーム</td>
-                                    <td><a href="bulletindetail.html">焼き肉について</a></td>
-                                    <td>部長</td>
-                                    <td>2018/07/03 19:00</td>
-                                </tr>
-                                <tr>
-                                    <td>犯人</td>
-                                    <td><a href="bulletindetail.html">カメラ紛失について</a></td>
-                                    <td>CPT班長</td>
-                                    <td>2018/07/03 19:00</td>
-                                </tr>
-
+                                @foreach (var item in Model.お知らせリスト)
+                                {
+                                    <tr>
+                                        <td>@item.Receiver</td>
+                                        <td><a href="/NoticeBoardDetail?id=@item.Id">@item.Title</a></td>
+                                        <td>@item.Sender</td>
+                                        <td>@item.CreatedAt.AddHours(9).ToString("yyyy/MM/dd HH:mm")</td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
                     </div>
                 </div>
-                <!-- /.box-body -->
             </div>
         </div>
 
