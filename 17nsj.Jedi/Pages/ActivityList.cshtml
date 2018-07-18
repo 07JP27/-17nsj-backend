@@ -4,5 +4,63 @@
     ViewData["Title"] = "Activity";
 }
 
-<h2>Activity</h2>
-
+<section class="content">
+    <div>
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="col-md-3">
+                    <form action="#" method="get">
+                        <div class="input-group">
+                            <input type="text" name="q" class="form-control" placeholder="Search...">
+                            <span class="input-group-btn">
+                                <button type="submit" name="search" id="search-btn" class="btn btn-info">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-7">
+                    @foreach (var item in Model.カテゴリーリスト)
+                    {
+                        <span class="label" style="background-color:@item.Color;">@item.CategoryName</span>
+                    }
+                </div>
+                @if (Model.IsAdmin || Model.CanWrite)
+                {
+                    <a href="newsinforegister.html" type="button" class="btn btn-primary pull-right" onclick="addrow()"><i class="fa fa-plus"></i></a>
+                }
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <ul class="products-list product-list-in-box">
+                    @foreach (var item in Model.プログラムリスト)
+                    {
+                        <li class="item" style="border-left: 15px solid @item.CategoryColor; padding: 0px; margin-bottom: 10px;">
+                            <div class="product-img">
+                                <img src="@item.ThumbnailURL" alt="Product Image" style="height: 100px; width: 100px; margin-left: 5px; margin-right: 5px;">
+                            </div>
+                            <div class="product-info">
+                                <h4 class="product-title" style="margin: 0px">
+                                    <a href="/ActivityDetail?category=@item.Category&id=@item.Id">@item.Title</a>
+                                </h4>
+                                <span class="product-description">
+                                    日時：@item.Term
+                                </span>
+                                <span class="product-description">
+                                    場所：@item.Location
+                                </span>
+                                @if (Model.IsAdmin)
+                                {
+                                    <a href="newsinfoedit.html" type="button" class="btn btn-info btn-flat">Edit</a>
+                                    <a href="newsinfodelete.html" type="button" class="btn btn-danger btn-flat">Delete</a>
+                                }
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </div>
+</section>

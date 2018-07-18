@@ -25,7 +25,7 @@ namespace _17nsj.Jedi.Pages
         {
             this.PageInitializeAsync();
             var categories = await this.DBContext.ActivityCategories.ToListAsync();
-            var acts = await this.DBContext.Activities.Where(x => x.IsAvailable == true).Select(x => new { x.Category, x.Id, x.ThumbnailURL, x.Title, x.Outline }).ToListAsync();
+            var acts = await this.DBContext.Activities.Where(x => x.IsAvailable == true).Select(x => new { x.Category, x.Id, x.ThumbnailURL, x.Title, x.Term, x.Location }).ToListAsync();
 
             カテゴリーリスト = new List<ActivityCategoryModel>();
             foreach (var item in categories)
@@ -56,7 +56,8 @@ namespace _17nsj.Jedi.Pages
                 }
 
                 model.Title = item.Title;
-                model.Outline = item.Outline;
+                model.Term = item.Term;
+                model.Location = item.Location;
                 プログラムリスト.Add(model);
             }
 
