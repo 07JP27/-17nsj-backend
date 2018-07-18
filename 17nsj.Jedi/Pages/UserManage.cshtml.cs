@@ -61,10 +61,11 @@ namespace _17nsj.Jedi.Pages
                 var now = DateTime.UtcNow;
                 TargetUser.UserId = user.UserId;
                 TargetUser.DisplayName = user.DisplayName;
-                TargetUser.Password = "・・・・・・・";
+                TargetUser.Affiliation = user.Affiliation;
                 TargetUser.CanRead = user.CanRead;
                 TargetUser.CanWrite = user.CanWrite;
                 TargetUser.IsAdmin = user.IsAdmin;
+                TargetUser.IsSysAdmin = user.IsSysAdmin;
                 TargetUser.IsAvailable = user.IsAvailable;
                 TargetUser.CreatedAt = user.CreatedAt;
                 TargetUser.CreatedBy = user.CreatedBy;
@@ -121,6 +122,7 @@ namespace _17nsj.Jedi.Pages
                     }
 
                     user.DisplayName = this.TargetUser.DisplayName;
+                    user.Affiliation = this.TargetUser.Affiliation;
                     user.CanRead = this.TargetUser.CanRead;
                     user.CanWrite = this.TargetUser.CanWrite;
                     user.IsAdmin = this.TargetUser.IsAdmin;
@@ -168,6 +170,7 @@ namespace _17nsj.Jedi.Pages
                     var now = DateTime.UtcNow;
                     entity.UserId = this.TargetUser.UserId;
                     entity.DisplayName = this.TargetUser.DisplayName;
+                    entity.Affiliation = this.TargetUser.Affiliation;
                     entity.Password = SHA256Util.GetHashedString(this.TargetUser.Password);
                     entity.CanRead = this.TargetUser.CanRead;
                     entity.CanWrite = this.TargetUser.CanWrite;
