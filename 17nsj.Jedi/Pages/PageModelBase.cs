@@ -45,29 +45,57 @@ namespace _17nsj.Jedi.Pages
             }
         }
 
+        public string AffiliationID
+        {
+            get
+            {
+                return this.User.FindFirst(ClaimTypes.GroupSid).Value;
+            }
+        }
+
+        public string AffiliationName
+        {
+            get
+            {
+                var val = TeamDomain.GetName(this.User.FindFirst(ClaimTypes.GroupSid).Value);
+                return string.IsNullOrEmpty(val) ? "所属情報なし" : val;
+            }
+        }
+
         public bool CanRead { get; private set; }
         public bool CanWrite { get; private set; }
         public bool IsAdmin { get; private set; }
+        public bool IsSysAdmin { get; private set; }
         public string Msg { get; set; }
         public int MsgCategory { get; set; }
 
         protected void PageInitializeAsync()
         {
             var role = this.User.FindFirst(ClaimTypes.Role).Value;
-            if (role == UserRoleDomain.Admin)
+            if (role == UserRoleDomain.SysAdmin)
             {
+                this.IsSysAdmin = true;
+                this.IsAdmin = true;
+                this.CanWrite = true;
+                this.CanRead = true;
+            }
+            else if (role == UserRoleDomain.Admin)
+            {
+                this.IsSysAdmin = false;
                 this.IsAdmin = true;
                 this.CanWrite = true;
                 this.CanRead = true;
             }
             else if(this.UserRole == UserRoleDomain.Writer)
             {
+                this.IsSysAdmin = false;
                 this.IsAdmin = false;
                 this.CanWrite = true;
                 this.CanRead = true;
             }
             else
             {
+                this.IsSysAdmin = false;
                 this.IsAdmin = false;
                 this.CanWrite = false;
                 this.CanRead = true;

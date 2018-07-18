@@ -75,6 +75,7 @@
                     </div>
                     <div class="pull-left info">
                         <p>@Model.UserName</p>
+                        <a href="#">@Model.AffiliationName</a>
                     </div>
                 </div>
                 <ul class="sidebar-menu" data-widget="tree">
@@ -87,6 +88,10 @@
                         <li is-active-page asp-page="/UserList"><a href="/UserList"><i class="fa fa-users"></i><span>ユーザー</span></a></li>
                         <li is-active-page asp-page="/JamGoodsList"><a href="/JamGoodsList"><i class="fa fa-shopping-cart"></i><span>オフィシャルグッズ</span></a></li>
                         <li is-active-page asp-page="/NoticeBoard"><a href="/NoticeBoard"><i class="fa fa-bullhorn"></i> <span>掲示板登録</span></a></li>
+                    }
+                    @if (Model.IsSysAdmin)
+                    {
+                        <li class="header">システム管理者メニュー</li>
                     }
                 </ul>
             </section>

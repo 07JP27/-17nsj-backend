@@ -10,6 +10,7 @@ namespace _17nsj.Jedi.Domains
         public const string Reader = "0";
         public const string Writer = "1";
         public const string Admin = "2";
+        public const string SysAdmin = "3";
 
         public static string GetName(string value)
         {
@@ -21,6 +22,8 @@ namespace _17nsj.Jedi.Domains
                     return "一般ユーザー";
                 case Admin:
                     return "管理者";
+                case SysAdmin:
+                    return "システム管理者";
                 default:
                     return string.Empty;
             }

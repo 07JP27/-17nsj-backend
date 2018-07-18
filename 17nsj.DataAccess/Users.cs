@@ -11,7 +11,7 @@ namespace _17nsj.DataAccess
 {
     using System;
     using System.Collections.Generic;
-
+    
     public partial class Users
     {
         public string UserId { get; set; }
@@ -25,5 +25,7 @@ namespace _17nsj.DataAccess
         public string CreatedBy { get; set; }
         public System.DateTime UpdatedAt { get; set; }
         public string UpdatedBy { get; set; }
+        public bool IsSysAdmin { get; set; }
+        public string Affiliation { get; set; }
     }
 }

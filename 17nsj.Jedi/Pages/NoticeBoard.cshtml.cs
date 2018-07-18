@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace _17nsj.Jedi.Pages
 {
-    [Authorize(Roles = UserRoleDomain.Admin)]
+    [Authorize(Roles=UserRoleDomain.Admin + "," + UserRoleDomain.SysAdmin)]
     public class NoticeBoardModel : PageModelBase
     {
         public NoticeBoardModel(JediDbContext dbContext)

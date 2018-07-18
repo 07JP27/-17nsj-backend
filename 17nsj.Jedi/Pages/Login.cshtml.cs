@@ -55,6 +55,7 @@ namespace _17nsj.Jedi.Pages
             identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.UserId));
             identity.AddClaim(new Claim(ClaimTypes.Name, user.DisplayName));
             identity.AddClaim(new Claim(ClaimTypes.Role, GetUserRole(user)));
+            identity.AddClaim(new Claim(ClaimTypes.GroupSid, user.Affiliation == null ? string.Empty : user.Affiliation));
             var principal = new ClaimsPrincipal(identity);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, new AuthenticationProperties { });
 
@@ -71,7 +72,12 @@ namespace _17nsj.Jedi.Pages
 
         private string GetUserRole(Users user)
         {
-            if(user.IsAdmin)
+            if (user.IsSysAdmin)
+            {
+                return UserRoleDomain.SysAdmin;
+            }
+
+            if (user.IsAdmin)
             {
                 return UserRoleDomain.Admin;
             }

@@ -133,6 +133,8 @@
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="UpdatedAt" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="IsSysAdmin" Type="bit" Nullable="false" />
+          <Property Name="Affiliation" Type="nvarchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="News">
           <Key>
@@ -266,6 +268,8 @@
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="IsSysAdmin" Type="Boolean" Nullable="false" />
+          <Property Name="Affiliation" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="News">
           <Key>
@@ -442,6 +446,8 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="Model.Users">
               <MappingFragment StoreEntitySet="MST_Users">
+                <ScalarProperty Name="Affiliation" ColumnName="Affiliation" />
+                <ScalarProperty Name="IsSysAdmin" ColumnName="IsSysAdmin" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />

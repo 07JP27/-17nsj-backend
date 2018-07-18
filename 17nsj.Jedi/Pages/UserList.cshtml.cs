@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace _17nsj.Jedi.Pages
 {
-    [Authorize(Roles = UserRoleDomain.Admin)]
+    [Authorize(Roles=UserRoleDomain.Admin + "," + UserRoleDomain.SysAdmin)]
     public class UserListModel : PageModelBase
     {
         public UserListModel(JediDbContext dbContext)
