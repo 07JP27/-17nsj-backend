@@ -221,6 +221,13 @@ namespace _17nsj.Jedi.Pages
             {
                 return "初期パスワードが確認用と異なります。";
             }
+
+            //パスワードポリシー
+            if (!Regex.IsMatch(this.TargetUser.Password, @"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z\-]{6,}$"))
+            {
+                return "パスワードは６文字以上で数字・半角大文字・半角小文字の混在でなければなりません。";
+            }
+
             return null;
         }
 
