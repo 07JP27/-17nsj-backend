@@ -27,14 +27,14 @@ namespace _17nsj.Jedi.Pages
         protected JediDbContext DBContext { get; private set; }
 
         [BindProperty]
-        public LoginDataModel loginData { get; set; }
+        public LoginDataModel LoginData { get; set; }
 
         public string Msg { get; set; }
         public int MsgCategory { get; set; }
 
         public async Task<IActionResult> OnPostAsync(string ReturnUrl)
         {
-            var user = await this.DBContext.Users.Where(x => x.UserId == loginData.Username && x.IsAvailable == true).FirstOrDefaultAsync();
+            var user = await this.DBContext.Users.Where(x => x.UserId == LoginData.UserID && x.IsAvailable == true).FirstOrDefaultAsync();
 
             if (user == null)
             {
@@ -43,7 +43,14 @@ namespace _17nsj.Jedi.Pages
                 return Page();
             }
 
-            var isValid = (user.Password == SHA256Util.GetHashedString(loginData.Password).ToLower());
+            if (string.IsNullOrEmpty(this.LoginData.UserID) || string.IsNullOrEmpty(this.LoginData.Password))
+            {
+                this.Msg = "ユーザーIDまたはパスワードが無効です。";
+                this.MsgCategory = MsgCategoryDomain.Error;
+                return Page();
+            }
+
+            var isValid = (user.Password == SHA256Util.GetHashedString(LoginData.Password).ToLower());
             if (!isValid)
             {
                 this.Msg = "ユーザーIDまたはパスワードが無効です。";
