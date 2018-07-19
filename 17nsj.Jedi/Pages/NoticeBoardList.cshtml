@@ -1,0 +1,61 @@
+﻿@page
+@model _17nsj.Jedi.Pages.NoticeBoardListModel
+@{
+    ViewData["Title"] = "NoticeBoardList";
+}
+<section class="content">
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title" style="margin-top: 0px; margin-bottom: 0px;">掲示板</h3>
+                <a href="/NoticeBoardManage" type="button" class="btn btn-primary pull-right"><i class="fa fa-plus"></i></a>
+            </div>
+            <div class="box-body">
+                @if(!Model.IsSysAdmin)
+                {
+                    @Model.UserName@:さんが登録した掲示のみ表示中です。
+                }
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>宛先</th>
+                                <th>件名</th>
+                                <th>発信者</th>
+                                <th>発信日時(JST)</th>
+                                <th>掲載期限(JST)</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in this.Model.お知らせリスト)
+                            {
+                            <tr>
+                                <td>@item.Receiver</td>
+                                <td><a href="/NoticeBoardDetail?id=@item.Id">@item.Title</a></td>
+                                <td>@item.Sender</td>
+                                <td>@item.CreatedAt.AddHours(9).ToString("yyyy/MM/dd HH:mm")</td>
+                                @if (item.Termination < DateTime.UtcNow)
+                                {
+                                    <td class="text-red" data-toggle="tooltip" data-placement="bottom" title="掲載期限切れ"><i class="fa fa-exclamation-circle"></i> @item.Termination.AddHours(9).ToString("yyyy/MM/dd HH:mm")</td>
+                                }
+                                else
+                                {
+                                    <td>@item.Termination.AddHours(9).ToString("yyyy/MM/dd HH:mm")</td>
+                                }
+                                <td>
+                                    <a href="/NoticeBoardManage?id=@item.Id" type="button" class="btn btn-info btn-flat">Edit</a>
+                                </td>
+                                <td>
+                                    <a href="/NoticeBoardDelete?id=@item.Id" type="button" class="btn btn-danger btn-flat">Delete</a>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

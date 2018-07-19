@@ -10,19 +10,18 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace _17nsj.Jedi.Pages
 {
-    [Authorize(Roles=UserRoleDomain.Admin + "," + UserRoleDomain.SysAdmin)]
-    public class NoticeBoardModel : PageModelBase
+    [Authorize(UserRoleDomain.SysAdmin)]
+    public class ActivityManageModel : PageModelBase
     {
-        public NoticeBoardModel(JediDbContext dbContext)
+        public ActivityManageModel(JediDbContext dbContext)
             : base(dbContext)
         {
 
         }
 
-        public async Task<IActionResult> OnGetAsync()
+        public void OnGet()
         {
-            this.PageInitializeAsync();
-            return this.Page();
+
         }
     }
 }

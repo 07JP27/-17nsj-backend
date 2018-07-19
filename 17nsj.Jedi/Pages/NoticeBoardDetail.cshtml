@@ -18,7 +18,7 @@
                     <p>発信日時(JST)：@Model.CurrentNotice.CreatedAt.AddHours(9)</p>
                     <p>最終更新日時(JST)：@Model.CurrentNotice.UpdatedAt.AddHours(9)</p>
                     <hr />
-                    <p>@Model.CurrentNotice.Contents</p>
+                    <p>@Html.Raw(Html.Encode(Model.CurrentNotice.Contents).Replace(Html.Encode("\r\n"), "<br />"))</p>
                 </div>
             </div>
         </div>

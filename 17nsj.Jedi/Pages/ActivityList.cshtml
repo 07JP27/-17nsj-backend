@@ -38,17 +38,14 @@
                     {
                         <li class="item" style="border-left: 15px solid @item.CategoryColor; padding: 0px; margin-bottom: 10px;">
                             <div class="product-img">
-                                <img src="@item.ThumbnailURL" alt="Product Image" style="height: 100px; width: 100px; margin-left: 5px; margin-right: 5px;">
+                                <img src="@item.ThumbnailURL" alt="Product Image" style="height: 70px; width: 70px; margin-left: 5px; margin-right: 5px;">
                             </div>
                             <div class="product-info">
                                 <h4 class="product-title" style="margin: 0px">
                                     <a href="/ActivityDetail?category=@item.Category&id=@item.Id">@item.Title</a>
                                 </h4>
                                 <span class="product-description">
-                                    日時：@item.Term
-                                </span>
-                                <span class="product-description">
-                                    場所：@item.Location
+                                    場所：@item.Location / 日時：@item.Term
                                 </span>
                                 @if (Model.IsAdmin)
                                 {

@@ -16,7 +16,7 @@
                         <img src="@Model.CurrentAct.MediaURL" class="image col-md-12 col-xs-12">
                     </div>
                     <p style="margin-top: 10px;">
-                        @Model.CurrentAct.Outline
+                        @Html.Raw(Html.Encode(Model.CurrentAct.Outline).Replace(Html.Encode("\r\n"), "<br />"))
                     </p>
                     <p style="margin-top: 10px;">
                         区分：@Model.CurrentAct.CategoryName
