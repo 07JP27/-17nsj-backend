@@ -45,7 +45,7 @@ namespace _17nsj.Jedi.Pages
             }
         }
 
-        public string AffiliationID
+        public string UserAffiliation
         {
             get
             {
@@ -53,7 +53,7 @@ namespace _17nsj.Jedi.Pages
             }
         }
 
-        public string AffiliationName
+        public string UserAffiliationName
         {
             get
             {

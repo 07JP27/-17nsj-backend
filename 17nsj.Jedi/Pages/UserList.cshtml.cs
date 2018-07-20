@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using _17nsj.DataAccess;
 using _17nsj.Jedi.Domains;
 using _17nsj.Jedi.Models;
 using _17nsj.Repository;
@@ -27,10 +28,18 @@ namespace _17nsj.Jedi.Pages
         {
             this.PageInitializeAsync();
 
-            var users = await this.DBContext.Users.Where(x => x.IsAvailable).ToListAsync();
+            IQueryable<Users> query;
+            if(IsSysAdmin)
+            {
+                query = this.DBContext.Users.Where(x => x.IsAvailable);
+            }
+            else
+            {
+                query = this.DBContext.Users.Where(x => x.IsAvailable && x.Affiliation == this.UserAffiliation);
+            }
 
             ユーザーリスト = new List<UserModel>();
-            foreach(var item in users)
+            foreach(var item in await query.ToListAsync())
             {
                 var model = new UserModel();
                 model.UserId = item.UserId;

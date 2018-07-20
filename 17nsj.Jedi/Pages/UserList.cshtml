@@ -9,6 +9,10 @@
     <div>
         <div class="box box-primary">
             <div class="box-header with-border">
+                @if (!Model.IsSysAdmin)
+                {
+                    @:セキュリティ設定により @Model.UserName さんが管理する所属のみ表示中
+                }
                 <a href="/UserManage" type="button" class="btn btn-primary pull-right">
                     <i class="fa fa-plus"></i>
                 </a>

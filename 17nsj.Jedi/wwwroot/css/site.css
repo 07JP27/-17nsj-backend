@@ -60,7 +60,7 @@ body {
     font-size: 18px;
 }
 
-.form-group .control-text{
+.form-group .form-text{
     padding-top:7px;
 }
 
@@ -78,4 +78,18 @@ body {
 
 .products-list .btn {
     padding: 1px 12px;
+}
+
+div.iframeWrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 75%;
+}
+
+div.iframeWrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }

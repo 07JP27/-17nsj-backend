@@ -18,7 +18,7 @@ namespace _17nsj.Jedi.Pages
 
         public void OnGet()
         {
-
+            this.PageInitializeAsync();
         }
     }
 }

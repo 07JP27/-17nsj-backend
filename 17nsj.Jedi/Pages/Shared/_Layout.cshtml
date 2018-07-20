@@ -7,7 +7,7 @@
     <title>@ViewData["Title"] | JEDI</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link href="~/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
     <link href="~/lib/AdminLTE/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
     <link href="~/lib/AdminLTE/css/skins/skin-blue.min.css" rel="stylesheet" type="text/css" />
@@ -75,18 +75,23 @@
                     </div>
                     <div class="pull-left info">
                         <p>@Model.UserName</p>
-                        <a href="#">@Model.AffiliationName</a>
+                        <a href="#">@Model.UserAffiliationName</a>
                     </div>
                 </div>
                 <ul class="sidebar-menu" data-widget="tree">
                     <li is-active-page asp-page="/Index"><a href="/Index"><i class="fa fa-dashboard"></i><span>ダッシュボード</span></a></li>
                     <li is-active-page asp-page="/NewsInfoList"><a href="/NewsInfoList"><i class="fa fa-comments-o"></i><span>News＆Info</span></a></li>
                     <li is-active-page asp-page="/ActivityList"><a href="/ActivityList"><i class="fa fa-compass"></i><span>プログラム</span></a></li>
+                    <li is-active-page asp-page="/JamGoodsList"><a href="/JamGoodsList"><i class="fa fa-shopping-cart"></i><span>オフィシャルグッズ</span></a></li>
+                    <li is-active-page asp-page="/Map"><a href="/Map"><i class="fa fa-map-o"></i><span>マップ</span></a></li>
+                    <li is-active-page asp-page="/Weather"><a href="/Weather"><i class="fa fa-sun-o"></i><span>Weather</span></a></li>
+                    <li is-active-page asp-page="/HashTag"><a href="/HashTag"><i class="fa fa-twitter"></i><span>HashTag</span></a></li>
+                    <li is-active-page asp-page="/NewsPaperList"><a href="/NewsPaperList"><i class="fa fa-newspaper-o"></i><span>NP</span></a></li>
+                    <li is-active-page asp-page="/OfficialMedia"><a href="/OfficialMedia"><i class="fa fa-share-alt"></i><span>OfficialMedia</span></a></li>
                     @if (Model.IsAdmin)
                     {
                         <li class="header">管理者メニュー</li>
                         <li is-active-page asp-page="/UserList"><a href="/UserList"><i class="fa fa-users"></i><span>ユーザー</span></a></li>
-                        <li is-active-page asp-page="/JamGoodsList"><a href="/JamGoodsList"><i class="fa fa-shopping-cart"></i><span>オフィシャルグッズ</span></a></li>
                         <li is-active-page asp-page="/NoticeBoardList"><a href="/NoticeBoardList"><i class="fa fa-bullhorn"></i> <span>掲示板管理</span></a></li>
                     }
                     @if (Model.IsSysAdmin)

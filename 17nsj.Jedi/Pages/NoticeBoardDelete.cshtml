@@ -15,31 +15,31 @@
                         <h3>この操作は元に戻せません。削除しますか？</h3>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">件名</label>
-                            <div class="col-sm-9 control-text">
+                            <div class="col-sm-9 form-text">
                                 @Model.TargetNotice.Title
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">宛先</label>
-                            <div class="col-sm-9 control-text">
+                            <div class="col-sm-9 form-text">
                                 @Model.TargetNotice.Receiver
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">発信者</label>
-                            <div class="col-sm-9 control-text">
+                            <div class="col-sm-9 form-text">
                                 @Model.TargetNotice.Sender
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">発信日時(JST)</label>
-                            <div class="col-sm-9 control-text">
+                            <div class="col-sm-9 form-text">
                                 @Model.TargetNotice.CreatedAt.AddHours(9).ToString("yyyy/MM/dd HH:mm")
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">掲載期限(JST)</label>
-                            <div class="col-sm-9 control-text">
+                            <div class="col-sm-9 form-text">
                                 @Model.TargetNotice.Termination.AddHours(9).ToString("yyyy/MM/dd HH:mm")
                             </div>
                         </div>

@@ -170,7 +170,16 @@ namespace _17nsj.Jedi.Pages
                     var now = DateTime.UtcNow;
                     entity.UserId = this.TargetUser.UserId;
                     entity.DisplayName = this.TargetUser.DisplayName;
-                    entity.Affiliation = this.TargetUser.Affiliation;
+
+                    if(!this.IsSysAdmin)
+                    {
+                        //システム管理者でなければ自分の所属と同じユーザー
+                        entity.Affiliation = this.UserAffiliation;
+                    }
+                    else
+                    {
+                        entity.Affiliation = this.TargetUser.Affiliation;
+                    }
                     entity.Password = SHA256Util.GetHashedString(this.TargetUser.Password);
                     entity.CanRead = this.TargetUser.CanRead;
                     entity.CanWrite = this.TargetUser.CanWrite;

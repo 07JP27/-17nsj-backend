@@ -22,7 +22,7 @@
                                     <div class="col-sm-9">
                                         @if (Model.IsEditMode)
                                         {
-                                            <label class="control-text">@Model.TargetUser.UserId</label>
+                                            <label class="form-text">@Model.TargetUser.UserId</label>
                                             @Html.HiddenFor(modelitem => Model.TargetUser.UserId)
                                         }
                                         else
@@ -42,11 +42,19 @@
                                     <div class="col-sm-9">
                                         @if (Model.IsEditMode)
                                         {
-                                            <label class="control-text">@Model.TargetUser.AffiliationName</label>
+                                            <label class="form-text">@Model.TargetUser.AffiliationName</label>
                                         }
                                         else
                                         {
-                                            @Html.DropDownListFor(model => model.TargetUser.Affiliation, TeamDomain.DomainList.ToSelectListItems(), null, new { @class = "form-control" })
+                                            @if (!Model.IsSysAdmin)
+                                            {
+                                                // 管理者の場合は自信と同じ所属のユーザーのみ
+                                                <label class="form-text">@Model.UserAffiliationName</label>
+                                            }
+                                            else
+                                            {
+                                                @Html.DropDownListFor(model => model.TargetUser.Affiliation, TeamDomain.DomainList.ToSelectListItems(), null, new { @class = "form-control" })
+                                            }
                                         }
                                     </div>
                                 </div>
@@ -68,7 +76,7 @@
                                 }
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">権限</label>
-                                    <div class="col-sm-9 control-text">
+                                    <div class="col-sm-9 form-text">
                                         <label>
                                             @Html.CheckBoxFor(modelitem => Model.TargetUser.CanRead)
                                             読み取り
