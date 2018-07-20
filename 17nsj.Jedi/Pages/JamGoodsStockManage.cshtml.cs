@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace _17nsj.Jedi.Pages
 {
-    [Authorize(UserRoleDomain.SysAdmin)]
+    [Authorize(Roles = UserRoleDomain.SysAdmin)]
     public class JamGoodsStockManageModel : PageModelBase
     {
         public JamGoodsStockManageModel(JediDbContext dbContext)

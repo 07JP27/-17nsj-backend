@@ -21,37 +21,50 @@
                     </form>
                 </div>
                 <div class="col-md-7">
-                    @foreach (var item in Model.カテゴリーリスト)
-                    {
-                        <span class="label" style="background-color:@item.Color;">@item.CategoryName</span>
-                    }
-                </div>
-                @if (Model.IsAdmin || Model.CanWrite)
+                @foreach (var item in Model.カテゴリーリスト)
                 {
-                    <a href="newsinforegister.html">
-                        <button type="button" class="btn btn-primary pull-right" onclick="addrow()"><i class="fa fa-plus"></i></button>
-                    </a>
+                    <span class="label" style="background-color:@item.Color;">@item.CategoryName</span>
+                }
+                </div>
+                @if (Model.CanWrite)
+                {
+                    <a href="/NewsInfoManage" type="button" class="btn btn-primary pull-right"><i class="fa fa-plus"></i></a>
                 }
             </div>
             <div class="box-body">
                 <ul class="products-list product-list-in-box">
                     @foreach (var item in Model.ニュースリスト)
                     {
-                        <li class="item" style="border-left: 15px solid @item.CategoryColor; padding: 0px; margin-bottom: 10px;">
+                        var style = !item.IsAvailable ? "background-color:#e5e5e5;" : "";
+                        <li class="item" style="border-left: 15px solid @item.CategoryColor; padding: 0px; margin-bottom: 10px; @style">
                             <div class="product-img">
                                 <img src="@item.ThumbnailURL" alt="Product Image" style="height: 70px; width: 70px; margin-left: 5px; margin-right: 5px;">
                             </div>
                             <div class="product-info">
                                 <h4 class="product-title" style="margin: 0px">
-                                    <a href="/NewsInfoDetail?category=@item.Category&id=@item.Id">@item.Title</a>
+                                    <a href="/NewsInfoDetail?category=@item.Category&id=@item.Id">@item.Title<small>(@item.Category - @item.Id)</small></a>
+                                    @if (!item.IsAvailable)
+                                    {
+                                        <i class="fa fa-eye-slash" data-toggle="tooltip" data-placement="bottom" title="この情報は非表示設定になっています。これが見えるのは管理者以上のユーザーのみです。"></i>
+                                    }
                                 </h4>
                                 <span class="product-description">
                                     @item.Outline
                                 </span>
+                                @if (Model.IsAdmin || item.CreatedBy == Model.UserID)
+                                {
+                                    <a href="/NewsInfoManage?category=@item.Category&id=@item.Id" type="button" class="btn btn-info btn-flat">Edit</a>
+                                }
                                 @if (Model.IsAdmin)
                                 {
-                                    <a href="newsinfoedit.html"><button type="button" class="btn btn-info btn-flat">Edit</button></a>
-                                    <a href="newsinfodelete.html"><button type="button" class="btn btn-danger btn-flat">Delete</button></a>
+                                    @if (item.IsAvailable)
+                                    {
+                                        <a href="/NewsInfoSwitchEnable?category=@item.Category&id=@item.Id" type="button" class="btn btn-danger btn-flat">Disable</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/NewsInfoSwitchEnable?category=@item.Category&id=@item.Id" type="button" class="btn btn-warning btn-flat">Enable</a>
+                                    }
                                 }
                             </div>
                         </li>

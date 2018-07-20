@@ -121,11 +121,18 @@ namespace _17nsj.Jedi.Pages
                         return this.Page();
                     }
 
+                    if (!this.IsSysAdmin)
+                    {
+                        user.Affiliation = this.TargetUser.Affiliation;
+                    }
+                    else
+                    {
+                        //システム管理者でなければ自分の所属と同じユーザー
+                        user.Affiliation = this.UserAffiliation;
+                    }
                     user.DisplayName = this.TargetUser.DisplayName;
-                    user.Affiliation = this.TargetUser.Affiliation;
                     user.CanRead = this.TargetUser.CanRead;
                     user.CanWrite = this.TargetUser.CanWrite;
-                    user.IsAdmin = this.TargetUser.IsAdmin;
                     user.UpdatedAt = DateTime.UtcNow;
                     user.UpdatedBy = this.UserID;
 
@@ -171,14 +178,14 @@ namespace _17nsj.Jedi.Pages
                     entity.UserId = this.TargetUser.UserId;
                     entity.DisplayName = this.TargetUser.DisplayName;
 
-                    if(!this.IsSysAdmin)
+                    if(this.IsSysAdmin)
                     {
-                        //システム管理者でなければ自分の所属と同じユーザー
-                        entity.Affiliation = this.UserAffiliation;
+                        entity.Affiliation = this.TargetUser.Affiliation;
                     }
                     else
                     {
-                        entity.Affiliation = this.TargetUser.Affiliation;
+                        //システム管理者でなければ自分の所属と同じユーザー
+                        entity.Affiliation = this.UserAffiliation;
                     }
                     entity.Password = SHA256Util.GetHashedString(this.TargetUser.Password);
                     entity.CanRead = this.TargetUser.CanRead;

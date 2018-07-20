@@ -8,7 +8,14 @@
     <div>
         <div class="box box-primary" style="border-top: 30px solid @Model.CurrentNews.CategoryColor;">
             <div class="box-header with-border">
-                <h3 style="margin-top: 0px; margin-bottom: 0px;">@Model.CurrentNews.Title <small>@Model.CurrentNews.Category-@Model.CurrentNews.Id</small></h3>
+                <h3 style="margin-top: 0px; margin-bottom: 0px;">
+                @Model.CurrentNews.Title
+                @if (!Model.CurrentNews.IsAvailable)
+                {
+                    <i class="fa fa-eye-slash" data-toggle="tooltip" data-placement="bottom" title="非表示設定になっています。この情報が見えるのは管理者以上のみです。"></i>
+                }
+                <small>@Model.CurrentNews.Category-@Model.CurrentNews.Id</small>
+                </h3>
                 <p class="pull-right">取材:@Model.CurrentNews.Author</p>
             </div>
             <div class="box-body">

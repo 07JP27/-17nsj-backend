@@ -26,12 +26,12 @@ namespace _17nsj.Jedi.Pages
 
             this.PageInitializeAsync();
 
-            var news = await this.DBContext.News.Where(x => x.IsAvailable && x.Category == category && x.Id == (int)id).FirstOrDefaultAsync();
+            var news = await this.DBContext.News.Where(x => x.Category == category && x.Id == (int)id).FirstOrDefaultAsync();
 
             if (news == null) return new NotFoundResult();
+            if (!this.IsAdmin && !news.IsAvailable) return new ForbidResult();
 
-            var categories = await this.DBContext.NewsCategories.ToListAsync();
-            var currentCategory = categories.Where(x => x.Category == news.Category).FirstOrDefault();
+            var currentCategory = await this.DBContext.NewsCategories.Where(x => x.Category == news.Category).FirstOrDefaultAsync();
 
             this.CurrentNews = new NewsModel();
             CurrentNews.Category = news.Category;
@@ -44,6 +44,7 @@ namespace _17nsj.Jedi.Pages
             CurrentNews.Outline = news.Outline;
             CurrentNews.MediaURL = news.MediaURL;
             CurrentNews.RelationalURL = news.RelationalURL;
+            CurrentNews.IsAvailable = news.IsAvailable;
             CurrentNews.CreatedAt = news.CreatedAt;
             CurrentNews.UpdatedAt = news.UpdatedAt;
 

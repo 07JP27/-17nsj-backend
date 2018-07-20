@@ -34,6 +34,8 @@ namespace _17nsj.Jedi.Pages
             var user = await this.DBContext.Users.Where(x => x.IsAvailable && x.UserId == id).FirstOrDefaultAsync();
 
             if (user == null) return new NotFoundResult();
+            if (user.UserId == this.UserID) return new ForbidResult();
+            if (!IsSysAdmin && user.Affiliation != this.UserAffiliation) return new ForbidResult();
 
             //特殊ユーザーチェック
             if(AppConstants.UndeliteableUsers.Contains(id))
@@ -72,6 +74,8 @@ namespace _17nsj.Jedi.Pages
                     this.Msg = メッセージ.選択対象なし;
                     return this.Page();
                 }
+
+                if (user.UserId == this.UserID) return new ForbidResult();
 
                 try
                 {

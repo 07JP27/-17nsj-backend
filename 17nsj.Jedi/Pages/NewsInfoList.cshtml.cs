@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using _17nsj.DataAccess;
 using _17nsj.Jedi.Models;
 using _17nsj.Repository;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +26,7 @@ namespace _17nsj.Jedi.Pages
         {
             this.PageInitializeAsync();
             var categories = await this.DBContext.NewsCategories.ToListAsync();
-            var news = await this.DBContext.News.Where(x => x.IsAvailable == true).Select(x => new { x.Category,x.Id,x.ThumbnailURL,x.Title,x.Outline }).ToListAsync();
+            var news = await this.DBContext.News.Select(x => new { x.Category,x.Id,x.ThumbnailURL,x.Title,x.Outline,x.IsAvailable,x.CreatedBy }).ToListAsync();
 
             カテゴリーリスト = new List<NewsCategoryModel>();
             foreach(var item in categories)
@@ -41,6 +42,7 @@ namespace _17nsj.Jedi.Pages
             ニュースリスト = new List<NewsModel>();
             foreach(var item in news)
             {
+                if (!this.IsAdmin && !item.IsAvailable) continue;
                 var model = new NewsModel();
                 model.Category = item.Category;
                 model.Id = item.Id;
@@ -57,6 +59,8 @@ namespace _17nsj.Jedi.Pages
 
                 model.Title = item.Title;
                 model.Outline = item.Outline;
+                model.IsAvailable = item.IsAvailable;
+                model.CreatedBy = item.CreatedBy;
                 ニュースリスト.Add(model);
             }
 

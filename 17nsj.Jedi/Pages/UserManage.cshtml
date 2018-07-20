@@ -42,7 +42,17 @@
                                     <div class="col-sm-9">
                                         @if (Model.IsEditMode)
                                         {
-                                            <label class="form-text">@Model.TargetUser.AffiliationName</label>
+
+                                            @if (!Model.IsSysAdmin)
+                                            {
+                                                // 管理者の場合は自信と同じ所属のユーザーのみ
+                                                <label class="form-text">@Model.TargetUser.AffiliationName</label>
+                                                @Html.HiddenFor(modelitem => Model.TargetUser.Affiliation)
+                                            }
+                                            else
+                                            {
+                                                @Html.DropDownListFor(model => model.TargetUser.Affiliation, TeamDomain.DomainList.ToSelectListItems(), null, new { @class = "form-control" })
+                                            }
                                         }
                                         else
                                         {
