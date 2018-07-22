@@ -4,5 +4,100 @@
     ViewData["Title"] = "NewsInfoManage";
 }
 
-<h2>NewsInfoManage</h2>
+<section class="content">
+    <div>
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 style="margin-top: 0px; margin-bottom: 0px;">News&Info登録</h3>
+            </div>
+            <div class="box-body">
+                <div class="col-md-8 col-md-offset-2">
+                    @using (Html.BeginForm(FormMethod.Post))
+                    {
+                        @Html.HiddenFor(modelitem => Model.IsEditMode)
+                        @Html.HiddenFor(modelitem => Model.TargetNews.UpdatedAt)
+                        <div class="form-horizontal">
+                            <div class="box-body">
+                                @if (Model.IsEditMode)
+                                {
+                                    <div class="form-group">
+                                        <label for="inputEmail3" class="col-sm-2 control-label">ID</label>
 
+                                        <div class="col-sm-10">
+                                            <label class="form-text">@Model.TargetNews.Category - @Model.TargetNews.Id</label>
+                                            @Html.HiddenFor(modelitem => Model.TargetNews.Category)
+                                            @Html.HiddenFor(modelitem => Model.TargetNews.Id)
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="form-group">
+                                        <label for="inputEmail3" class="col-sm-2 control-label">カテゴリ</label>
+
+                                        <div class="col-sm-10">
+                                            @Html.DropDownListFor(model => model.TargetNews.Category, Model.CategoryList, null, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                }
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-2 control-label">タイトル</label>
+
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(modelitem => Model.TargetNews.Title, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-2 control-label">サムネイルURL</label>
+
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(modelitem => Model.TargetNews.ThumbnailURL, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-2 control-label">画像URL</label>
+
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(modelitem => Model.TargetNews.MediaURL, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-2 control-label">取材担当</label>
+
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(modelitem => Model.TargetNews.Author, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-2 control-label">関連URL</label>
+
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(modelitem => Model.TargetNews.RelationalURL, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-2 control-label">本文</label>
+
+                                    <div class="col-sm-10">
+                                        @Html.TextAreaFor(modelitem => Model.TargetNews.Outline, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-2 control-label"></label>
+
+                                    <div class="col-sm-10">
+                                        @Html.CheckBoxFor(modelitem => Model.IsAuthorized)
+                                        <label class="form-text">この記事は承認者の承認を受けた記事であることを確認しました。</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                <button type="submit" class="btn btn-success pull-right">登録</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using _17nsj.DataAccess;
 using _17nsj.Jedi.Constants;
 using _17nsj.Jedi.Domains;
 using _17nsj.Jedi.Extensions;
 using _17nsj.Jedi.Models;
+using _17nsj.Jedi.Utils;
 using _17nsj.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace _17nsj.Jedi.Pages
@@ -23,12 +26,16 @@ namespace _17nsj.Jedi.Pages
         {
 
         }
+        public List<SelectListItem> CategoryList { get; set; }
 
         [BindProperty]
         public NewsModel TargetNews { get; set; }
 
         [BindProperty]
         public bool IsEditMode { get; set; }
+
+        [BindProperty]
+        public bool IsAuthorized { get; set; }
 
         public async Task<IActionResult> OnGetAsync(string category, int? id)
         {
@@ -60,11 +67,13 @@ namespace _17nsj.Jedi.Pages
                 TargetNews.MediaURL = news.MediaURL;
                 TargetNews.RelationalURL = news.RelationalURL;
                 TargetNews.ThumbnailURL = news.ThumbnailURL;
+                TargetNews.UpdatedAt = news.UpdatedAt;
             }
             else
             {
                 // 新規作成
                 this.IsEditMode = false;
+                await GetCategorySelectListItemsAsync();
             }
 
             return this.Page();
@@ -76,7 +85,7 @@ namespace _17nsj.Jedi.Pages
 
             if (this.IsEditMode)
             {
-                var val = UpdateValidation();
+                var val = Validation();
                 if (val != null)
                 {
                     this.MsgCategory = MsgCategoryDomain.Error;
@@ -130,11 +139,12 @@ namespace _17nsj.Jedi.Pages
             }
             else
             {
-                var val = CreateValidation();
+                var val = Validation();
                 if (val != null)
                 {
                     this.MsgCategory = MsgCategoryDomain.Error;
                     this.Msg = val;
+                    await GetCategorySelectListItemsAsync();
                     return this.Page();
                 }
 
@@ -142,13 +152,8 @@ namespace _17nsj.Jedi.Pages
                 using (var tran = await this.DBContext.Database.BeginTransactionAsync())
                 {
                     //最大ID取得
-                    var exist = await this.DBContext.News.Where(x => x.Category == this.TargetNews.Category && x.Id == this.TargetNews.Id).AnyAsync();
-                    if (exist)
-                    {
-                        this.MsgCategory = MsgCategoryDomain.Error;
-                        this.Msg = メッセージ.ユーザーID重複;
-                        return this.Page();
-                    }
+                    var maxId = await this.DBContext.News.Where(x => x.Category == this.TargetNews.Category).OrderByDescending(x => x.Id).Select(x => x.Id).FirstOrDefaultAsync();
+                    this.TargetNews.Id = maxId + 1;
 
                     var entity = new News();
                     var now = DateTime.UtcNow;
@@ -184,26 +189,53 @@ namespace _17nsj.Jedi.Pages
             }
         }
 
-        private string CreateValidation()
+        private string Validation()
         {
-            //表示名は1~30文字以内
+            //タイトルは1~30文字以内
             if (this.TargetNews.Title == null || this.TargetNews.Title.Length <= 0 || this.TargetNews.Title.Length >= 30)
             {
-                return "表示名は1~30文字で入力してください。";
+                return "タイトルは1~30文字で入力してください。";
+            }
+
+            //取材担当は1~30文字以内
+            if (this.TargetNews.Author == null || this.TargetNews.Author.Length <= 0 || this.TargetNews.Author.Length >= 30)
+            {
+                return "取材担当は1~30文字で入力してください。";
+            }
+
+            if(!string.IsNullOrEmpty(this.TargetNews.ThumbnailURL) && !URLUtil.IsUrl(this.TargetNews.ThumbnailURL))
+            {
+                return "サムネイルURLは正しいURLの形式で入力してください。";
+            }
+
+            if (!string.IsNullOrEmpty(this.TargetNews.MediaURL) && !URLUtil.IsUrl(this.TargetNews.MediaURL))
+            {
+                return "画像URLは正しいURLの形式で入力してください。";
+            }
+
+            if (!string.IsNullOrEmpty(this.TargetNews.RelationalURL) && !URLUtil.IsUrl(this.TargetNews.RelationalURL))
+            {
+                return "関連URLは正しいURLの形式で入力してください。";
+            }
+
+            if (!this.IsAuthorized)
+            {
+                return "本記事が承認されたものであるかを確認してください。";
             }
 
             return null;
         }
 
-        private string UpdateValidation()
+        public async Task GetCategorySelectListItemsAsync()
         {
-            //表示名は1~30文字以内
-            if (this.TargetNews.Title == null || this.TargetNews.Title.Length <= 0 || this.TargetNews.Title.Length >= 30)
-            {
-                return "表示名は1~30文字で入力してください。";
-            }
+            this.CategoryList = new List<SelectListItem>();
 
-            return null;
+            var list = await this.DBContext.NewsCategories.ToListAsync();
+
+            foreach (var item in list)
+            {
+                this.CategoryList.Add(new SelectListItem() { Text = item.CategoryName, Value = item.Category });
+            }
         }
     }
 }

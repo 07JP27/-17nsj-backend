@@ -26,7 +26,7 @@ namespace _17nsj.Jedi.Pages
         {
             this.PageInitializeAsync();
             var categories = await this.DBContext.NewsCategories.ToListAsync();
-            var news = await this.DBContext.News.Select(x => new { x.Category,x.Id,x.ThumbnailURL,x.Title,x.Outline,x.IsAvailable,x.CreatedBy }).ToListAsync();
+            var news = await this.DBContext.News.Select(x => new { x.Category,x.Id,x.ThumbnailURL,x.Title,x.Outline,x.IsAvailable,x.CreatedBy, x.UpdatedAt }).OrderByDescending(x => x.UpdatedAt).ToListAsync();
 
             カテゴリーリスト = new List<NewsCategoryModel>();
             foreach(var item in categories)

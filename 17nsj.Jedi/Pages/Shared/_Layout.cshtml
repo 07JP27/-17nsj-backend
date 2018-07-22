@@ -94,10 +94,6 @@
                         <li is-active-page asp-page="/UserList"><a href="/UserList"><i class="fa fa-users"></i><span>ユーザー</span></a></li>
                         <li is-active-page asp-page="/NoticeBoardList"><a href="/NoticeBoardList"><i class="fa fa-bullhorn"></i> <span>掲示板管理</span></a></li>
                     }
-                    @if (Model.IsSysAdmin)
-                    {
-                        <li class="header">システム管理者メニュー</li>
-                    }
                 </ul>
             </section>
         </aside>
