@@ -73,6 +73,8 @@ namespace _17nsj.Jedi.Pages
             {
                 // 新規作成
                 this.IsEditMode = false;
+                this.TargetNews = new NewsModel();
+                this.TargetNews.Author = this.UserName;
                 await GetCategorySelectListItemsAsync();
             }
 
@@ -144,6 +146,8 @@ namespace _17nsj.Jedi.Pages
                 {
                     this.MsgCategory = MsgCategoryDomain.Error;
                     this.Msg = val;
+                    this.TargetNews = new NewsModel();
+                    this.TargetNews.Author = this.UserName;
                     await GetCategorySelectListItemsAsync();
                     return this.Page();
                 }
