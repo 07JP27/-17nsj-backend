@@ -35,9 +35,6 @@ namespace _17nsj.Jedi.Pages
             var news = await this.DBContext.News.Where(x => x.Category == category && x.Id == (int)id).FirstOrDefaultAsync();
 
             if (news == null) return new NotFoundResult();
-            if (!this.IsAdmin && !news.IsAvailable) return new ForbidResult();
-
-            var currentCategory = await this.DBContext.NewsCategories.Where(x => x.Category == news.Category).FirstOrDefaultAsync();
 
             this.CurrentNews = new NewsModel();
             CurrentNews.Category = news.Category;

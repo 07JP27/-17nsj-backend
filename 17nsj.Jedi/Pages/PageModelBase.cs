@@ -86,7 +86,7 @@ namespace _17nsj.Jedi.Pages
                 this.CanWrite = true;
                 this.CanRead = true;
             }
-            else if(this.UserRole == UserRoleDomain.Writer)
+            else if(role == UserRoleDomain.Writer)
             {
                 this.IsSysAdmin = false;
                 this.IsAdmin = false;

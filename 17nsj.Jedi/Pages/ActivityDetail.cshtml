@@ -27,8 +27,11 @@
                     <p style="margin-top: 10px;">
                         場所：@Model.CurrentAct.Location
                     </p>
-                    <iframe src="https://maps.gsi.go.jp/#17/@Model.CurrentAct.Latitude/@Model.CurrentAct.Longitude/&base=std&ls=std&disp=1&vs=c1j0h0k0l0u0t0z0r0s0f1" style="width: 100%; height: 500px;"></iframe>
-                    ライセンスの関係上、国土地理院地図を使用しています。
+
+                    <div class="iframeWrapper">
+                        <iframe src="https://www.google.com/maps/d/embed?mid=1ewUDH89xMIEzJ-9wB5_0t8bJDXBowjef&hl=ja&ll=@Model.CurrentAct.Latitude,@Model.CurrentAct.Longitude&z=18" width="640" height="480"></iframe>
+                    </div>
+
                     <div class="pull-right" style="margin-top: 10px;">
                         <p>
                             最終更新日:@Model.CurrentAct.UpdatedAt

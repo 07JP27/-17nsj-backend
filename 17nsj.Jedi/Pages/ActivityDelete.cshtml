@@ -4,5 +4,38 @@
     ViewData["Title"] = "ActivityDelete";
 }
 
-<h2>ActivityDelete</h2>
-
+<section class="content">
+    <div>
+        <div class="box box-primary">
+            @using (Html.BeginForm(FormMethod.Post))
+            {
+                @Html.HiddenFor(modelitem => Model.CurrentAct.Category)
+                @Html.HiddenFor(modelitem => Model.CurrentAct.Id)
+                @Html.HiddenFor(modelitem => Model.CurrentAct.Title)
+                @Html.HiddenFor(modelitem => Model.CurrentAct.UpdatedAt)
+                <div class="box-body">
+                    <div class="form-horizontal col-md-6 col-md-offset-3">
+                        <h3>本当に削除しますか？</h3>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">ID</label>
+                            <div class="col-sm-9 form-text">
+                                @Model.CurrentAct.Category - @Model.CurrentAct.Id
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">プログラム名</label>
+                            <div class="col-sm-9 form-text">
+                                @Model.CurrentAct.Title
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <div class=" col-md-6 col-md-offset-3">
+                        <button type="submit" class="btn btn-danger pull-right">削除</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
