@@ -1,8 +1,44 @@
 ﻿@page
 @model _17nsj.Jedi.Pages.JamGoodsDetailModel
+@using _17nsj.Jedi.Domains;
 @{
     ViewData["Title"] = "JamGoodsDetail";
 }
 
-<h2>JamGoodsDetail</h2>
+<section class="content">
+    <div>
+        <div class="box box-primary" style="border-top: 30px solid blue;">
+            <div class="box-header with-border">
+                <h3 style="margin-top: 0px; margin-bottom: 0px;">@Model.CurrentGoods.GoodsName</h3>
+            </div>
+            <div class="box-body">
+                <div class="col-md-6 col-md-offset-3">
+                    <div style="text-align: center;">
+                        <img src="@Model.CurrentGoods.DetailImageURL">
+                    </div>
+                    <ul class="list-group list-group-unbordered" style="margin-top: 10px;">
+                        <li class="list-group-item">
+                            <b>在庫状況</b> <div class="pull-right">@JamGoodsStockDomain.GetName(Model.CurrentGoods.Stock)</div>
+                        </li>
+                        <li class="list-group-item">
+                            <b>在庫更新日時</b> <div class="pull-right">@Model.CurrentGoods.StockUpdatedAt.AddHours(9)</div>
+                        </li>
+                        <li class="list-group-item">
+                            <b>価格</b> <div class="pull-right">¥@Model.CurrentGoods.Price</div>
+                        </li>
+                        <li class="list-group-item">
+                            <b>品番</b> <div class="pull-right">@Model.CurrentGoods.PartsNumber</div>
+                        </li>
+                        <li class="list-group-item">
+                            <b>サイズ</b> <div class="pull-right">@Model.CurrentGoods.Size</div>
+                        </li>
+                        <li class="list-group-item">
+                            @Html.Raw(Html.Encode(Model.CurrentGoods.Description).Replace(Html.Encode("\r\n"), "<br />"))
+                        </li>
+                    </ul>
+                </div>
 
+            </div>
+        </div>
+    </div>
+</section>

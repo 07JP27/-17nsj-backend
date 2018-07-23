@@ -43,13 +43,7 @@ namespace _17nsj.Jedi.Pages
                 this.IsEditMode = true;
 
                 var user = await this.DBContext.Users.Where(x => x.UserId == id && x.IsAvailable == true).FirstOrDefaultAsync();
-                if (user == null)
-                {
-                    //対象なしエラー
-                    this.MsgCategory = MsgCategoryDomain.Error;
-                    this.Msg = メッセージ.選択対象なし;
-                    return this.Page();
-                }
+                if (user == null) return new NotFoundResult();
 
                 //特殊ユーザーチェック
                 if (AppConstants.UndeliteableUsers.Contains(id))

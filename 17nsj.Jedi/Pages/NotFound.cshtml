@@ -1,14 +1,14 @@
 ﻿@page
-@model _17nsj.Jedi.Pages.Account.AccessDeniedModel
+@model _17nsj.Jedi.Pages.NotFoundModel
 @{
-    ViewData["Title"] = "AccessDenied";
+    ViewData["Title"] = "NotFound";
 }
 
 <section class="content">
     <div class="error-page">
-        <h2 class="headline text-red" style="margin-top:0px;">401</h2>
+        <h2 class="headline text-yellow" style="margin-top:0px;">404</h2>
         <div class="error-content" style="padding-top:1px;">
-            <h3><i class="fa fa-times-circle text-red"></i> 許可されていない操作です。</h3>
+            <h3><i class="fa fa-warning text-yellow"></i> リソースが見つかりません。</h3>
             <p>
                 この操作が適正なものだと思われる場合は管理者またはシステム管理者までお問い合わせください。
             </p>

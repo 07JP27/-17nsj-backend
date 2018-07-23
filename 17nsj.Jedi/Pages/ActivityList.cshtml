@@ -49,7 +49,8 @@
                                 </span>
                                 @if (Model.IsAdmin)
                                 {
-                                    <a href="ActivityDelete?category=@item.Category&id=@item.Id" type="button" class="btn btn-danger btn-flat">Delete</a>
+                                    <a href="/ActivityManage?category=@item.Category&id=@item.Id" type="button" class="btn btn-info btn-flat">Edit</a>
+                                    <a href="/ActivityDelete?category=@item.Category&id=@item.Id" type="button" class="btn btn-danger btn-flat">Delete</a>
                                 }
                             </div>
                         </li>

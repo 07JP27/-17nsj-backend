@@ -4,5 +4,40 @@
     ViewData["Title"] = "MovieList";
 }
 
-<h2>MovieList</h2>
-
+<section class="content">
+    <div>
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                @if (Model.IsSysAdmin)
+                {
+                    <a href="/MovieManage" type="button" class="btn btn-primary pull-right"><i class="fa fa-plus"></i></a>
+                }
+            </div>
+            <div class="box-body">
+                <ul class="products-list product-list-in-box">
+                    @foreach (var item in Model.ムービーリスト)
+                    {
+                        <li class="item">
+                            <div class="product-img">
+                                <img src="@item.ThumbnailURL" alt="Product Image" style="height: 70px; width: 70px; margin-left: 5px; margin-right: 5px;">
+                            </div>
+                            <div class="product-info">
+                                <h4 class="product-title" style="margin: 0px">
+                                    <a href="@item.URL" target="_blank">@item.Title</a>
+                                </h4>
+                                <span class="product-description">
+                                    @item.Outline
+                                </span>
+                                @if (Model.IsSysAdmin)
+                                {
+                                    <a href="/MovieManage?id=@item.Id" type="button" class="btn btn-info btn-flat">Edit</a>
+                                    <a href="/MovieDelete?id=@item.Id" type="button" class="btn btn-danger btn-flat">Delete</a>
+                                }
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>

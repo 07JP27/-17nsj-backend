@@ -27,7 +27,7 @@ namespace _17nsj.Jedi.Pages
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
-            if (id == null) return new NotFoundResult();
+            if (id == null) return new RedirectResult("/NotFound");
 
             this.PageInitializeAsync();
 

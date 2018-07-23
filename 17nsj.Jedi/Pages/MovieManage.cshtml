@@ -4,5 +4,64 @@
     ViewData["Title"] = "MovieManage";
 }
 
-<h2>MovieManage</h2>
+<section class="content">
+    <div>
+        <div class="box box-primary">
+            <div class="box-body">
+                <div class="col-md-8 col-md-offset-2">
+                    @using (Html.BeginForm(FormMethod.Post))
+                    {
+                        @Html.HiddenFor(model => model.IsEditMode)
+                        @Html.HiddenFor(model => model.TargetMovie.UpdatedAt)
+                        <div class="form-horizontal">
+                            <div class="box-body">
+                                @if (Model.IsEditMode)
+                                {
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">ID</label>
 
+                                        <div class="col-sm-10">
+                                            <label class="form-text">@Model.TargetMovie.Id</label>
+                                            @Html.HiddenFor(model => model.TargetMovie.Id)
+                                        </div>
+                                    </div>
+                                }
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">タイトル</label>
+
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(model => model.TargetMovie.Title, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">サムネイルURL</label>
+
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(model => model.TargetMovie.ThumbnailURL, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">ムービーURL</label>
+
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(model => model.TargetMovie.URL, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">説明</label>
+
+                                    <div class="col-sm-10">
+                                        @Html.TextAreaFor(model => model.TargetMovie.Outline, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                <button type="submit" class="btn btn-success pull-right">登録</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -20,5 +20,17 @@ namespace _17nsj.Jedi.Extensions
 
             return items;
         }
+
+        public static List<SelectListItem> ToSelectListItems(this ReadOnlyDictionary<string, int> dic)
+        {
+            var items = new List<SelectListItem>();
+
+            foreach (var item in dic)
+            {
+                items.Add(new SelectListItem() { Text = item.Key, Value = item.Value.ToString() });
+            }
+
+            return items;
+        }
     }
 }

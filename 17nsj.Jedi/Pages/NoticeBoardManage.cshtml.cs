@@ -41,13 +41,7 @@ namespace _17nsj.Jedi.Pages
                 this.IsEditMode = true;
 
                 var notice = await this.DBContext.NoticeBoard.Where(x => x.Id == id).FirstOrDefaultAsync();
-                if (notice == null)
-                {
-                    //対象なしエラー
-                    this.MsgCategory = MsgCategoryDomain.Error;
-                    this.Msg = メッセージ.選択対象なし;
-                    return this.Page();
-                }
+                if (notice == null) return new NotFoundResult();
 
                 if (!this.IsSysAdmin || notice.CreatedBy != this.UserID) return new ForbidResult();
 

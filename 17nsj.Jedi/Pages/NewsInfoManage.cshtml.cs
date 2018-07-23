@@ -47,13 +47,7 @@ namespace _17nsj.Jedi.Pages
                 this.IsEditMode = true;
 
                 var news = await this.DBContext.News.Where(x => x.Category == category && x.Id == id).FirstOrDefaultAsync();
-                if (news == null)
-                {
-                    //対象なしエラー
-                    this.MsgCategory = MsgCategoryDomain.Error;
-                    this.Msg = メッセージ.選択対象なし;
-                    return this.Page();
-                }
+                if (news == null) return new NotFoundResult();
 
                 //アカウントが管理者ではなく、ニュースが非表示設定になっていたら追い返す
                 if (!this.IsAdmin && !news.IsAvailable) return new ForbidResult();

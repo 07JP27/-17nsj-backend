@@ -1,8 +1,56 @@
 ﻿@page
 @model _17nsj.Jedi.Pages.JamGoodsListModel
+@using _17nsj.Jedi.Domains;
 @{
     ViewData["Title"] = "JamGoods";
 }
 
-<h2>JamGoods</h2>
+<section class="content">
+    @foreach (var goods in Model.グッズリスト)
+    {
+        <h1 style="font-size:24px;">
+            @goods.CategoryName
+        </h1>
 
+        <div class="row">
+            @foreach (var item in goods.Goods)
+            {
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                        <span class="info-box-icon" style="background-image:url('@item.ThumbnailURL'); background-size:90px;"></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">
+                                @switch (item.Stock)
+                                {
+                                    case JamGoodsStockDomain.在庫情報なし:
+                                        @:￥@item.Price
+                                        break;
+                                    case JamGoodsStockDomain.在庫あり:
+                                        @:￥@item.Price
+                                        break;
+                                    case JamGoodsStockDomain.在庫わずか:
+                                        <span class="text-orange">￥@item.Price △</span>
+                                        break;
+                                    case JamGoodsStockDomain.売り切れ:
+                                        <span class="text-red">￥@item.Price ×</span>
+                                        break;
+                                    default:
+                                        @:￥@item.Price
+                                        break;
+                                }
+                            </span>
+                            <a href="/JamGoodsDetail?category=@item.Category&id=@item.Id">
+                                <span class="info-box-text">@item.GoodsName</span>
+                            </a>
+                            @if (Model.IsSysAdmin)
+                            {
+                                <a href="/JamGoodsStockManage?category=@item.Category&id=@item.Id" type="button" class="btn btn-info btn-flat">Edit</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</section>

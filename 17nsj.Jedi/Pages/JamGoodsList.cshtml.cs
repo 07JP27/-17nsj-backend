@@ -21,35 +21,34 @@ namespace _17nsj.Jedi.Pages
 
         }
 
-        public List<JamGoodsModel> グッズリスト { get; set; }
-        public List<JamGoodsCategoriesModel> カテゴリーリスト { get; set; }
+        public List<JamGoodsByCategoryModel> グッズリスト { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
         {
             this.PageInitializeAsync();
 
             var categories = await this.DBContext.JamGoodsCategories.ToListAsync();
-            var goods = await this.DBContext.JamGoods.Where(x => x.IsAvailable == true).Select(x => new { x.Category, x.Id, x.ThumbnailURL, x.GoodsName, x.Description }).ToListAsync();
+            var goods = await this.DBContext.JamGoods.Where(x => x.IsAvailable == true).Select(x => new { x.Category, x.Id, x.ThumbnailURL, x.GoodsName, x.DisplayOrder, x.Price, x.Stock }).ToListAsync();
 
-            カテゴリーリスト = new List<JamGoodsCategoriesModel>();
-            foreach (var item in categories)
+            グッズリスト = new List<JamGoodsByCategoryModel>();
+            foreach(var cat in categories.OrderBy(x => x.DisplayOrder))
             {
-                var model = new JamGoodsCategoriesModel();
-                model.Category = item.Category;
-                model.CategoryName = item.CategoryName;
-                カテゴリーリスト.Add(model);
-            }
+                var model = new JamGoodsByCategoryModel();
+                model.CategoryName = cat.CategoryName;
+                model.Goods = new List<JamGoodsModel>();
 
-            グッズリスト = new List<JamGoodsModel>();
-            foreach (var item in goods)
-            {
-                var model = new JamGoodsModel();
-                model.Category = item.Category;
-                model.CategoryName = カテゴリーリスト.Where(x => x.Category == item.Category).FirstOrDefault().CategoryName;
-                model.Id = item.Id;
-                model.ThumbnailURL = item.ThumbnailURL;
-                model.GoodsName = item.GoodsName;
-                model.Description = item.Description;
+                foreach(var item in goods.Where(x => x.Category == cat.Category).OrderBy(x => x.DisplayOrder))
+                {
+                    var itemModel = new JamGoodsModel();
+                    itemModel.Category = item.Category;
+                    itemModel.Id = item.Id;
+                    itemModel.GoodsName = item.GoodsName;
+                    itemModel.ThumbnailURL = item.ThumbnailURL;
+                    itemModel.Price = item.Price;
+                    itemModel.Stock = item.Stock;
+                    model.Goods.Add(itemModel);
+                }
+
                 グッズリスト.Add(model);
             }
 
