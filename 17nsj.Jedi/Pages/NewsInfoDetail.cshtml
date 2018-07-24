@@ -34,7 +34,7 @@
                         <p>
                             カテゴリー:@Model.CurrentNews.CategoryName<br />
                             配信日:@Model.CurrentNews.CreatedAt<br />
-                            最終更新日:@Model.CurrentNews.UpdatedAt
+                            最終更新日(JST):@Model.CurrentNews.UpdatedAt.AddHours(9)
                         </p>
                     </div>
                 </div>

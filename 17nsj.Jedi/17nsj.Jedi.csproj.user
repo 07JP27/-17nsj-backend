@@ -9,5 +9,7 @@
     <WebStackScaffolding_IsReferencingScriptLibrariesSelected>True</WebStackScaffolding_IsReferencingScriptLibrariesSelected>
     <WebStackScaffolding_LayoutPageFile />
     <ShowAllFiles>false</ShowAllFiles>
+    <AutoRefresh>false</AutoRefresh>
+    <NameOfLastUsedPublishProfile>jp-jedi-test - Web Deploy</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>

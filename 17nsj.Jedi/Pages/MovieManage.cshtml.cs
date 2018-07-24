@@ -13,16 +13,19 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace _17nsj.Jedi.Pages
 {
     [Authorize(Roles = UserRoleDomain.SysAdmin)]
     public class MovieManageModel : PageModelBase
     {
-        public MovieManageModel(JediDbContext dbContext)
+        private ILogger _logger;
+
+        public MovieManageModel(JediDbContext dbContext, ILogger<MovieManageModel> logger)
             : base(dbContext)
         {
-
+            _logger = logger;
         }
 
         [BindProperty]
@@ -105,11 +108,13 @@ namespace _17nsj.Jedi.Pages
                     {
                         await this.DBContext.SaveChangesAsync();
                         tran.Commit();
+                        _logger.LogInformation($"【ムービー更新】ユーザー：{this.UserID}　対象：{this.TargetMovie.Id}");
                         return new RedirectResult($"/MovieList");
                     }
                     catch (Exception ex)
                     {
                         tran.Rollback();
+                        _logger.LogError(ex, $"【ムービー更新エラー】ユーザー：{this.UserID}　対象：{this.TargetMovie.Id}");
                         this.MsgCategory = MsgCategoryDomain.Error;
                         this.Msg = ex.Message;
                         return this.Page();
@@ -151,11 +156,13 @@ namespace _17nsj.Jedi.Pages
                         await this.DBContext.Movies.AddAsync(entity);
                         await this.DBContext.SaveChangesAsync();
                         tran.Commit();
+                        _logger.LogInformation($"【ムービー登録】ユーザー：{this.UserID}　対象：{this.TargetMovie.Id}");
                         return new RedirectResult($"/MovieList");
                     }
                     catch (Exception ex)
                     {
                         tran.Rollback();
+                        _logger.LogError(ex, $"【ムービー登録エラー】ユーザー：{this.UserID}　対象：{this.TargetMovie.Id}");
                         this.MsgCategory = MsgCategoryDomain.Error;
                         this.Msg = ex.Message;
                         return this.Page();

@@ -19,6 +19,7 @@ namespace _17nsj.Jedi
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseApplicationInsights()
                 .UseStartup<Startup>();
     }
 }

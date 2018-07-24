@@ -15,16 +15,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace _17nsj.Jedi.Pages
 {
     [Authorize(Roles = UserRoleDomain.Writer + "," + UserRoleDomain.Admin + "," + UserRoleDomain.SysAdmin)]
     public class NewsInfoManageModel : PageModelBase
     {
-        public NewsInfoManageModel(JediDbContext dbContext)
+        private ILogger _logger;
+
+        public NewsInfoManageModel(JediDbContext dbContext, ILogger<NewsInfoManageModel> logger)
             : base(dbContext)
         {
-
+            _logger = logger;
         }
         public List<SelectListItem> CategoryList { get; set; }
 
@@ -122,11 +125,13 @@ namespace _17nsj.Jedi.Pages
                     {
                         await this.DBContext.SaveChangesAsync();
                         tran.Commit();
+                        _logger.LogInformation($"【ニュース更新】ユーザー：{this.UserID}　対象：{this.TargetNews.Category}-{this.TargetNews.Id}");
                         return new RedirectResult($"/NewsInfoDetail?category={this.TargetNews.Category}&id={this.TargetNews.Id}");
                     }
                     catch (Exception ex)
                     {
                         tran.Rollback();
+                        _logger.LogError(ex, $"【ニュース更新エラー】ユーザー：{this.UserID}　対象：{this.TargetNews.Category}-{this.TargetNews.Id}");
                         this.MsgCategory = MsgCategoryDomain.Error;
                         this.Msg = ex.Message;
                         return this.Page();
@@ -174,11 +179,13 @@ namespace _17nsj.Jedi.Pages
                         await this.DBContext.News.AddAsync(entity);
                         await this.DBContext.SaveChangesAsync();
                         tran.Commit();
+                        _logger.LogInformation($"【ニュース登録】ユーザー：{this.UserID}　対象：{this.TargetNews.Category}-{this.TargetNews.Id}");
                         return new RedirectResult($"/NewsInfoCompleteRegister?category={this.TargetNews.Category}&id={this.TargetNews.Id}");
                     }
                     catch (Exception ex)
                     {
                         tran.Rollback();
+                        _logger.LogError(ex, $"【ニュース登録エラー】ユーザー：{this.UserID}　対象：{this.TargetNews.Category}-{this.TargetNews.Id}");
                         this.MsgCategory = MsgCategoryDomain.Error;
                         this.Msg = ex.Message;
                         return this.Page();

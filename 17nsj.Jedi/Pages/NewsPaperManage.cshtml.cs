@@ -10,15 +10,18 @@ using _17nsj.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace _17nsj.Jedi.Pages
 {
     public class NewsPaperManageModel : PageModelBase
     {
-        public NewsPaperManageModel(JediDbContext dbContext)
+        private ILogger _logger;
+
+        public NewsPaperManageModel(JediDbContext dbContext, ILogger<NewsPaperManageModel> logger)
             : base(dbContext)
         {
-
+            _logger = logger;
         }
 
         [BindProperty]
@@ -65,11 +68,13 @@ namespace _17nsj.Jedi.Pages
                     await this.DBContext.Newspapers.AddAsync(entity);
                     await this.DBContext.SaveChangesAsync();
                     tran.Commit();
+                    _logger.LogInformation($"【新聞登録】ユーザー：{this.UserID}　対象：{this.TargetNp.Id}");
                     return new RedirectResult($"/NewspaperList");
                 }
                 catch (Exception ex)
                 {
                     tran.Rollback();
+                    _logger.LogError(ex, $"【新聞削除エラー】ユーザー：{this.UserID}　対象：{this.TargetNp.Id}");
                     this.MsgCategory = MsgCategoryDomain.Error;
                     this.Msg = ex.Message;
                     return this.Page();

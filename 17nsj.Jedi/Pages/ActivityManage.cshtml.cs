@@ -14,16 +14,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace _17nsj.Jedi.Pages
 {
     [Authorize(Roles = UserRoleDomain.SysAdmin)]
     public class ActivityManageModel : PageModelBase
     {
-        public ActivityManageModel(JediDbContext dbContext)
+        private ILogger _logger;
+
+        public ActivityManageModel(JediDbContext dbContext, ILogger<ActivityManageModel> logger)
             : base(dbContext)
         {
-
+            _logger = logger;
         }
         public List<SelectListItem> CategoryList { get; set; }
 
@@ -117,11 +120,13 @@ namespace _17nsj.Jedi.Pages
                     {
                         await this.DBContext.SaveChangesAsync();
                         tran.Commit();
+                        _logger.LogInformation($"【プログラム更新】ユーザー：{this.UserID}　対象：{this.TargetAct.Category}-{this.TargetAct.Id}");
                         return new RedirectResult($"/ActivityList");
                     }
                     catch (Exception ex)
                     {
                         tran.Rollback();
+                        _logger.LogError(ex, $"【プログラム更新エラー】ユーザー：{this.UserID}　対象：{this.TargetAct.Category}-{this.TargetAct.Id}");
                         this.MsgCategory = MsgCategoryDomain.Error;
                         this.Msg = ex.Message;
                         return this.Page();
@@ -170,11 +175,13 @@ namespace _17nsj.Jedi.Pages
                         await this.DBContext.Activities.AddAsync(entity);
                         await this.DBContext.SaveChangesAsync();
                         tran.Commit();
+                        _logger.LogInformation($"【プログラム登録】ユーザー：{this.UserID}　対象：{this.TargetAct.Category}-{this.TargetAct.Id}");
                         return new RedirectResult("/ActivityList");
                     }
                     catch (Exception ex)
                     {
                         tran.Rollback();
+                        _logger.LogError(ex, $"【プログラム登録エラー】ユーザー：{this.UserID}　対象：{this.TargetAct.Category}-{this.TargetAct.Id}");
                         this.MsgCategory = MsgCategoryDomain.Error;
                         this.Msg = ex.Message;
                         return this.Page();

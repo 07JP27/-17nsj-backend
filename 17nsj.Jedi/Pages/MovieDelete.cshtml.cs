@@ -11,16 +11,19 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace _17nsj.Jedi.Pages
 {
     [Authorize(Roles = UserRoleDomain.SysAdmin)]
     public class MovieDeleteModel : PageModelBase
     {
-        public MovieDeleteModel(JediDbContext dbContext)
+        private ILogger _logger;
+
+        public MovieDeleteModel(JediDbContext dbContext, ILogger<MovieDeleteModel> logger)
             : base(dbContext)
         {
-
+            _logger = logger;
         }
 
         [BindProperty]
@@ -77,11 +80,13 @@ namespace _17nsj.Jedi.Pages
                 {
                     await this.DBContext.SaveChangesAsync();
                     tran.Commit();
+                    _logger.LogInformation($"【ムービー削除】ユーザー：{this.UserID}　対象：{this.CurrentMovie.Id}");
                     return new RedirectResult("/MovieList");
                 }
                 catch (Exception ex)
                 {
                     tran.Rollback();
+                    _logger.LogError(ex, $"【ムービー削除エラー】ユーザー：{this.UserID}　対象：{this.CurrentMovie.Id}");
                     this.MsgCategory = MsgCategoryDomain.Error;
                     this.Msg = ex.Message;
                     return this.Page();

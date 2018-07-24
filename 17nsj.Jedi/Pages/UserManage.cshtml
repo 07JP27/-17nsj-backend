@@ -87,8 +87,8 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">権限</label>
                                     <div class="col-sm-9 form-text">
-                                        <label>
-                                            @Html.CheckBoxFor(modelitem => Model.TargetUser.CanRead)
+                                        <label data-toggle="tooltip" data-placement="bottom" title="ユーザーを作成すると自動的に読取り権限が付与されます。">
+                                            @Html.CheckBoxFor(modelitem => Model.TargetUser.CanRead, new { @disabled = "disabled" })
                                             読み取り
                                         </label>
                                         <label>
@@ -96,11 +96,11 @@
                                             書き込み
                                         </label>
                                         <label data-toggle="tooltip" data-placement="bottom" title="管理者権限ユーザーを作成することはできません。">
-                                            @Html.CheckBoxFor(modelitem => Model.TargetUser.IsAdmin, new { @class = "read-only", @disabled = "disabled" })
+                                            @Html.CheckBoxFor(modelitem => Model.TargetUser.IsAdmin, new { @disabled = "disabled" })
                                             管理者
                                         </label>
                                         <label data-toggle="tooltip" data-placement="bottom" title="システム管理者権限ユーザーを作成することはできません。">
-                                            @Html.CheckBoxFor(modelitem => Model.TargetUser.IsSysAdmin, new { @class = "read-only", @disabled = "disabled" })
+                                            @Html.CheckBoxFor(modelitem => Model.TargetUser.IsSysAdmin, new { @disabled = "disabled" })
                                             システム管理者
                                         </label>
                                     </div>

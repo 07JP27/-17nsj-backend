@@ -13,14 +13,18 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using _17nsj.DataAccess;
 using _17nsj.Repository;
+using Microsoft.Extensions.Logging;
 
 namespace _17nsj.Jedi
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        ILoggerFactory LoggerFactory { get; set; }
+
+        public Startup(IConfiguration configuration, ILoggerFactory loggerFactory)
         {
             Configuration = configuration;
+            this.LoggerFactory = loggerFactory;
         }
 
         public IConfiguration Configuration { get; }
@@ -57,8 +61,13 @@ namespace _17nsj.Jedi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddApplicationInsights(app.ApplicationServices, (category, level) =>
+            {
+                return category.StartsWith("_17nsj.") && level >= LogLevel.Information;
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace _17nsj.Jedi.Pages
@@ -16,10 +17,12 @@ namespace _17nsj.Jedi.Pages
     [Authorize(Roles=UserRoleDomain.Admin + "," + UserRoleDomain.SysAdmin)]
     public class UserDeleteModel : PageModelBase
     {
-        public UserDeleteModel(JediDbContext dbContext)
+        private ILogger _logger;
+
+        public UserDeleteModel(JediDbContext dbContext, ILogger<UserDeleteModel> logger)
             : base(dbContext)
         {
-
+            _logger = logger;
         }
 
         [BindProperty]
@@ -82,11 +85,13 @@ namespace _17nsj.Jedi.Pages
                     this.DBContext.Users.Remove(user);
                     await this.DBContext.SaveChangesAsync();
                     tran.Commit();
+                    _logger.LogInformation($"【ユーザー削除】ユーザー：{this.UserID}　対象：{this.TargetUser.UserId}");
                     return new RedirectResult("/UserList");
                 }
                 catch (Exception ex)
                 {
                     tran.Rollback();
+                    _logger.LogError(ex, $"【ユーザー削除エラー】ユーザー：{this.UserID}　対象：{this.TargetUser.UserId}");
                     this.MsgCategory = MsgCategoryDomain.Error;
                     this.Msg = ex.Message;
                     return this.Page();

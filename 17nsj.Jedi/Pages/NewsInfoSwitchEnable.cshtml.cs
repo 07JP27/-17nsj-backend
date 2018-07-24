@@ -11,16 +11,19 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace _17nsj.Jedi.Pages
 {
     [Authorize(Roles = UserRoleDomain.Admin + "," + UserRoleDomain.SysAdmin)]
     public class NewsInfoSwitchEnableModel : PageModelBase
     {
-        public NewsInfoSwitchEnableModel(JediDbContext dbContext)
+        private ILogger _logger;
+
+        public NewsInfoSwitchEnableModel(JediDbContext dbContext, ILogger<NewsInfoSwitchEnableModel> logger)
             : base(dbContext)
         {
-
+            _logger = logger;
         }
 
         [BindProperty]
@@ -86,11 +89,13 @@ namespace _17nsj.Jedi.Pages
                 {
                     await this.DBContext.SaveChangesAsync();
                     tran.Commit();
+                    _logger.LogInformation($"【ニュース表示切り替え】ユーザー：{this.UserID}　対象：{this.CurrentNews.Category}-{this.CurrentNews.Id}");
                     return new RedirectResult("/NewsInfoList");
                 }
                 catch (Exception ex)
                 {
                     tran.Rollback();
+                    _logger.LogError(ex, $"【ニュース表示切り替えエラー】ユーザー：{this.UserID}　対象：{this.CurrentNews.Category}-{this.CurrentNews.Id}");
                     this.MsgCategory = MsgCategoryDomain.Error;
                     this.Msg = ex.Message;
                     return this.Page();

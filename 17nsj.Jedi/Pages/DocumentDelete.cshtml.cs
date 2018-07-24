@@ -11,16 +11,19 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace _17nsj.Jedi.Pages
 {
     [Authorize(Roles = UserRoleDomain.SysAdmin)]
     public class DocumentDeleteModel : PageModelBase
     {
-        public DocumentDeleteModel(JediDbContext dbContext)
+        private ILogger _logger;
+
+        public DocumentDeleteModel(JediDbContext dbContext, ILogger<DocumentDeleteModel> logger)
             : base(dbContext)
         {
-
+            _logger = logger;
         }
         [BindProperty]
         public DocumentModel CurrentDoc { get; set; }
@@ -76,11 +79,13 @@ namespace _17nsj.Jedi.Pages
                 {
                     await this.DBContext.SaveChangesAsync();
                     tran.Commit();
+                    _logger.LogInformation($"【資料削除】ユーザー：{this.UserID}　対象：{this.CurrentDoc.Id}");
                     return new RedirectResult("/DocumentList");
                 }
                 catch (Exception ex)
                 {
                     tran.Rollback();
+                    _logger.LogError(ex, $"【資料削除エラー】ユーザー：{this.UserID}　対象：{this.CurrentDoc.Id}");
                     this.MsgCategory = MsgCategoryDomain.Error;
                     this.Msg = ex.Message;
                     return this.Page();

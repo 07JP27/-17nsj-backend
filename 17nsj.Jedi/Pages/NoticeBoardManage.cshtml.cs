@@ -13,16 +13,19 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace _17nsj.Jedi.Pages
 {
     [Authorize(Roles=UserRoleDomain.Admin + "," + UserRoleDomain.SysAdmin)]
     public class NoticeBoardManageModel : PageModelBase
     {
-        public NoticeBoardManageModel(JediDbContext dbContext)
+        private ILogger _logger;
+
+        public NoticeBoardManageModel(JediDbContext dbContext, ILogger<NoticeBoardManageModel> logger)
             : base(dbContext)
         {
-
+            _logger = logger;
         }
 
         [BindProperty]
@@ -113,11 +116,13 @@ namespace _17nsj.Jedi.Pages
                     {
                         await this.DBContext.SaveChangesAsync();
                         tran.Commit();
+                        _logger.LogInformation($"【掲示更新】ユーザー：{this.UserID}　対象：{this.TargetNotice.Id}");
                         return new RedirectResult("/NoticeBoardList");
                     }
                     catch (Exception ex)
                     {
                         tran.Rollback();
+                        _logger.LogError(ex, $"【掲示更新エラー】ユーザー：{this.UserID}　対象：{this.TargetNotice.Id}");
                         this.MsgCategory = MsgCategoryDomain.Error;
                         this.Msg = ex.Message;
                         return this.Page();
@@ -158,11 +163,13 @@ namespace _17nsj.Jedi.Pages
                         await this.DBContext.NoticeBoard.AddAsync(entity);
                         await this.DBContext.SaveChangesAsync();
                         tran.Commit();
+                        _logger.LogInformation($"【掲示登録】ユーザー：{this.UserID}　対象：{this.TargetNotice.Id}");
                         return new RedirectResult("/NoticeBoardList");
                     }
                     catch (Exception ex)
                     {
                         tran.Rollback();
+                        _logger.LogError(ex, $"【掲示登録エラー】ユーザー：{this.UserID}　対象：{this.TargetNotice.Id}");
                         this.MsgCategory = MsgCategoryDomain.Error;
                         this.Msg = ex.Message;
                         return this.Page();

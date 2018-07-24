@@ -4,9 +4,12 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <RootNamespace>_17nsj.Jedi</RootNamespace>
     <AssemblyName>_17nsj.Jedi</AssemblyName>
+    <ApplicationInsightsResourceId>/subscriptions/ce343884-c713-494c-ace3-cead52ac2f2f/resourcegroups/Default-ApplicationInsights-EastUS/providers/microsoft.insights/components/17nsj.Jedi</ApplicationInsightsResourceId>
+    <ApplicationInsightsAnnotationResourceId>/subscriptions/ce343884-c713-494c-ace3-cead52ac2f2f/resourcegroups/Default-ApplicationInsights-EastUS/providers/microsoft.insights/components/17nsj.Jedi</ApplicationInsightsAnnotationResourceId>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.0" />
   </ItemGroup>
@@ -14,6 +17,10 @@
   <ItemGroup>
     <ProjectReference Include="..\17nsj.DataAccess\17nsj.DataAccess.csproj" />
     <ProjectReference Include="..\17nsj.Repository\17nsj.Repository.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 
 </Project>

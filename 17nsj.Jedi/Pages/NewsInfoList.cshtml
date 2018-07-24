@@ -54,17 +54,17 @@
                                 </span>
                                 @if (Model.IsAdmin || item.CreatedBy == Model.UserID)
                                 {
-                                    <a href="/NewsInfoManage?category=@item.Category&id=@item.Id" type="button" class="btn btn-info btn-flat">Edit</a>
+                                    <a href="/NewsInfoManage?category=@item.Category&id=@item.Id" type="button" class="btn btn-info btn-flat">編集</a>
                                 }
                                 @if (Model.IsAdmin)
                                 {
                                     @if (item.IsAvailable)
                                     {
-                                        <a href="/NewsInfoSwitchEnable?category=@item.Category&id=@item.Id" type="button" class="btn btn-danger btn-flat">Disable</a>
+                                        <a href="/NewsInfoSwitchEnable?category=@item.Category&id=@item.Id" type="button" class="btn btn-danger btn-flat">非表示</a>
                                     }
                                     else
                                     {
-                                        <a href="/NewsInfoSwitchEnable?category=@item.Category&id=@item.Id" type="button" class="btn btn-warning btn-flat">Enable</a>
+                                        <a href="/NewsInfoSwitchEnable?category=@item.Category&id=@item.Id" type="button" class="btn btn-warning btn-flat">表示</a>
                                     }
                                 }
                             </div>

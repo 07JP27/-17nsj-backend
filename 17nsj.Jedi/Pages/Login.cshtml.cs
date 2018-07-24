@@ -14,14 +14,19 @@ using Microsoft.EntityFrameworkCore;
 using _17nsj.Jedi.Utils;
 using _17nsj.Jedi.Domains;
 using _17nsj.DataAccess;
+using Microsoft.Extensions.Logging;
 
 namespace _17nsj.Jedi.Pages
 {
     public class LoginModel : PageModel
     {
-        public LoginModel(JediDbContext dbContext)
+        private ILogger _logger;
+
+
+        public LoginModel(JediDbContext dbContext, ILogger<LoginModel> logger)
         {
             this.DBContext = dbContext;
+            _logger = logger;
         }
 
         protected JediDbContext DBContext { get; private set; }
@@ -65,6 +70,7 @@ namespace _17nsj.Jedi.Pages
             identity.AddClaim(new Claim(ClaimTypes.GroupSid, user.Affiliation == null ? string.Empty : user.Affiliation));
             var principal = new ClaimsPrincipal(identity);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, new AuthenticationProperties { });
+            _logger.LogInformation($"【ログイン】ユーザー：{user.UserId}");
 
             if (ReturnUrl == null || ReturnUrl == "/")
             {

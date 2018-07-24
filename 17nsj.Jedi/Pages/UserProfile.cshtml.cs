@@ -12,15 +12,18 @@ using _17nsj.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace _17nsj.Jedi.Pages
 {
     public class UserProfileModel : PageModelBase
     {
-        public UserProfileModel(JediDbContext dbContext)
+        private ILogger _logger;
+
+        public UserProfileModel(JediDbContext dbContext, ILogger<UserProfileModel> logger)
             : base(dbContext)
         {
-
+            _logger = logger;
         }
 
         [BindProperty]
@@ -97,6 +100,7 @@ namespace _17nsj.Jedi.Pages
                 {
                     await this.DBContext.SaveChangesAsync();
                     tran.Commit();
+                    _logger.LogInformation($"【プロフィール更新】ユーザー：{this.UserID}　対象：{this.TargetUser.UserId}");
                     this.MsgCategory = MsgCategoryDomain.Success;
                     this.Msg = メッセージ.更新成功;
                     return this.Page();
@@ -104,6 +108,7 @@ namespace _17nsj.Jedi.Pages
                 catch (Exception ex)
                 {
                     tran.Rollback();
+                    _logger.LogError(ex, $"【プロフィール更新エラー】ユーザー：{this.UserID}　対象：{this.TargetUser.UserId}");
                     this.MsgCategory = MsgCategoryDomain.Error;
                     this.Msg = ex.Message;
                     return this.Page();

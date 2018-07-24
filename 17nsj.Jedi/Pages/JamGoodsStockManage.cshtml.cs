@@ -11,16 +11,19 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace _17nsj.Jedi.Pages
 {
     [Authorize(Roles = UserRoleDomain.SysAdmin)]
     public class JamGoodsStockManageModel : PageModelBase
     {
-        public JamGoodsStockManageModel(JediDbContext dbContext)
+        private ILogger _logger;
+
+        public JamGoodsStockManageModel(JediDbContext dbContext, ILogger<JamGoodsStockManageModel> logger)
             : base(dbContext)
         {
-
+            _logger = logger;
         }
 
         [BindProperty]
@@ -79,11 +82,13 @@ namespace _17nsj.Jedi.Pages
                 {
                     await this.DBContext.SaveChangesAsync();
                     tran.Commit();
+                    _logger.LogInformation($"【在庫更新】ユーザー：{this.UserID}　対象：{this.TargetGoods.Category}-{this.TargetGoods.Id}");
                     return new RedirectResult("/JamGoodsList");
                 }
                 catch (Exception ex)
                 {
                     tran.Rollback();
+                    _logger.LogError(ex, $"【在庫更新エラー】ユーザー：{this.UserID}　対象：{this.TargetGoods.Category}-{this.TargetGoods.Id}");
                     this.MsgCategory = MsgCategoryDomain.Error;
                     this.Msg = ex.Message;
                     return this.Page();

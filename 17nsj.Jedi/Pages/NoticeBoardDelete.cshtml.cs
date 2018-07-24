@@ -10,16 +10,19 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace _17nsj.Jedi.Pages
 {
     [Authorize(Roles=UserRoleDomain.Admin + "," + UserRoleDomain.SysAdmin)]
     public class NoticeBoardDeleteModel : PageModelBase
     {
-        public NoticeBoardDeleteModel(JediDbContext dbContext)
+        private ILogger _logger;
+
+        public NoticeBoardDeleteModel(JediDbContext dbContext, ILogger<NoticeBoardDeleteModel> logger)
             : base(dbContext)
         {
-
+            _logger = logger;
         }
 
         [BindProperty]
@@ -71,11 +74,13 @@ namespace _17nsj.Jedi.Pages
                     this.DBContext.NoticeBoard.Remove(notice);
                     await this.DBContext.SaveChangesAsync();
                     tran.Commit();
+                    _logger.LogInformation($"【掲示削除】ユーザー：{this.UserID}　対象：{this.TargetNotice.Id}");
                     return new RedirectResult("/NoticeBoardList");
                 }
                 catch (Exception ex)
                 {
                     tran.Rollback();
+                    _logger.LogError(ex, $"【掲示削除エラー】ユーザー：{this.UserID}　対象：{this.TargetNotice.Id}");
                     this.MsgCategory = MsgCategoryDomain.Error;
                     this.Msg = ex.Message;
                     return this.Page();

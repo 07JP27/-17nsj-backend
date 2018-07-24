@@ -15,16 +15,19 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace _17nsj.Jedi.Pages
 {
     [Authorize(Roles=UserRoleDomain.Admin + "," + UserRoleDomain.SysAdmin)]
     public class UserManageModel : PageModelBase
     {
-        public UserManageModel(JediDbContext dbContext)
+        private ILogger _logger;
+
+        public UserManageModel(JediDbContext dbContext, ILogger<UserManageModel> logger)
             : base(dbContext)
         {
-
+            _logger = logger;
         }
 
         [BindProperty]
@@ -59,7 +62,7 @@ namespace _17nsj.Jedi.Pages
                 TargetUser.UserId = user.UserId;
                 TargetUser.DisplayName = user.DisplayName;
                 TargetUser.Affiliation = user.Affiliation;
-                TargetUser.CanRead = user.CanRead;
+                TargetUser.CanRead = true;
                 TargetUser.CanWrite = user.CanWrite;
                 TargetUser.IsAdmin = user.IsAdmin;
                 TargetUser.IsSysAdmin = user.IsSysAdmin;
@@ -72,6 +75,8 @@ namespace _17nsj.Jedi.Pages
             else
             {
                 // 新規作成
+                this.TargetUser = new UserModel();
+                this.TargetUser.CanRead = true;
                 this.IsEditMode = false;
             }
 
@@ -121,7 +126,7 @@ namespace _17nsj.Jedi.Pages
                         return this.Page();
                     }
 
-                    if (!this.IsSysAdmin)
+                    if (this.IsSysAdmin)
                     {
                         user.Affiliation = this.TargetUser.Affiliation;
                     }
@@ -131,7 +136,6 @@ namespace _17nsj.Jedi.Pages
                         user.Affiliation = this.UserAffiliation;
                     }
                     user.DisplayName = this.TargetUser.DisplayName;
-                    user.CanRead = this.TargetUser.CanRead;
                     user.CanWrite = this.TargetUser.CanWrite;
                     user.UpdatedAt = DateTime.UtcNow;
                     user.UpdatedBy = this.UserID;
@@ -140,11 +144,13 @@ namespace _17nsj.Jedi.Pages
                     {
                         await this.DBContext.SaveChangesAsync();
                         tran.Commit();
+                        _logger.LogInformation($"【ユーザー更新】ユーザー：{this.UserID}　対象：{this.TargetUser.UserId}");
                         return new RedirectResult("/UserList");
                     }
                     catch (Exception ex)
                     {
                         tran.Rollback();
+                        _logger.LogError(ex, $"【ユーザー更新エラー】ユーザー：{this.UserID}　対象：{this.TargetUser.UserId}");
                         this.MsgCategory = MsgCategoryDomain.Error;
                         this.Msg = ex.Message;
                         return this.Page();
@@ -188,25 +194,30 @@ namespace _17nsj.Jedi.Pages
                         entity.Affiliation = this.UserAffiliation;
                     }
                     entity.Password = SHA256Util.GetHashedString(this.TargetUser.Password);
-                    entity.CanRead = this.TargetUser.CanRead;
                     entity.CanWrite = this.TargetUser.CanWrite;
-                    entity.IsAdmin = this.TargetUser.IsAdmin;
                     entity.IsAvailable = true;
                     entity.CreatedAt = now;
                     entity.CreatedBy = this.UserID;
                     entity.UpdatedAt = now;
                     entity.UpdatedBy = this.UserID;
 
+                    //固定ユーザーロール
+                    entity.CanRead = true;
+                    entity.IsAdmin = false;
+                    entity.IsSysAdmin = false;
+
                     try
                     {
                         await this.DBContext.Users.AddAsync(entity);
                         await this.DBContext.SaveChangesAsync();
                         tran.Commit();
+                        _logger.LogInformation($"【ユーザー登録】ユーザー：{this.UserID}　対象：{this.TargetUser.UserId}");
                         return new RedirectResult("/UserList");
                     }
                     catch (Exception ex)
                     {
                         tran.Rollback();
+                        _logger.LogError(ex, $"【ユーザー登録エラー】ユーザー：{this.UserID}　対象：{this.TargetUser.UserId}");
                         this.MsgCategory = MsgCategoryDomain.Error;
                         this.Msg = ex.Message;
                         return this.Page();
