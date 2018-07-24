@@ -41,7 +41,7 @@ namespace _17nsj.Jedi.Pages
                 this.IsEditMode = true;
 
                 var notice = await this.DBContext.NoticeBoard.Where(x => x.Id == id).FirstOrDefaultAsync();
-                if (notice == null) return new NotFoundResult();
+                if (notice == null) return new RedirectResult("/NotFound");
 
                 if (!this.IsSysAdmin || notice.CreatedBy != this.UserID) return new ForbidResult();
 

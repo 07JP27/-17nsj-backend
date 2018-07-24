@@ -28,13 +28,13 @@ namespace _17nsj.Jedi.Pages
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null) return new NotFoundResult();
+            if (id == null) return new RedirectResult("/NotFound");
 
             this.PageInitializeAsync();
 
             var news = await this.DBContext.Movies.Where(x => x.Id == (int)id && x.IsAvailable == true).FirstOrDefaultAsync();
 
-            if (news == null) return new NotFoundResult();
+            if (news == null) return new RedirectResult("/NotFound");
 
             this.CurrentMovie = new MovieModel();
             CurrentMovie.Id = news.Id;
@@ -48,7 +48,7 @@ namespace _17nsj.Jedi.Pages
         {
             using (var tran = await this.DBContext.Database.BeginTransactionAsync())
             {
-                if (CurrentMovie.Id == 0) return new NotFoundResult();
+                if (CurrentMovie.Id == 0) return new RedirectResult("/NotFound");
 
                 this.PageInitializeAsync();
 

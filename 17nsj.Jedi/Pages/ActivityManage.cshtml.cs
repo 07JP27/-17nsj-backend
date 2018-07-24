@@ -41,7 +41,7 @@ namespace _17nsj.Jedi.Pages
                 this.IsEditMode = true;
 
                 var act = await this.DBContext.Activities.Where(x => x.Category == category && x.Id == id).FirstOrDefaultAsync();
-                if (act == null) return new NotFoundResult();
+                if (act == null) return new RedirectResult("/NotFound");
 
                 TargetAct = new ActivityModel();
                 TargetAct.Category = act.Category;

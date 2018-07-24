@@ -1,0 +1,27 @@
+﻿@page
+@model _17nsj.Jedi.Pages.NewsInfoCompleteRegisterModel
+@{
+    ViewData["Title"] = "NewsInfoCompleteRegister";
+}
+
+<section class="content">
+    <div>
+        <div class="box box-primary">
+            <div class="box-body">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="box-body">
+                        <div class="col-md-8 col-md-offset-2">
+                            <img src="~/images/movetodir.gif" class="img-responsive" />
+                            <label style="margin-top:5px;">登録が完了しました。関連ファイルを共有フォルダ</label>
+                            <h2 style="margin:0;"><b> @Model.CurrentNews.Category - @Model.CurrentNews.Id </b></h2>
+                            <label>へ格納してください。</label>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <a href="/NewsInfoList" class="btn btn-info pull-right">一覧へ戻る</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

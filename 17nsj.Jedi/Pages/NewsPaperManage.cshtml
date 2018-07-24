@@ -4,5 +4,44 @@
     ViewData["Title"] = "NewsPaperManage";
 }
 
-<h2>NewsPaperManage</h2>
+<section class="content">
+    <div>
+        <div class="box box-primary">
+            <div class="box-body">
+                <div class="col-md-8 col-md-offset-2">
+                    @using (Html.BeginForm(FormMethod.Post))
+                    {
+                        <div class="form-horizontal">
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-2 control-label">タイトル</label>
 
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(modelitem => Model.TargetNp.Title, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-2 control-label">サムネイルURL</label>
+
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(modelitem => Model.TargetNp.ThumbnailURL, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-2 control-label">URL</label>
+
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(modelitem => Model.TargetNp.URL, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                <button type="submit" class="btn btn-success pull-right">登録</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

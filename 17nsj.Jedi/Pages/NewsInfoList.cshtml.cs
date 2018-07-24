@@ -21,12 +21,23 @@ namespace _17nsj.Jedi.Pages
 
         public List<NewsModel> ニュースリスト { get; private set; }
         public List<NewsCategoryModel> カテゴリーリスト { get; private set; }
+        public string クエリ { get; private set; }
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(string q)
         {
             this.PageInitializeAsync();
             var categories = await this.DBContext.NewsCategories.ToListAsync();
-            var news = await this.DBContext.News.Select(x => new { x.Category,x.Id,x.ThumbnailURL,x.Title,x.Outline,x.IsAvailable,x.CreatedBy, x.UpdatedAt }).OrderByDescending(x => x.UpdatedAt).ToListAsync();
+            IQueryable<News> newsQuery;
+            
+            if(string.IsNullOrEmpty(q))
+            {
+                newsQuery = this.DBContext.News.OrderByDescending(x => x.UpdatedAt);
+            }
+            else
+            {
+                this.クエリ = q;
+                newsQuery = this.DBContext.News.OrderByDescending(x => x.UpdatedAt).Where(x => x.Title.Contains(q) || x.Outline.Contains(q));
+            }
 
             カテゴリーリスト = new List<NewsCategoryModel>();
             foreach(var item in categories)
@@ -40,7 +51,7 @@ namespace _17nsj.Jedi.Pages
             }
 
             ニュースリスト = new List<NewsModel>();
-            foreach(var item in news)
+            foreach(var item in await newsQuery.Select(x => new { x.Category, x.Id, x.ThumbnailURL, x.Title, x.Outline, x.IsAvailable, x.CreatedBy, x.UpdatedAt }).ToListAsync())
             {
                 if (!this.IsAdmin && !item.IsAvailable) continue;
                 var model = new NewsModel();

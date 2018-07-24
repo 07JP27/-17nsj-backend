@@ -41,7 +41,7 @@ namespace _17nsj.Jedi.Pages
                 this.IsEditMode = true;
 
                 var movie = await this.DBContext.Movies.Where(x => x.Id == id && x.IsAvailable == true).FirstOrDefaultAsync();
-                if (movie == null) return new NotFoundResult();
+                if (movie == null) return new RedirectResult("/NotFound");
 
                 TargetMovie = new MovieModel();
                 TargetMovie.Id = movie.Id;

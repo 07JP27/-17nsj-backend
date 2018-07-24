@@ -41,7 +41,7 @@ namespace _17nsj.Jedi.Pages
                 this.IsEditMode = true;
 
                 var doc = await this.DBContext.Documents.Where(x => x.Id == id && x.IsAvailable == true).FirstOrDefaultAsync();
-                if (doc == null) return new NotFoundResult();
+                if (doc == null) return new RedirectResult("/NotFound");
 
                 TargetDoc = new DocumentModel();
                 TargetDoc.Id = doc.Id;

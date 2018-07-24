@@ -22,11 +22,11 @@ namespace _17nsj.Jedi.Pages
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null) return new NotFoundResult();
+            if (id == null) return new RedirectResult("/NotFound");
             this.PageInitializeAsync();
 
             var notice = await this.DBContext.NoticeBoard.Where(x => x.Id == id).FirstOrDefaultAsync();
-            if (notice == null) return new NotFoundResult();
+            if (notice == null) return new RedirectResult("/NotFound");
 
             this.CurrentNotice = new NoticeModel();
             this.CurrentNotice.Id = notice.Id;

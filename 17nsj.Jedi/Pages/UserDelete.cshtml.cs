@@ -33,7 +33,7 @@ namespace _17nsj.Jedi.Pages
 
             var user = await this.DBContext.Users.Where(x => x.IsAvailable && x.UserId == id).FirstOrDefaultAsync();
 
-            if (user == null) return new NotFoundResult();
+            if (user == null) return new RedirectResult("/NotFound");
             if (user.UserId == this.UserID) return new ForbidResult();
             if (!IsSysAdmin && user.Affiliation != this.UserAffiliation) return new ForbidResult();
 
@@ -62,7 +62,7 @@ namespace _17nsj.Jedi.Pages
 
             using (var tran = await this.DBContext.Database.BeginTransactionAsync())
             {
-                if (TargetUser.UserId == null) return new NotFoundResult();
+                if (TargetUser.UserId == null) return new RedirectResult("/NotFound");
 
                 this.PageInitializeAsync();
 

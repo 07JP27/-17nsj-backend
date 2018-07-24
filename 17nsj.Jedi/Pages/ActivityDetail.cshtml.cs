@@ -22,13 +22,13 @@ namespace _17nsj.Jedi.Pages
 
         public async Task<IActionResult> OnGetAsync(string category, int? id)
         {
-            if (category == null || id == null) return new NotFoundResult();
+            if (category == null || id == null) return new RedirectResult("/NotFound");
 
             this.PageInitializeAsync();
 
             var act = await this.DBContext.Activities.Where(x => x.IsAvailable && x.Category == category && x.Id == (int)id).FirstOrDefaultAsync();
 
-            if (act == null) return new NotFoundResult();
+            if (act == null) return new RedirectResult("/NotFound");
 
             var categories = await this.DBContext.ActivityCategories.ToListAsync();
             var currentCategory = categories.Where(x => x.Category == act.Category).FirstOrDefault();

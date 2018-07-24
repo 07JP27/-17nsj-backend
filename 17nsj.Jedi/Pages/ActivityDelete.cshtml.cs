@@ -28,13 +28,13 @@ namespace _17nsj.Jedi.Pages
 
         public async Task<IActionResult> OnGetAsync(string category, int? id)
         {
-            if (category == null || id == null) return new NotFoundResult();
+            if (category == null || id == null) return new RedirectResult("/NotFound");
 
             this.PageInitializeAsync();
 
             var news = await this.DBContext.Activities.Where(x => x.Category == category && x.Id == (int)id && x.IsAvailable == true).FirstOrDefaultAsync();
 
-            if (news == null) return new NotFoundResult();
+            if (news == null) return new RedirectResult("/NotFound");
 
             this.CurrentAct = new ActivityModel();
             CurrentAct.Category = news.Category;
@@ -49,7 +49,7 @@ namespace _17nsj.Jedi.Pages
         {
             using (var tran = await this.DBContext.Database.BeginTransactionAsync())
             {
-                if (string.IsNullOrEmpty(CurrentAct.Category) || CurrentAct.Id == 0) return new NotFoundResult();
+                if (string.IsNullOrEmpty(CurrentAct.Category) || CurrentAct.Id == 0) return new RedirectResult("/NotFound");
 
                 this.PageInitializeAsync();
 

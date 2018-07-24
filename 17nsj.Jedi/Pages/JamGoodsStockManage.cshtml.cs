@@ -34,7 +34,7 @@ namespace _17nsj.Jedi.Pages
 
             var goods = await this.DBContext.JamGoods.Where(x => x.IsAvailable && x.Category == category && x.Id == (int)id).FirstOrDefaultAsync();
 
-            if (goods == null) return new NotFoundResult();
+            if (goods == null) return new RedirectResult("/NotFound");
 
             this.TargetGoods = new JamGoodsModel();
             this.TargetGoods.Category = goods.Category;

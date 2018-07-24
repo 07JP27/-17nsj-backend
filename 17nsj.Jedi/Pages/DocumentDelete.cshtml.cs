@@ -27,13 +27,13 @@ namespace _17nsj.Jedi.Pages
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null) return new NotFoundResult();
+            if (id == null) return new RedirectResult("/NotFound");
 
             this.PageInitializeAsync();
 
             var doc = await this.DBContext.Documents.Where(x => x.Id == (int)id && x.IsAvailable == true).FirstOrDefaultAsync();
 
-            if (doc == null) return new NotFoundResult();
+            if (doc == null) return new RedirectResult("/NotFound");
 
             this.CurrentDoc = new DocumentModel();
             CurrentDoc.Id = doc.Id;
@@ -47,7 +47,7 @@ namespace _17nsj.Jedi.Pages
         {
             using (var tran = await this.DBContext.Database.BeginTransactionAsync())
             {
-                if (CurrentDoc.Id == 0) return new NotFoundResult();
+                if (CurrentDoc.Id == 0) return new RedirectResult("/NotFound");
 
                 this.PageInitializeAsync();
 

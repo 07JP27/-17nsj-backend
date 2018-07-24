@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using _17nsj.DataAccess;
 using _17nsj.Jedi.Models;
 using _17nsj.Repository;
 using Microsoft.AspNetCore.Mvc;
@@ -20,12 +21,25 @@ namespace _17nsj.Jedi.Pages
 
         public List<ActivityModel> プログラムリスト { get; private set; }
         public List<ActivityCategoryModel> カテゴリーリスト { get; private set; }
+        public string クエリ { get; private set; }
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(string q)
         {
             this.PageInitializeAsync();
             var categories = await this.DBContext.ActivityCategories.ToListAsync();
             var acts = await this.DBContext.Activities.Where(x => x.IsAvailable == true).Select(x => new { x.Category, x.Id, x.ThumbnailURL, x.Title, x.Term, x.Location, x.UpdatedAt }).OrderByDescending(x => x.UpdatedAt).ToListAsync();
+
+            IQueryable<Activities> actQuery;
+
+            if (string.IsNullOrEmpty(q))
+            {
+                actQuery = this.DBContext.Activities.OrderByDescending(x => x.UpdatedAt);
+            }
+            else
+            {
+                this.クエリ = q;
+                actQuery = this.DBContext.Activities.OrderByDescending(x => x.UpdatedAt).Where(x => x.Title.Contains(q) || x.Outline.Contains(q) || x.Location.Contains(q));
+            }
 
             カテゴリーリスト = new List<ActivityCategoryModel>();
             foreach (var item in categories)
@@ -39,7 +53,7 @@ namespace _17nsj.Jedi.Pages
             }
 
             プログラムリスト = new List<ActivityModel>();
-            foreach (var item in acts)
+            foreach (var item in await actQuery.Select(x => new { x.Category, x.Id, x.ThumbnailURL, x.Title, x.Term, x.Location, x.UpdatedAt }).ToListAsync())
             {
                 var model = new ActivityModel();
                 model.Category = item.Category;

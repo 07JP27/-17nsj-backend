@@ -47,7 +47,7 @@ namespace _17nsj.Jedi.Pages
                 this.IsEditMode = true;
 
                 var news = await this.DBContext.News.Where(x => x.Category == category && x.Id == id).FirstOrDefaultAsync();
-                if (news == null) return new NotFoundResult();
+                if (news == null) return new RedirectResult("/NotFound");
 
                 //アカウントが管理者ではなく、ニュースが非表示設定になっていたら追い返す
                 if (!this.IsAdmin && !news.IsAvailable) return new ForbidResult();
@@ -174,7 +174,7 @@ namespace _17nsj.Jedi.Pages
                         await this.DBContext.News.AddAsync(entity);
                         await this.DBContext.SaveChangesAsync();
                         tran.Commit();
-                        return new RedirectResult($"/NewsInfoDetail?category={this.TargetNews.Category}&id={this.TargetNews.Id}");
+                        return new RedirectResult($"/NewsInfoCompleteRegister?category={this.TargetNews.Category}&id={this.TargetNews.Id}");
                     }
                     catch (Exception ex)
                     {

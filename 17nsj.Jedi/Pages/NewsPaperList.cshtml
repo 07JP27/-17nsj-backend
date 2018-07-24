@@ -4,4 +4,28 @@
     ViewData["Title"] = "NewsPaperList";
 }
 
-<h2>NewsPaperList</h2>
+<section class="content">
+    @if (Model.IsSysAdmin)
+    {
+    <div class="col-md-12 col-sm-12 col-xs-12" style="padding-right:0; margin-bottom:10px;">
+        <a href="/NewspaperManage" type="button" class="btn btn-primary pull-right"><i class="fa fa-plus"></i></a>
+    </div>
+    }
+    <div class="row">
+        @foreach (var item in this.Model.NPリスト)
+        {
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <a href="@item.URL" target="_blank">
+                    <div class="info-box" style="height:150px;">
+                        <span class="info-box-icon" style="background-image:url('@item.ThumbnailURL'); height:150px; background-size:cover;"></span>
+
+                        <div class="info-box-content text-black">
+                            @item.CreatedAt.AddHours(9).ToString("yyyy/MM/dd HH:mm") (JST)配信
+                            <span class="info-box-number">@item.Title</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+</section>

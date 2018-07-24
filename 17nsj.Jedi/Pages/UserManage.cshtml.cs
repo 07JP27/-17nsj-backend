@@ -43,13 +43,16 @@ namespace _17nsj.Jedi.Pages
                 this.IsEditMode = true;
 
                 var user = await this.DBContext.Users.Where(x => x.UserId == id && x.IsAvailable == true).FirstOrDefaultAsync();
-                if (user == null) return new NotFoundResult();
+                if (user == null) return new RedirectResult("/NotFound");
 
                 //特殊ユーザーチェック
                 if (AppConstants.UndeliteableUsers.Contains(id))
                 {
                     return new ForbidResult();
                 }
+
+                //管理対象が自分自身なら拒否
+                if(id == this.UserID) return new ForbidResult();
 
                 TargetUser = new UserModel();
                 var now = DateTime.UtcNow;
@@ -97,6 +100,9 @@ namespace _17nsj.Jedi.Pages
                     {
                         return new ForbidResult();
                     }
+
+                    //管理対象が自分自身なら拒否
+                    if (this.TargetUser.UserId == this.UserID) return new ForbidResult();
 
                     //存在チェック
                     var user = await this.DBContext.Users.Where(x => x.UserId == this.TargetUser.UserId).FirstOrDefaultAsync();

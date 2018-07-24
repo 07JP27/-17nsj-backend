@@ -30,7 +30,7 @@ namespace _17nsj.Jedi.Pages
         {
             this.PageInitializeAsync();
 
-            if (string.IsNullOrEmpty(id)) return new NotFoundResult();
+            if (string.IsNullOrEmpty(id)) return new RedirectResult("/NotFound");
             if (id != this.UserID) return new ForbidResult();
 
             //特殊ユーザーチェック
@@ -40,7 +40,7 @@ namespace _17nsj.Jedi.Pages
             }
 
             var user = await this.DBContext.Users.Where(x => x.UserId == id && x.IsAvailable == true).FirstOrDefaultAsync();
-            if (user == null) return new NotFoundResult();
+            if (user == null) return new RedirectResult("/NotFound");
 
             this.TargetUser = new UserModel();
             this.TargetUser.UserId = user.UserId;
