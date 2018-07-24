@@ -1,7 +1,3 @@
-body {
-    overflow-y: hidden !important;
-}
-
 .cal_wrapper {
     max-width: 800px; /* ç≈ëÂïù */
     min-width: 300px; /* ç≈è¨ïù */
@@ -28,11 +24,6 @@ body {
     .googlecal {
         padding-bottom: 75%;
     }
-}
-
-.content-wrapper {
-    height: 100px;
-    overflow: auto;
 }
 
 .footer-image {
