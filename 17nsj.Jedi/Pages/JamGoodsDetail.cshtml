@@ -7,21 +7,21 @@
 
 <section class="content">
     <div>
-        <div class="box box-primary" style="border-top: 30px solid blue;">
+        <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 style="margin-top: 0px; margin-bottom: 0px;">@Model.CurrentGoods.GoodsName</h3>
             </div>
             <div class="box-body">
                 <div class="col-md-6 col-md-offset-3">
-                    <div style="text-align: center;">
-                        <img src="@Model.CurrentGoods.DetailImageURL">
+                    <div class="col-md-12 col-sm-12 row">
+                        <img src="@Model.CurrentGoods.DetailImageURL" class="image col-md-12 col-xs-12">
                     </div>
                     <ul class="list-group list-group-unbordered" style="margin-top: 10px;">
                         <li class="list-group-item">
                             <b>在庫状況</b> <div class="pull-right">@JamGoodsStockDomain.GetName(Model.CurrentGoods.Stock)</div>
                         </li>
                         <li class="list-group-item">
-                            <b>在庫更新日時(JST)</b> <div class="pull-right">@Model.CurrentGoods.StockUpdatedAt.AddHours(9)</div>
+                            <b>在庫更新日時(JST)</b> <div class="pull-right">@Model.CurrentGoods.StockUpdatedAt.AddHours(9).ToString("yyyy/MM/dd HH:mm")</div>
                         </li>
                         <li class="list-group-item">
                             <b>価格</b> <div class="pull-right">¥@Model.CurrentGoods.Price</div>

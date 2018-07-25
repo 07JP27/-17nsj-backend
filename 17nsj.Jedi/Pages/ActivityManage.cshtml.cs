@@ -208,7 +208,7 @@ namespace _17nsj.Jedi.Pages
 
             if (this.TargetAct.MediaURL != null)
             {
-                if ((!string.IsNullOrEmpty(this.TargetAct.MediaURL) && !URLUtil.IsUrl(this.TargetAct.MediaURL)) || (this.TargetAct.ThumbnailURL.Length <= 0 || this.TargetAct.ThumbnailURL.Length >= 200))
+                if ((!string.IsNullOrEmpty(this.TargetAct.MediaURL) && !URLUtil.IsUrl(this.TargetAct.MediaURL)) || (this.TargetAct.MediaURL.Length <= 0 || this.TargetAct.MediaURL.Length >= 200))
                 {
                     return "画像URLは正しいURLの形式で200文字以内で入力してください。";
                 }
@@ -216,7 +216,7 @@ namespace _17nsj.Jedi.Pages
 
             if (this.TargetAct.RelationalURL != null)
             {
-                if ((!string.IsNullOrEmpty(this.TargetAct.RelationalURL) && !URLUtil.IsUrl(this.TargetAct.RelationalURL)) || (this.TargetAct.ThumbnailURL.Length <= 0 || this.TargetAct.ThumbnailURL.Length >= 200))
+                if ((!string.IsNullOrEmpty(this.TargetAct.RelationalURL) && !URLUtil.IsUrl(this.TargetAct.RelationalURL)) || (this.TargetAct.RelationalURL.Length <= 0 || this.TargetAct.RelationalURL.Length >= 200))
                 {
                     return "関連URLは正しいURLの形式で200文字以内で入力してください。";
                 }
