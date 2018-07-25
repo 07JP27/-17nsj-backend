@@ -12,7 +12,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace _17nsj.Jedi.Pages
 {
-    [Authorize(Roles=UserRoleDomain.Admin + "," + UserRoleDomain.SysAdmin)]
     public class JamGoodsListModel : PageModelBase
     {
         public JamGoodsListModel(JediDbContext dbContext)
