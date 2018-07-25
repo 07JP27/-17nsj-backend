@@ -94,6 +94,7 @@ namespace _17nsj.Jedi.Pages
                 {
                     this.MsgCategory = MsgCategoryDomain.Error;
                     this.Msg = val;
+                    this.TargetUser.CanRead = true;
                     return this.Page();
                 }
 
@@ -115,6 +116,7 @@ namespace _17nsj.Jedi.Pages
                     {
                         this.MsgCategory = MsgCategoryDomain.Error;
                         this.Msg = メッセージ.選択対象なし;
+                        this.TargetUser.CanRead = true;
                         return this.Page();
                     }
 
@@ -123,6 +125,7 @@ namespace _17nsj.Jedi.Pages
                     {
                         this.MsgCategory = MsgCategoryDomain.Error;
                         this.Msg = メッセージ.既更新;
+                        this.TargetUser.CanRead = true;
                         return this.Page();
                     }
 
@@ -153,6 +156,7 @@ namespace _17nsj.Jedi.Pages
                         _logger.LogError(ex, $"【ユーザー更新エラー】ユーザー：{this.UserID}　対象：{this.TargetUser.UserId}");
                         this.MsgCategory = MsgCategoryDomain.Error;
                         this.Msg = ex.Message;
+                        this.TargetUser.CanRead = true;
                         return this.Page();
                     }
                 }
@@ -164,6 +168,7 @@ namespace _17nsj.Jedi.Pages
                 {
                     this.MsgCategory = MsgCategoryDomain.Error;
                     this.Msg = val;
+                    this.TargetUser.CanRead = true;
                     return this.Page();
                 }
 
@@ -176,6 +181,7 @@ namespace _17nsj.Jedi.Pages
                     {
                         this.MsgCategory = MsgCategoryDomain.Error;
                         this.Msg = メッセージ.ユーザーID重複;
+                        this.TargetUser.CanRead = true;
                         return this.Page();
                     }
 
@@ -220,6 +226,7 @@ namespace _17nsj.Jedi.Pages
                         _logger.LogError(ex, $"【ユーザー登録エラー】ユーザー：{this.UserID}　対象：{this.TargetUser.UserId}");
                         this.MsgCategory = MsgCategoryDomain.Error;
                         this.Msg = ex.Message;
+                        this.TargetUser.CanRead = true;
                         return this.Page();
                     }
                 }

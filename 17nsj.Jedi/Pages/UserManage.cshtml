@@ -88,7 +88,7 @@
                                     <label class="col-sm-3 control-label">権限</label>
                                     <div class="col-sm-9 form-text">
                                         <label data-toggle="tooltip" data-placement="bottom" title="ユーザーを作成すると自動的に読取り権限が付与されます。">
-                                            @Html.CheckBoxFor(modelitem => Model.TargetUser.CanRead, new { @disabled = "disabled" })
+                                            @Html.CheckBoxFor(modelitem => Model.TargetUser.CanRead)
                                             読み取り
                                         </label>
                                         <label>
