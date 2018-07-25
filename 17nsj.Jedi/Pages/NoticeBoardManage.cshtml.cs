@@ -63,6 +63,8 @@ namespace _17nsj.Jedi.Pages
             {
                 // 新規作成
                 this.IsEditMode = false;
+                this.TargetNotice = new NoticeModel();
+                this.TargetNotice.Sender = this.UserName;
             }
 
             return this.Page();
