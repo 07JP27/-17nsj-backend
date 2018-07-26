@@ -11,34 +11,34 @@
                 <div class="col-md-8 col-md-offset-2">
                     @using (Html.BeginForm(FormMethod.Post))
                     {
-                        @Html.HiddenFor(modelitem => Model.TargetUser.UpdatedAt)
+                        @Html.HiddenFor(model => model.TargetUser.UpdatedAt)
                         <div class="form-horizontal">
                             <div class="box-body">
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">ユーザーID</label>
                                     <div class="col-sm-9 form-text">
                                             @Model.TargetUser.UserId
-                                            @Html.HiddenFor(modelitem => Model.TargetUser.UserId)
+                                            @Html.HiddenFor(model => model.TargetUser.UserId)
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">表示名</label>
                                     <div class="col-sm-9 form-text">
                                         @Model.TargetUser.DisplayName
-                                        @Html.HiddenFor(modelitem => Model.TargetUser.DisplayName)
+                                        @Html.HiddenFor(model => model.TargetUser.DisplayName)
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label">パスワード</label>
+                                    <label class="col-sm-3 control-label">パスワード*</label>
                                     <div class="col-sm-9">
-                                        @Html.PasswordFor(modelitem => Model.TargetUser.Password, new { @class = "form-control" })
+                                        @Html.PasswordFor(model => model.TargetUser.Password, new { @class = "form-control", @placeholder = "６文字以上半角英数字混在" })
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label">パスワード(確認)</label>
+                                    <label class="col-sm-3 control-label">パスワード(確認)*</label>
                                     <div class="col-sm-9">
-                                        @Html.PasswordFor(modelitem => Model.TargetUser.RePassword, new { @class = "form-control" })
+                                        @Html.PasswordFor(model => model.TargetUser.RePassword, new { @class = "form-control", @placeholder = "６文字以上半角英数字混在" })
                                     </div>
                                 </div>
                             </div>

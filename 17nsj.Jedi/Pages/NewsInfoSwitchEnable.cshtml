@@ -9,9 +9,9 @@
         <div class="box box-primary">
             @using (Html.BeginForm(FormMethod.Post))
             {
-                @Html.HiddenFor(modelitem => Model.CurrentNews.Category)
-                @Html.HiddenFor(modelitem => Model.CurrentNews.Id)
-                @Html.HiddenFor(modelitem => Model.CurrentNews.UpdatedAt)
+                @Html.HiddenFor(model => model.CurrentNews.Category)
+                @Html.HiddenFor(model => model.CurrentNews.Id)
+                @Html.HiddenFor(model => model.CurrentNews.UpdatedAt)
                 <div class="box-body">
                     <div class="form-horizontal col-md-6 col-md-offset-3">
                         <div class="form-group">

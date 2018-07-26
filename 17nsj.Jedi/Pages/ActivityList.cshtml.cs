@@ -27,18 +27,17 @@ namespace _17nsj.Jedi.Pages
         {
             this.PageInitializeAsync();
             var categories = await this.DBContext.ActivityCategories.ToListAsync();
-            var acts = await this.DBContext.Activities.Where(x => x.IsAvailable == true).Select(x => new { x.Category, x.Id, x.ThumbnailURL, x.Title, x.Term, x.Location, x.UpdatedAt }).OrderByDescending(x => x.UpdatedAt).ToListAsync();
 
             IQueryable<Activities> actQuery;
 
             if (string.IsNullOrEmpty(q))
             {
-                actQuery = this.DBContext.Activities.OrderByDescending(x => x.UpdatedAt);
+                actQuery = this.DBContext.Activities.Where(x => x.IsAvailable == true).OrderByDescending(x => x.UpdatedAt);
             }
             else
             {
                 this.クエリ = q;
-                actQuery = this.DBContext.Activities.OrderByDescending(x => x.UpdatedAt).Where(x => x.Title.Contains(q) || x.Outline.Contains(q) || x.Location.Contains(q));
+                actQuery = this.DBContext.Activities.Where(x => x.IsAvailable == true).OrderByDescending(x => x.UpdatedAt).Where(x => x.Title.Contains(q) || x.Outline.Contains(q) || x.Location.Contains(q));
             }
 
             カテゴリーリスト = new List<ActivityCategoryModel>();

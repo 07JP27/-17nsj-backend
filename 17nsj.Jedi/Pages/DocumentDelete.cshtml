@@ -9,9 +9,9 @@
         <div class="box box-primary">
             @using (Html.BeginForm(FormMethod.Post))
             {
-                @Html.HiddenFor(modelitem => Model.CurrentDoc.Id)
-                @Html.HiddenFor(modelitem => Model.CurrentDoc.Title)
-                @Html.HiddenFor(modelitem => Model.CurrentDoc.UpdatedAt)
+                @Html.HiddenFor(model => model.CurrentDoc.Id)
+                @Html.HiddenFor(model => model.CurrentDoc.Title)
+                @Html.HiddenFor(model => model.CurrentDoc.UpdatedAt)
                 <div class="box-body">
                     <div class="form-horizontal col-md-6 col-md-offset-3">
                         <h3>本当に削除しますか？</h3>

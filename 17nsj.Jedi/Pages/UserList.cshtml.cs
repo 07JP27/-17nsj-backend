@@ -31,7 +31,7 @@ namespace _17nsj.Jedi.Pages
             IQueryable<Users> query;
             if(IsSysAdmin)
             {
-                query = this.DBContext.Users.Where(x => x.IsAvailable);
+                query = this.DBContext.Users.Where(x => x.IsAvailable == true);
             }
             else
             {

@@ -11,8 +11,8 @@
                 <div class="col-md-8 col-md-offset-2">
                     @using (Html.BeginForm(FormMethod.Post))
                     {
-                        @Html.HiddenFor(modelitem => Model.IsEditMode)
-                        @Html.HiddenFor(modelitem => Model.TargetNews.UpdatedAt)
+                        @Html.HiddenFor(model => model.IsEditMode)
+                        @Html.HiddenFor(model => model.TargetNews.UpdatedAt)
                         <div class="form-horizontal">
                             <div class="box-body">
                                 @if (Model.IsEditMode)
@@ -22,15 +22,15 @@
 
                                         <div class="col-sm-10">
                                             <label class="form-text">@Model.TargetNews.Category - @Model.TargetNews.Id</label>
-                                            @Html.HiddenFor(modelitem => Model.TargetNews.Category)
-                                            @Html.HiddenFor(modelitem => Model.TargetNews.Id)
+                                            @Html.HiddenFor(model => model.TargetNews.Category)
+                                            @Html.HiddenFor(model => model.TargetNews.Id)
                                         </div>
                                     </div>
                                 }
                                 else
                                 {
                                     <div class="form-group">
-                                        <label for="inputEmail3" class="col-sm-2 control-label">カテゴリ</label>
+                                        <label for="inputEmail3" class="col-sm-2 control-label">カテゴリ*</label>
 
                                         <div class="col-sm-10">
                                             @Html.DropDownListFor(model => model.TargetNews.Category, Model.CategoryList, null, new { @class = "form-control" })
@@ -38,52 +38,52 @@
                                     </div>
                                 }
                                 <div class="form-group">
-                                    <label for="inputEmail3" class="col-sm-2 control-label">タイトル</label>
+                                    <label for="inputEmail3" class="col-sm-2 control-label">タイトル*</label>
 
                                     <div class="col-sm-10">
-                                        @Html.TextBoxFor(modelitem => Model.TargetNews.Title, new { @class = "form-control" })
+                                        @Html.TextBoxFor(model => model.TargetNews.Title, new { @class = "form-control", @placeholder = "30文字以内" })
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputPassword3" class="col-sm-2 control-label">サムネイルURL</label>
 
                                     <div class="col-sm-10">
-                                        @Html.TextBoxFor(modelitem => Model.TargetNews.ThumbnailURL, new { @class = "form-control" })
+                                        @Html.TextBoxFor(model => model.TargetNews.ThumbnailURL, new { @class = "form-control", @placeholder = "200文字以内" })
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputPassword3" class="col-sm-2 control-label">画像URL</label>
 
                                     <div class="col-sm-10">
-                                        @Html.TextBoxFor(modelitem => Model.TargetNews.MediaURL, new { @class = "form-control" })
+                                        @Html.TextBoxFor(model => model.TargetNews.MediaURL, new { @class = "form-control", @placeholder = "200文字以内" })
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputPassword3" class="col-sm-2 control-label">取材担当</label>
+                                    <label for="inputPassword3" class="col-sm-2 control-label">取材担当*</label>
 
                                     <div class="col-sm-10">
-                                        @Html.TextBoxFor(modelitem => Model.TargetNews.Author, new { @class = "form-control" })
+                                        @Html.TextBoxFor(model => model.TargetNews.Author, new { @class = "form-control", @placeholder = "30文字以内" })
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputPassword3" class="col-sm-2 control-label">関連URL</label>
 
                                     <div class="col-sm-10">
-                                        @Html.TextBoxFor(modelitem => Model.TargetNews.RelationalURL, new { @class = "form-control" })
+                                        @Html.TextBoxFor(model => model.TargetNews.RelationalURL, new { @class = "form-control", @placeholder = "200文字以内" })
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputPassword3" class="col-sm-2 control-label">本文</label>
 
                                     <div class="col-sm-10">
-                                        @Html.TextAreaFor(modelitem => Model.TargetNews.Outline, new { @class = "form-control" })
+                                        @Html.TextAreaFor(model => model.TargetNews.Outline, new { @class = "form-control", @placeholder = "500文字以内" })
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputPassword3" class="col-sm-2 control-label"></label>
 
                                     <div class="col-sm-10">
-                                        @Html.CheckBoxFor(modelitem => Model.IsAuthorized)
+                                        @Html.CheckBoxFor(model => model.IsAuthorized)
                                         <label class="form-text">この記事は承認者の承認を受けた記事であることを確認しました。</label>
                                     </div>
                                 </div>
