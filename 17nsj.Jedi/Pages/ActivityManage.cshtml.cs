@@ -193,14 +193,14 @@ namespace _17nsj.Jedi.Pages
         private string Validation()
         {
             //タイトルは1~30文字以内
-            if (this.TargetAct.Title == null || this.TargetAct.Title.Length <= 0 || this.TargetAct.Title.Length >= 30)
+            if (this.TargetAct.Title == null || this.TargetAct.Title.Length < 0 || this.TargetAct.Title.Length > 30)
             {
                 return "タイトルは1~30文字で入力してください。";
             }
 
             if (this.TargetAct.ThumbnailURL != null)
             {
-                if ((!string.IsNullOrEmpty(this.TargetAct.ThumbnailURL) && !URLUtil.IsUrl(this.TargetAct.ThumbnailURL)) || (this.TargetAct.ThumbnailURL.Length <= 0 || this.TargetAct.ThumbnailURL.Length >= 200))
+                if ((!string.IsNullOrEmpty(this.TargetAct.ThumbnailURL) && !URLUtil.IsUrl(this.TargetAct.ThumbnailURL)) || (this.TargetAct.ThumbnailURL.Length < 0 || this.TargetAct.ThumbnailURL.Length > 200))
                 {
                     return "サムネイルURLは正しいURLの形式で200文字以内で入力してください。";
                 }
@@ -208,7 +208,7 @@ namespace _17nsj.Jedi.Pages
 
             if (this.TargetAct.MediaURL != null)
             {
-                if ((!string.IsNullOrEmpty(this.TargetAct.MediaURL) && !URLUtil.IsUrl(this.TargetAct.MediaURL)) || (this.TargetAct.MediaURL.Length <= 0 || this.TargetAct.MediaURL.Length >= 200))
+                if ((!string.IsNullOrEmpty(this.TargetAct.MediaURL) && !URLUtil.IsUrl(this.TargetAct.MediaURL)) || (this.TargetAct.MediaURL.Length < 0 || this.TargetAct.MediaURL.Length > 200))
                 {
                     return "画像URLは正しいURLの形式で200文字以内で入力してください。";
                 }
@@ -216,13 +216,13 @@ namespace _17nsj.Jedi.Pages
 
             if (this.TargetAct.RelationalURL != null)
             {
-                if ((!string.IsNullOrEmpty(this.TargetAct.RelationalURL) && !URLUtil.IsUrl(this.TargetAct.RelationalURL)) || (this.TargetAct.RelationalURL.Length <= 0 || this.TargetAct.RelationalURL.Length >= 200))
+                if ((!string.IsNullOrEmpty(this.TargetAct.RelationalURL) && !URLUtil.IsUrl(this.TargetAct.RelationalURL)) || (this.TargetAct.RelationalURL.Length < 0 || this.TargetAct.RelationalURL.Length > 200))
                 {
                     return "関連URLは正しいURLの形式で200文字以内で入力してください。";
                 }
             }
 
-            if (this.TargetAct.Outline == null || this.TargetAct.Outline.Length <= 0 || this.TargetAct.Outline.Length >= 500)
+            if (this.TargetAct.Outline == null || this.TargetAct.Outline.Length < 0 || this.TargetAct.Outline.Length > 500)
             {
                 return "説明は500文字以内で入力してください。";
             }

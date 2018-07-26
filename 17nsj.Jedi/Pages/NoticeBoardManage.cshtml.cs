@@ -55,7 +55,7 @@ namespace _17nsj.Jedi.Pages
                 TargetNotice.Contents = notice.Contents;
                 TargetNotice.Receiver = notice.Receiver;
                 TargetNotice.Sender = notice.Sender;
-                TargetNotice.Termination = notice.Termination;
+                TargetNotice.TerminationStr = notice.Termination.AddHours(9).ToString("yyyy/MM/dd HH:mm");
                 TargetNotice.CreatedBy = notice.CreatedBy;
                 TargetNotice.UpdatedAt = notice.UpdatedAt;
             }
@@ -65,6 +65,7 @@ namespace _17nsj.Jedi.Pages
                 this.IsEditMode = false;
                 this.TargetNotice = new NoticeModel();
                 this.TargetNotice.Sender = this.UserName;
+                this.TargetNotice.TerminationStr = DateTime.UtcNow.AddHours(9).AddDays(1).ToString("yyyy/MM/dd HH:mm");
             }
 
             return this.Page();
@@ -110,7 +111,7 @@ namespace _17nsj.Jedi.Pages
                     notice.Contents = this.TargetNotice.Contents;
                     notice.Receiver = this.TargetNotice.Receiver;
                     notice.Sender = this.TargetNotice.Sender;
-                    notice.Termination = this.TargetNotice.Termination.AddHours(-9);
+                    notice.Termination = DateTime.Parse(this.TargetNotice.TerminationStr).AddHours(-9);
                     notice.UpdatedAt = DateTime.UtcNow;
                     notice.UpdatedBy = this.UserID;
 
@@ -154,7 +155,7 @@ namespace _17nsj.Jedi.Pages
                     entity.Contents = this.TargetNotice.Contents;
                     entity.Receiver = this.TargetNotice.Receiver;
                     entity.Sender = this.TargetNotice.Sender;
-                    entity.Termination = this.TargetNotice.Termination.AddHours(-9);
+                    entity.Termination = DateTime.Parse(this.TargetNotice.TerminationStr).AddHours(-9);
                     entity.CreatedAt = now;
                     entity.CreatedBy = this.UserID;
                     entity.UpdatedAt = now;
@@ -183,31 +184,31 @@ namespace _17nsj.Jedi.Pages
         private string Validation()
         {
             //タイトルは半角1~30文字
-            if (this.TargetNotice.Title == null || this.TargetNotice.Title.Length <= 0 || this.TargetNotice.Title.Length >= 30)
+            if (this.TargetNotice.Title == null || this.TargetNotice.Title.Length < 0 || this.TargetNotice.Title.Length > 30)
             {
                 return "タイトルは1~30文字で入力してください。";
             }
 
             //内容は半角1~1000文字
-            if (this.TargetNotice.Contents == null || this.TargetNotice.Contents.Length <= 0 || this.TargetNotice.Contents.Length >= 1000)
+            if (this.TargetNotice.Contents == null || this.TargetNotice.Contents.Length < 0 || this.TargetNotice.Contents.Length > 1000)
             {
                 return "内容は1~1000文字で入力してください。";
             }
 
             //宛先は半角1~30文字
-            if (this.TargetNotice.Receiver == null || this.TargetNotice.Receiver.Length <= 0 || this.TargetNotice.Receiver.Length >= 30)
+            if (this.TargetNotice.Receiver == null || this.TargetNotice.Receiver.Length < 0 || this.TargetNotice.Receiver.Length > 30)
             {
                 return "宛先は1~30文字で入力してください。";
             }
 
             //発信者は半角1~30文字
-            if (this.TargetNotice.Sender == null || this.TargetNotice.Sender.Length <= 0 || this.TargetNotice.Sender.Length >= 30)
+            if (this.TargetNotice.Sender == null || this.TargetNotice.Sender.Length < 0 || this.TargetNotice.Sender.Length > 30)
             {
                 return "発信者は1~30文字で入力してください。";
             }
 
             //掲載期限は必須
-            if (this.TargetNotice.Termination == DateTime.MinValue)
+            if (string.IsNullOrEmpty(this.TargetNotice.TerminationStr))
             {
                 return "掲載期限を入力してください。";
             }

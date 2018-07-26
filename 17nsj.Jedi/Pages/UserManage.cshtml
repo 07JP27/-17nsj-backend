@@ -88,7 +88,14 @@
                                     <label class="col-sm-3 control-label">権限</label>
                                     <div class="col-sm-9 form-text">
                                         <label data-toggle="tooltip" data-placement="bottom" title="ユーザーを作成すると自動的に読取り権限が付与されます。">
-                                            @Html.CheckBoxFor(modelitem => Model.TargetUser.CanRead)
+                                            @if (Model.TargetUser.CanRead)
+                                            {
+                                                <i class="fa fa-fw fa-check-circle text-green"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="fa fa-fw fa-check-circle text-gray"></i>
+                                            }
                                             読み取り
                                         </label>
                                         <label>
@@ -96,11 +103,25 @@
                                             書き込み
                                         </label>
                                         <label data-toggle="tooltip" data-placement="bottom" title="管理者権限ユーザーを作成することはできません。">
-                                            @Html.CheckBoxFor(modelitem => Model.TargetUser.IsAdmin, new { @disabled = "disabled" })
+                                            @if (Model.TargetUser.IsAdmin)
+                                            {
+                                                <i class="fa fa-fw fa-check-circle text-green"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="fa fa-fw fa-check-circle text-gray"></i>
+                                            }
                                             管理者
                                         </label>
                                         <label data-toggle="tooltip" data-placement="bottom" title="システム管理者権限ユーザーを作成することはできません。">
-                                            @Html.CheckBoxFor(modelitem => Model.TargetUser.IsSysAdmin, new { @disabled = "disabled" })
+                                            @if (Model.TargetUser.IsSysAdmin)
+                                            {
+                                                <i class="fa fa-fw fa-check-circle text-green"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="fa fa-fw fa-check-circle text-gray"></i>
+                                            }
                                             システム管理者
                                         </label>
                                     </div>

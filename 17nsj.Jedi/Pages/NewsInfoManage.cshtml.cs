@@ -197,20 +197,20 @@ namespace _17nsj.Jedi.Pages
         private string Validation()
         {
             //タイトルは1~30文字以内
-            if (this.TargetNews.Title == null || this.TargetNews.Title.Length <= 0 || this.TargetNews.Title.Length >= 30)
+            if (this.TargetNews.Title == null || this.TargetNews.Title.Length <= 0 || this.TargetNews.Title.Length > 30)
             {
                 return "タイトルは1~30文字で入力してください。";
             }
 
             //取材担当は1~30文字以内
-            if (this.TargetNews.Author == null || this.TargetNews.Author.Length <= 0 || this.TargetNews.Author.Length >= 30)
+            if (this.TargetNews.Author == null || this.TargetNews.Author.Length <= 0 || this.TargetNews.Author.Length > 30)
             {
                 return "取材担当は1~30文字で入力してください。";
             }
 
             if (this.TargetNews.ThumbnailURL != null)
             {
-                if (!string.IsNullOrEmpty(this.TargetNews.ThumbnailURL) && !URLUtil.IsUrl(this.TargetNews.ThumbnailURL) || (this.TargetNews.ThumbnailURL.Length <= 0 || this.TargetNews.ThumbnailURL.Length >= 200))
+                if (!string.IsNullOrEmpty(this.TargetNews.ThumbnailURL) && !URLUtil.IsUrl(this.TargetNews.ThumbnailURL) || (this.TargetNews.ThumbnailURL.Length <= 0 || this.TargetNews.ThumbnailURL.Length > 200))
                 {
                     return "サムネイルURLは正しいURLの形式で200文字以内で入力してください。";
                 }
@@ -218,7 +218,7 @@ namespace _17nsj.Jedi.Pages
 
             if (this.TargetNews.MediaURL != null)
             {
-                if (!string.IsNullOrEmpty(this.TargetNews.MediaURL) && !URLUtil.IsUrl(this.TargetNews.MediaURL) || (this.TargetNews.MediaURL.Length <= 0 || this.TargetNews.MediaURL.Length >= 200))
+                if (!string.IsNullOrEmpty(this.TargetNews.MediaURL) && !URLUtil.IsUrl(this.TargetNews.MediaURL) || (this.TargetNews.MediaURL.Length <= 0 || this.TargetNews.MediaURL.Length > 200))
                 {
                     return "画像URLは正しいURLの形式で200文字以内で入力してください。";
                 }
@@ -226,10 +226,23 @@ namespace _17nsj.Jedi.Pages
 
             if (this.TargetNews.RelationalURL != null)
             {
-                if (!string.IsNullOrEmpty(this.TargetNews.RelationalURL) && !URLUtil.IsUrl(this.TargetNews.RelationalURL) || (this.TargetNews.RelationalURL.Length <= 0 || this.TargetNews.RelationalURL.Length >= 200))
+                if (!string.IsNullOrEmpty(this.TargetNews.RelationalURL) && !URLUtil.IsUrl(this.TargetNews.RelationalURL) || (this.TargetNews.RelationalURL.Length < 0 || this.TargetNews.RelationalURL.Length > 200))
                 {
                     return "関連URLは正しいURLの形式で200文字以内で入力してください。";
                 }
+            }
+
+            if (this.TargetNews.Outline != null)
+            {
+                if (!string.IsNullOrEmpty(this.TargetNews.Outline) && this.TargetNews.Outline.Length < 0 || this.TargetNews.Outline.Length > 500)
+                {
+                    return "本文は1~500文字で入力してください。";
+                }
+            }
+
+            if (this.TargetNews.MediaURL == null && this.TargetNews.Outline == null)
+            {
+                return "画像URLもしくは本文のどちらかひとつは必ず入力してください。";
             }
 
             if (!this.IsAuthorized)

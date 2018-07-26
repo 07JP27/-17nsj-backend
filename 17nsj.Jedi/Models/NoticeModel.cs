@@ -13,6 +13,7 @@ namespace _17nsj.Jedi.Models
         public string Receiver { get; set; }
         public string Sender { get; set; }
         public System.DateTime Termination { get; set; }
+        public string TerminationStr { get; set; }
         public System.DateTime CreatedAt { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime UpdatedAt { get; set; }
