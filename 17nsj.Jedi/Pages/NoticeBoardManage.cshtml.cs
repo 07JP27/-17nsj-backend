@@ -46,7 +46,7 @@ namespace _17nsj.Jedi.Pages
                 var notice = await this.DBContext.NoticeBoard.Where(x => x.Id == id).FirstOrDefaultAsync();
                 if (notice == null) return new RedirectResult("/NotFound");
 
-                if (!this.IsSysAdmin || notice.CreatedBy != this.UserID) return new ForbidResult();
+                if (!this.IsSysAdmin && notice.CreatedBy != this.UserID) return new ForbidResult();
 
                 TargetNotice = new NoticeModel();
                 var now = DateTime.UtcNow;
@@ -96,7 +96,7 @@ namespace _17nsj.Jedi.Pages
                         return this.Page();
                     }
 
-                    if (!this.IsSysAdmin || notice.CreatedBy != this.UserID) return new ForbidResult();
+                    if (!this.IsSysAdmin && notice.CreatedBy != this.UserID) return new ForbidResult();
 
                     // 既更新チェック
                     if (notice.UpdatedAt.TruncMillSecond() != TargetNotice.UpdatedAt)

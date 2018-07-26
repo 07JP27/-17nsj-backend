@@ -37,7 +37,7 @@ namespace _17nsj.Jedi.Pages
             var notice = await this.DBContext.NoticeBoard.Where(x => x.Id == id).FirstOrDefaultAsync();
 
             if (notice == null) return new RedirectResult("/NotFound");
-            if (!this.IsSysAdmin || notice.CreatedBy != this.UserID) return new ForbidResult();
+            if (!this.IsSysAdmin && notice.CreatedBy != this.UserID) return new ForbidResult();
 
             this.TargetNotice = new NoticeModel();
             this.TargetNotice.Id = notice.Id;
@@ -67,7 +67,7 @@ namespace _17nsj.Jedi.Pages
                     return this.Page();
                 }
 
-                if (!this.IsSysAdmin || notice.CreatedBy != this.UserID) return new ForbidResult();
+                if (!this.IsSysAdmin && notice.CreatedBy != this.UserID) return new ForbidResult();
 
                 try
                 {
