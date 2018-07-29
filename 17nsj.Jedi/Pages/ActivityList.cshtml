@@ -47,7 +47,7 @@
                                 <span class="product-description">
                                     場所：@item.Location / 日時：@item.Term
                                 </span>
-                                @if (Model.IsAdmin)
+                                @if (Model.IsSysAdmin)
                                 {
                                     <a href="/ActivityManage?category=@item.Category&id=@item.Id" type="button" class="btn btn-info btn-flat">編集</a>
                                     <a href="/ActivityDelete?category=@item.Category&id=@item.Id" type="button" class="btn btn-danger btn-flat">削除</a>
