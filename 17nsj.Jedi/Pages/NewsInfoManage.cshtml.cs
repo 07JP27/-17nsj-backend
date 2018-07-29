@@ -52,9 +52,12 @@ namespace _17nsj.Jedi.Pages
                 var news = await this.DBContext.News.Where(x => x.Category == category && x.Id == id).FirstOrDefaultAsync();
                 if (news == null) return new RedirectResult("/NotFound");
 
+                //アカウントが管理者ではなく、ニュースの登録者も自分ではない場合
+                if (!this.IsAdmin && news.CreatedBy != this.UserID) return new ForbidResult();
+
                 //アカウントが管理者ではなく、ニュースが非表示設定になっていたら追い返す
                 if (!this.IsAdmin && !news.IsAvailable) return new ForbidResult();
-
+               
                 TargetNews = new NewsModel();
                 TargetNews.Category = news.Category;
                 TargetNews.Id = news.Id;
@@ -103,6 +106,12 @@ namespace _17nsj.Jedi.Pages
                         this.Msg = メッセージ.選択対象なし;
                         return this.Page();
                     }
+
+                    //アカウントが管理者ではなく、ニュースの登録者も自分ではない場合
+                    if (!this.IsAdmin && news.CreatedBy != this.UserID) return new ForbidResult();
+
+                    //アカウントが管理者ではなく、ニュースが非表示設定になっていたら追い返す
+                    if (!this.IsAdmin && !news.IsAvailable) return new ForbidResult();
 
                     // 既更新チェック
                     if (news.UpdatedAt.TruncMillSecond() != this.TargetNews.UpdatedAt)
