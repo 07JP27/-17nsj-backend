@@ -32,12 +32,12 @@ namespace _17nsj.Jedi.Pages
 
             if (string.IsNullOrEmpty(q))
             {
-                actQuery = this.DBContext.Activities.Where(x => x.IsAvailable == true).OrderByDescending(x => x.UpdatedAt);
+                actQuery = this.DBContext.Activities.Where(x => x.IsAvailable == true).OrderByDescending(x => x.CreatedAt);
             }
             else
             {
                 this.クエリ = q;
-                actQuery = this.DBContext.Activities.Where(x => x.IsAvailable == true).OrderByDescending(x => x.UpdatedAt).Where(x => x.Title.Contains(q) || x.Outline.Contains(q) || x.Location.Contains(q));
+                actQuery = this.DBContext.Activities.Where(x => x.IsAvailable == true).OrderByDescending(x => x.CreatedAt).Where(x => x.Title.Contains(q) || x.Outline.Contains(q) || x.Location.Contains(q));
             }
 
             カテゴリーリスト = new List<ActivityCategoryModel>();
