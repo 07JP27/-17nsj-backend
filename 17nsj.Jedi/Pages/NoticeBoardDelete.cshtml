@@ -9,7 +9,7 @@
         <div class="box box-primary">
             @using (Html.BeginForm(FormMethod.Post))
             {
-                @Html.HiddenFor(modelitem => Model.TargetNotice.Id)
+                @Html.HiddenFor(model => model.TargetNotice.Id)
                 <div class="box-body">
                     <div class="form-horizontal col-md-6 col-md-offset-3">
                         <h3>この操作は元に戻せません。削除しますか？</h3>

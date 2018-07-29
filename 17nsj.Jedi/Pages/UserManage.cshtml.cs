@@ -57,6 +57,9 @@ namespace _17nsj.Jedi.Pages
                 //管理対象が自分自身なら拒否
                 if(id == this.UserID) return new ForbidResult();
 
+                //管理者ではなく、自分と所属が違ったら追い返す
+                if (!IsSysAdmin && user.Affiliation != this.UserAffiliation) return new ForbidResult();
+
                 TargetUser = new UserModel();
                 var now = DateTime.UtcNow;
                 TargetUser.UserId = user.UserId;
@@ -229,13 +232,13 @@ namespace _17nsj.Jedi.Pages
         private string CreateValidation()
         {
             //ユーザーIDは半角1~30文字
-            if (this.TargetUser.UserId == null || this.TargetUser.UserId.Length <= 0 || this.TargetUser.UserId.Length >= 30　|| Regex.IsMatch(this.TargetUser.UserId, @"[^a-zA-z0-9]"))
+            if (this.TargetUser.UserId == null || this.TargetUser.UserId.Length < 0 || this.TargetUser.UserId.Length > 30　|| Regex.IsMatch(this.TargetUser.UserId, @"[^a-zA-z0-9]"))
             {
                 return "ユーザーIDは半角1~30文字で入力してください。";
             }
 
             //表示名は1~30文字以内
-            if (this.TargetUser.DisplayName == null || this.TargetUser.DisplayName.Length <= 0 || this.TargetUser.DisplayName.Length >= 30)
+            if (this.TargetUser.DisplayName == null || this.TargetUser.DisplayName.Length < 0 || this.TargetUser.DisplayName.Length > 30)
             {
                 return "表示名は1~30文字で入力してください。";
             }
@@ -264,7 +267,7 @@ namespace _17nsj.Jedi.Pages
         private string UpdateValidation()
         {
             //表示名は1~30文字以内
-            if (this.TargetUser.DisplayName == null || this.TargetUser.DisplayName.Length <= 0 || this.TargetUser.DisplayName.Length >= 30)
+            if (this.TargetUser.DisplayName == null || this.TargetUser.DisplayName.Length < 0 || this.TargetUser.DisplayName.Length > 30)
             {
                 return "表示名は1~30文字で入力してください。";
             }

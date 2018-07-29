@@ -29,7 +29,7 @@ namespace _17nsj.Jedi.Pages
         public async Task<IActionResult> OnGetAsync()
         {
             this.PageInitializeAsync();
-            var movies = await this.DBContext.Documents.Where(x => x.IsAvailable)
+            var movies = await this.DBContext.Documents.Where(x => x.IsAvailable == true)
                 .Select(x => new { x.Id, x.Title, x.Outline, x.ThumbnailURL, x.URL }).OrderByDescending(x => x.Id).ToListAsync();
 
             ドキュメントリスト = new List<DocumentModel>();

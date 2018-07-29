@@ -85,17 +85,17 @@ namespace _17nsj.Jedi.Pages
         private string Validation()
         {
             //タイトルは1~30文字以内
-            if (this.TargetNp.Title == null || this.TargetNp.Title.Length <= 0 || this.TargetNp.Title.Length >= 30)
+            if (this.TargetNp.Title == null || this.TargetNp.Title.Length < 0 || this.TargetNp.Title.Length > 30)
             {
                 return "タイトルは1~30文字で入力してください。";
             }
 
-            if (string.IsNullOrEmpty(this.TargetNp.ThumbnailURL) || !URLUtil.IsUrl(this.TargetNp.ThumbnailURL) || this.TargetNp.ThumbnailURL.Length <= 0 || this.TargetNp.ThumbnailURL.Length >= 200)
+            if (string.IsNullOrEmpty(this.TargetNp.ThumbnailURL) || !URLUtil.IsUrl(this.TargetNp.ThumbnailURL) || this.TargetNp.ThumbnailURL.Length < 0 || this.TargetNp.ThumbnailURL.Length > 200)
             {
                 return "サムネイルURLは1~200文字の正しいURLの形式で入力してください。";
             }
 
-            if (string.IsNullOrEmpty(this.TargetNp.URL) || !URLUtil.IsUrl(this.TargetNp.URL) || this.TargetNp.URL.Length <= 0 || this.TargetNp.URL.Length >= 200)
+            if (string.IsNullOrEmpty(this.TargetNp.URL) || !URLUtil.IsUrl(this.TargetNp.URL) || this.TargetNp.URL.Length < 0 || this.TargetNp.URL.Length > 200)
             {
                 return "URLは1~200文字の正しいURLの形式で入力してください。";
             }

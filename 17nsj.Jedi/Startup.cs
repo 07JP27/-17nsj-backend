@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using _17nsj.DataAccess;
 using _17nsj.Repository;
 using Microsoft.Extensions.Logging;
+using _17nsj.Jedi.Constants;
 
 namespace _17nsj.Jedi
 {
@@ -44,7 +45,7 @@ namespace _17nsj.Jedi
                 options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            }).AddCookie(options => { options.LoginPath = "/Login"; });
+            }).AddCookie(options => { options.LoginPath = "/Login"; options.ExpireTimeSpan = TimeSpan.FromMinutes(AppConstants.ExpireTimeMin); });
 
             services.AddMvc().AddRazorPagesOptions(options =>
             {

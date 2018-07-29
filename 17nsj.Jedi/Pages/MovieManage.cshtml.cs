@@ -174,22 +174,22 @@ namespace _17nsj.Jedi.Pages
         private string Validation()
         {
             //タイトルは1~30文字以内
-            if (this.TargetMovie.Title == null || this.TargetMovie.Title.Length <= 0 || this.TargetMovie.Title.Length >= 30)
+            if (this.TargetMovie.Title == null || this.TargetMovie.Title.Length < 0 || this.TargetMovie.Title.Length > 30)
             {
                 return "タイトルは1~30文字で入力してください。";
             }
 
-            if (this.TargetMovie.ThumbnailURL == null || !URLUtil.IsUrl(this.TargetMovie.ThumbnailURL) || this.TargetMovie.ThumbnailURL.Length <= 0 || this.TargetMovie.ThumbnailURL.Length >= 100)
+            if (this.TargetMovie.ThumbnailURL == null || !URLUtil.IsUrl(this.TargetMovie.ThumbnailURL) || this.TargetMovie.ThumbnailURL.Length < 0 || this.TargetMovie.ThumbnailURL.Length > 100)
             {
                 return "サムネイルURLは1～200文字の正しいURLの形式で入力してください。";
             }
 
-            if (this.TargetMovie.URL == null || !URLUtil.IsUrl(this.TargetMovie.URL) || this.TargetMovie.URL.Length <= 0 || this.TargetMovie.URL.Length >= 100)
+            if (this.TargetMovie.URL == null || !URLUtil.IsUrl(this.TargetMovie.URL) || this.TargetMovie.URL.Length < 0 || this.TargetMovie.URL.Length > 100)
             {
                 return "ムービーURLは1～200文字の正しいURLの形式で入力してください。";
             }
 
-            if (this.TargetMovie.Outline == null || this.TargetMovie.Outline.Length <= 0 || this.TargetMovie.Outline.Length >= 100)
+            if (this.TargetMovie.Outline == null || this.TargetMovie.Outline.Length < 0 || this.TargetMovie.Outline.Length > 100)
             {
                 return "説明は1~100文字で入力してください。";
             }

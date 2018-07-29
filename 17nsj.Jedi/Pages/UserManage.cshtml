@@ -13,32 +13,32 @@
                 <div class="col-md-8 col-md-offset-2">
                     @using (Html.BeginForm(FormMethod.Post))
                     {
-                        @Html.HiddenFor(modelitem => Model.IsEditMode)
-                        @Html.HiddenFor(modelitem => Model.TargetUser.UpdatedAt)
+                        @Html.HiddenFor(model => model.IsEditMode)
+                        @Html.HiddenFor(model => model.TargetUser.UpdatedAt)
                         <div class="form-horizontal">
                             <div class="box-body">
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label">ユーザーID</label>
+                                    <label class="col-sm-3 control-label">ユーザーID*</label>
                                     <div class="col-sm-9">
                                         @if (Model.IsEditMode)
                                         {
                                             <label class="form-text">@Model.TargetUser.UserId</label>
-                                            @Html.HiddenFor(modelitem => Model.TargetUser.UserId)
+                                            @Html.HiddenFor(model => model.TargetUser.UserId)
                                         }
                                         else
                                         {
-                                            @Html.TextBoxFor(modelitem => Model.TargetUser.UserId, new { @class = "form-control" })
+                                            @Html.TextBoxFor(model => model.TargetUser.UserId, new { @class = "form-control", @placeholder = "30文字以内" })
                                         }
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label">表示名</label>
+                                    <label class="col-sm-3 control-label">表示名*</label>
                                     <div class="col-sm-9">
-                                        @Html.TextBoxFor(modelitem => Model.TargetUser.DisplayName, new { @class = "form-control" })
+                                        @Html.TextBoxFor(model => model.TargetUser.DisplayName, new { @class = "form-control", @placeholder = "30文字以内" })
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label">所属</label>
+                                    <label class="col-sm-3 control-label">所属*</label>
                                     <div class="col-sm-9">
                                         @if (Model.IsEditMode)
                                         {
@@ -47,7 +47,7 @@
                                             {
                                                 // 管理者の場合は自信と同じ所属のユーザーのみ
                                                 <label class="form-text">@Model.TargetUser.AffiliationName</label>
-                                                @Html.HiddenFor(modelitem => Model.TargetUser.Affiliation)
+                                                @Html.HiddenFor(model => model.TargetUser.Affiliation)
                                             }
                                             else
                                             {
@@ -71,36 +71,57 @@
                                 @if (!Model.IsEditMode)
                                 {
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">初期パスワード</label>
+                                        <label class="col-sm-3 control-label">初期パスワード*</label>
                                         <div class="col-sm-9">
-                                            @Html.PasswordFor(modelitem => Model.TargetUser.Password, new { @class = "form-control" })
+                                            @Html.PasswordFor(model => model.TargetUser.Password, new { @class = "form-control", @placeholder = "６文字以上半角英数字混在" })
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">初期パスワード(確認)</label>
+                                        <label class="col-sm-3 control-label">初期パスワード(確認)*</label>
                                         <div class="col-sm-9">
-                                            @Html.PasswordFor(modelitem => Model.TargetUser.RePassword, new { @class = "form-control" })
+                                            @Html.PasswordFor(model => model.TargetUser.RePassword, new { @class = "form-control", @placeholder = "６文字以上半角英数字混在" })
                                         </div>
                                     </div>
                                 }
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label">権限</label>
+                                    <label class="col-sm-3 control-label">権限*</label>
                                     <div class="col-sm-9 form-text">
                                         <label data-toggle="tooltip" data-placement="bottom" title="ユーザーを作成すると自動的に読取り権限が付与されます。">
-                                            @Html.CheckBoxFor(modelitem => Model.TargetUser.CanRead, new { @disabled = "disabled" })
+                                            @if (Model.TargetUser.CanRead)
+                                            {
+                                                <i class="fa fa-fw fa-check-circle text-green"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="fa fa-fw fa-check-circle text-gray"></i>
+                                            }
                                             読み取り
                                         </label>
                                         <label>
-                                            @Html.CheckBoxFor(modelitem => Model.TargetUser.CanWrite)
+                                            @Html.CheckBoxFor(model => model.TargetUser.CanWrite)
                                             書き込み
                                         </label>
                                         <label data-toggle="tooltip" data-placement="bottom" title="管理者権限ユーザーを作成することはできません。">
-                                            @Html.CheckBoxFor(modelitem => Model.TargetUser.IsAdmin, new { @disabled = "disabled" })
+                                            @if (Model.TargetUser.IsAdmin)
+                                            {
+                                                <i class="fa fa-fw fa-check-circle text-green"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="fa fa-fw fa-check-circle text-gray"></i>
+                                            }
                                             管理者
                                         </label>
                                         <label data-toggle="tooltip" data-placement="bottom" title="システム管理者権限ユーザーを作成することはできません。">
-                                            @Html.CheckBoxFor(modelitem => Model.TargetUser.IsSysAdmin, new { @disabled = "disabled" })
+                                            @if (Model.TargetUser.IsSysAdmin)
+                                            {
+                                                <i class="fa fa-fw fa-check-circle text-green"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="fa fa-fw fa-check-circle text-gray"></i>
+                                            }
                                             システム管理者
                                         </label>
                                     </div>
