@@ -7,6 +7,7 @@ using _17nsj.Jedi.Domains;
 using _17nsj.Jedi.Models;
 using _17nsj.Jedi.Utils;
 using _17nsj.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,7 @@ using Microsoft.Extensions.Logging;
 
 namespace _17nsj.Jedi.Pages
 {
+    [Authorize(Roles = UserRoleDomain.SysAdmin)]
     public class NewsPaperManageModel : PageModelBase
     {
         private ILogger _logger;
