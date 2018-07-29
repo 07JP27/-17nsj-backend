@@ -198,6 +198,22 @@ namespace _17nsj.Jedi.Pages
                 return "タイトルは1~30文字で入力してください。";
             }
 
+            if (this.TargetAct.Term != null)
+            {
+                if (!string.IsNullOrEmpty(this.TargetAct.Term) && this.TargetAct.Term.Length < 0 || this.TargetAct.Term.Length > 50)
+                {
+                    return "期間は1~50文字で入力してください。";
+                }
+            }
+
+            if (this.TargetAct.Location != null)
+            {
+                if (!string.IsNullOrEmpty(this.TargetAct.Location) && this.TargetAct.Location.Length < 0 || this.TargetAct.Location.Length > 50)
+                {
+                    return "場所は1~50文字で入力してください。";
+                }
+            }
+
             if (this.TargetAct.ThumbnailURL != null)
             {
                 if ((!string.IsNullOrEmpty(this.TargetAct.ThumbnailURL) && !URLUtil.IsUrl(this.TargetAct.ThumbnailURL)) || (this.TargetAct.ThumbnailURL.Length < 0 || this.TargetAct.ThumbnailURL.Length > 200))

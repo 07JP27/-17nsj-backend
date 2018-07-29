@@ -78,6 +78,8 @@ namespace _17nsj.Jedi.Pages
             }
             else
             {
+                //TODO ?が含まれていたらsplitしてさらに&でSplit、=でペアを作成
+                //return RedirectToPage("/NewsInfoDetail", new { category="C", id=4 });
                 return RedirectToPage(ReturnUrl);
             }
 
