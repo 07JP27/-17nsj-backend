@@ -14,6 +14,6 @@ namespace _17nsj.Jedi.Constants
             "admin"
         });
 
-        public static readonly int ExpireTimeMin = 1;
+        public static readonly int ExpireTimeMin = 5;
     }
 }
