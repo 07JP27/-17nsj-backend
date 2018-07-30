@@ -15,6 +15,7 @@ using _17nsj.Jedi.Utils;
 using _17nsj.Jedi.Domains;
 using _17nsj.DataAccess;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Routing;
 
 namespace _17nsj.Jedi.Pages
 {
@@ -78,9 +79,15 @@ namespace _17nsj.Jedi.Pages
             }
             else
             {
-                //TODO ?が含まれていたらsplitしてさらに&でSplit、=でペアを作成
-                //return RedirectToPage("/NewsInfoDetail", new { category="C", id=4 });
-                return RedirectToPage(ReturnUrl);
+                // URLパラメータがついていれば分離してアクションとして返す
+                if (ReturnUrl.Contains("?"))
+                {
+                    return GetRedirectWithAction(ReturnUrl);
+                }
+                else
+                {
+                    return RedirectToPage(ReturnUrl);
+                }
             }
 
         }
@@ -103,6 +110,21 @@ namespace _17nsj.Jedi.Pages
             }
 
             return UserRoleDomain.Reader;
+        }
+
+        private RedirectToPageResult GetRedirectWithAction(string url)
+        {
+            var urls = url.Split('?');
+            var pageNamae = urls[0];
+            RouteValueDictionary rd = new RouteValueDictionary();
+
+            foreach(var item in urls[1].Split('&'))
+            {
+                var param = item.Split('=');
+                rd.Add(param[0], param[1]);
+            }
+
+            return RedirectToPage(pageNamae, rd);
         }
     }
 }
