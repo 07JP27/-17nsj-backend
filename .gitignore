@@ -71,3 +71,4 @@ packages/
 17nsj.Repository/bin/
 17nsj.Jedi/Properties/PublishProfiles/jp-jedi-test - Web Deploy.pubxml
 17nsj.Jedi/Properties/PublishProfiles/jp-jedi-test - Web Deploy.pubxml.user
+17nsj.Jedi/Pages/Index.cshtml

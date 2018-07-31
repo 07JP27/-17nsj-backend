@@ -84,3 +84,47 @@ div.iframeWrapper iframe {
     width: 100%;
     height: 100%;
 }
+
+.fc-today {
+    background: #d1f5ff !important;
+}
+
+.fc-toolbar.fc-header-toolbar{
+    padding:0;
+    margin-bottom:0 !important;
+}
+
+.gcal-cpt {
+    background-color: #7435e8 !important;
+    border-color: #7435e8 !important;
+}
+
+.gcal-all {
+    background-color: #003278 !important;
+    border-color: #003278 !important;
+}
+
+.gcal-dpt {
+    background-color: #005bff !important;
+    border-color: #005bff !important;
+}
+
+.gcal-yc {
+    background-color: #009688 !important;
+    border-color: #009688 !important;
+}
+
+.gcal-corp {
+    background-color: #ca0056 !important;
+    border-color: #ca0056 !important;
+}
+
+.gcal-general {
+    background-color: #057400 !important;
+    border-color: #057400 !important;
+}
+
+.gcal-press {
+    background-color: #F09300 !important;
+    border-color: #F09300 !important;
+}
