@@ -21,6 +21,7 @@
                 width: 25vw;
                 height: 60vh;
                 text-align:center;
+                font-size:50px;
             }
         }
 
@@ -29,6 +30,7 @@
                 width: 80vw;
                 height: 75vh;
                 text-align: center;
+                font-size: 40px;
             }
         }
 
@@ -55,12 +57,12 @@
             overflow: hidden;
         }
 
-            .ui.circular.images .image,
-            .ui.circular.image,
-            .ui.circular.images .image > *,
-            .ui.circular.image > * {
-                border-radius: 500rem;
-            }
+        .ui.circular.images .image,
+        .ui.circular.image,
+        .ui.circular.images .image > *,
+        .ui.circular.image > * {
+            border-radius: 500rem;
+        }
 
         /*******************************
                     Reveal
@@ -115,6 +117,39 @@
             -webkit-transform: rotate(110deg);
             transform: rotate(110deg);
         }
+
+        .loading span {
+          display: inline-block;
+          margin: 0 -.075em;
+          animation: loading .7s infinite alternate;
+        }
+        .loading span:nth-child(2) {
+          animation-delay: .1s;
+        }
+        .loading span:nth-child(3) {
+          animation-delay: .2s;
+        }
+        .loading span:nth-child(4) {
+          animation-delay: .3s;
+        }
+        .loading span:nth-child(5) {
+          animation-delay: .4s;
+        }
+        .loading span:nth-child(6) {
+          animation-delay: .5s;
+        }
+        .loading span:nth-child(7) {
+          animation-delay: .6s;
+        }
+        @@keyframes loading {
+          0% {
+            transform: scale(1);
+          }
+          100% {
+            transform: scale(0.9);
+          }
+        }
+
     </style>
 </head>
 <body>
@@ -124,8 +159,13 @@
                 <img src="https://semantic-ui.com/images/avatar/large/veronika.jpg" class="visible content">
                 <img src="https://semantic-ui.com/images/avatar/large/stevie.jpg" class="hidden content">
             </div>
-            <h1 style="margin-bottom:0;">OOOOOOOOOO</h1>
-            <h2 style="margin-top:0;">OOOOOOOOOO</h2>
+            <div class="loading">
+                <span>あ</span>
+                <span>い</span>
+                <span>う</span>
+                <span>え</span>
+                <span>お</span>
+            </div>
         </div>
     </div>
 </body>
